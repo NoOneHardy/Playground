@@ -9,17 +9,30 @@ const numbers = [];
 
 //Höhe eingeben und verarbeiten
 function DisplayHeight() {
-    while (document.getElementById("height").value < 1) {
+    if (document.getElementById("height").value < 1) {
         document.getElementById("validHeight").innerHTML = "Höhe muss mindestens 1 sein."
+        return
     }
-    height = document.getElementById("height").value
+    if (document.getElementById("height").value >= 1) {
+        document.getElementById("validHeight").innerHTML = "";
+        height = document.getElementById("height").value;
+        document.getElementById("heightDisplay").innerHTML = height;
+        document.getElementById("total").innerHTML = height * width;
+    }
 }
 
 //Höhe eingeben und verarbeiten
 function DisplayWidth() {
-    width = document.getElementById("width").value;
-    document.getElementById("widthDisplay").innerHTML = width;
-    document.getElementById("total").innerHTML = height * width;
+    if (document.getElementById("width").value < 2) {
+        document.getElementById("validWidth").innerHTML = "Breite muss mindestens 2 sein."
+        return
+    }
+    if (document.getElementById("width").value >= 2) {
+        document.getElementById("validWidth").innerHTML = "";
+        width = document.getElementById("width").value;
+        document.getElementById("widthDisplay").innerHTML = width;
+        document.getElementById("total").innerHTML = height * width;
+    }
 }
 
 //Primzahlen filtern ViewModel erstellen

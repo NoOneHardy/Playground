@@ -83,3 +83,9 @@ td input {
     height: 10mm;
     width: 40mm;
 }
+
+#height, #width {
+    background-color: #0d0d0d;
+    color: rgba(255, 255, 255, 0.8);
+    border: none;
+}
