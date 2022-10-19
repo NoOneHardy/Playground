@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html lang="en-US">
+<title>Sieb des Eratosthenes</title>
+
+<head>
+	<link rel="stylesheet" href="../stylesheet.css">
+	<link rel="stylesheet" href="Sieb des Eratosthenes.css">
+ 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+	<link rel="stylesheet"; href="https://fonts.googleapis.com/css?family=Fredoka One">
+	<link rel="stylesheet"; href="https://fonts.googleapis.com/css?family=Source Code Pro">
+	<script src="Sieb des Eratosthenes.js"></script>
+</head>
+
+<body>
+	<ul class="navi-bar">
+		<li class="navi-bar"><a href="../index.html"; target="_self">Home</a></li>
+		<li class="dropdown">
+			<a href="" class="dropbtn">YouTube</a>
+			<div class="dropdown-content">
+				<a href="https://www.youtube.com/channel/UCqJsIVDT-GJ8QSBp1M03LFw" target="_blank">KayaZockt</a>
+				<a href="https://www.youtube.com/c/KAYAbackstage/featured" target="_blank">Kaya Backstage</a>
+				<a href="https://www.youtube.com/c/LetsGameItOut" target="_blank">Let's Game It Out</a>
+				<a href="https://www.youtube.com/c/HungrigerHugo" target="_blank">Hungriger Hugo</a>
+				<a href="https://www.youtube.com/c/SatterHugo" target="_blank">Satter Hugo</a>
+			</div>
+		</li>
+		<li class="dropdown">
+			<a href="" class="dropbtn">HTML</a>
+			<div class="dropdown-content">
+				<a href="../HTML/HTML_Basic.html"; target="_self">HTML Basic</a>
+				<a href="../HTML/HTML_Elements.html"; target="_self">HTML Elements</a>
+				<a href="../HTML/HTML_Links.html"; target="_self">HTML Links und Images</a>
+				<a href="../HTML/HTML_styles.html"; target="_self">HTML Styles</a>
+			</div>
+		</li>
+		<li class="dropdown">
+			<a href="" class="dropbtn">JavaScript</a>
+			<div class="dropdown-content">
+				<a href="../JavaScript/JS_Output.html">JavaScript Output</a>
+			</div>
+		</li>
+		<li class="dropdown">
+			<a href="" class="dropbtn">Mathematik</a>
+			<div class="dropdown-content">
+				<a href="../Mathematik/Sieb des Eratosthenes.html"; target="_self">Primzahlenfilter</a>
+			</div>
+		</li>
+	</ul>
+
+	<h1>Sieb des Eratosthenes</h1>
+
+	<h2>Primzahlenfilter Version 2.0</h2>
+
+	<div class="flex-container">
+		<div class="flex-item">
+			<table>
+				<tr>
+					<th>Breite</th>
+					<th>Höhe</th>
+					<th>Total</th>
+				</tr>
+				<tr>
+					<td><p id="widthDisplay">10</p></td>
+					<td><p id="heightDisplay">10</p></td>
+					<td><p id="total">100</p></td>
+				</tr>
+				<tr>
+					<td class="table_btn"><button onclick="widthAdd(1)" class="table_btn">Breite +1</button></td>
+					<td class="table_btn"><button onclick="heightAdd(1)" class="table_btn">H&ouml;he +1</button></td>
+					<td class="table_btn"><button onclick="showTable()" class="table_btn" id="showMe"><img src='Icons/visibility.png'></button></td>
+				</tr>
+				<tr>
+					<td class="table_btn"><button onclick="widthRemove(1)" class="table_btn">Breite -1</button></td>
+					<td class="table_btn"><button onclick="heightRemove(1)" class="table_btn">H&ouml;he -1</button></td>
+					<td class="table_btn"><button onclick="Skip()" class="table_btn" id="Skip" style="display:none"><img src='Icons/Skip.png'></button></td>
+				</tr>
+				<tr>
+					<td class="table_btn"><button onclick="widthAdd(10)" class="table_btn">Breite +10</button></td>
+					<td class="table_btn"><button onclick="heightAdd(10)" class="table_btn">H&ouml;he +10</button></td>
+					<td class="table_btn"><button onclick="nextStep()" class="table_btn" id="OneStep" style="display:none"><img src='Icons/Play.png'></button></td>
+				</tr>
+				<tr>
+					<td class="table_btn"><button onclick="widthRemove(10)" class="table_btn">Breite -10</button></td>
+					<td class="table_btn"><button onclick="heightRemove(10)" class="table_btn">H&ouml;he -10</button></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<p id="table"></p>
+
+	<address class="flex-container">
+		<div class="flex-item">
+		This Website was coded by Silas Hardegger<br>
+		Report bugs here: <a target="-blank"; href="mailto:silas.hardegger@outlook.com"; style="border:none; background-image: none; text-decoration: underline;">silas.hardegger@tkb.ch</a>
+		</div>
+	</address>
+</body>
+</html>

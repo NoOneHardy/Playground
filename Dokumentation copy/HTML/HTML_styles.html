@@ -1,0 +1,150 @@
+<!DOCTYPE html> 
+<html lang="de-DE">
+<title>HTML Styles</title>
+
+<head>
+	<link rel="stylesheet" href="../stylesheet.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+	<link rel="stylesheet"; href="https://fonts.googleapis.com/css?family=Fredoka One">
+	<link rel="stylesheet"; href="https://fonts.googleapis.com/css?family=Source Code Pro">
+</head>
+
+<body>
+	<ul class="navi-bar">
+		<li class="navi-bar"><a href="../index.html"; target="_self">Home</a></li>
+
+		<!--YouTube-->
+		<li class="dropdown">
+			<a href="" class="dropbtn">YouTube</a>
+			<div class="dropdown-content">
+				<a href="https://www.youtube.com/channel/UCqJsIVDT-GJ8QSBp1M03LFw" target="_blank">KayaZockt</a>
+				<a href="https://www.youtube.com/c/KAYAbackstage/featured" target="_blank">Kaya Backstage</a>
+				<a href="https://www.youtube.com/c/LetsGameItOut" target="_blank">Let's Game It Out</a>
+				<a href="https://www.youtube.com/c/HungrigerHugo" target="_blank">Hungriger Hugo</a>
+				<a href="https://www.youtube.com/c/SatterHugo" target="_blank">Satter Hugo</a>
+			</div>
+		</li>
+
+		<!--HTML-->
+		<li class="dropdown">
+			<a href="" class="dropbtn">HTML</a>
+			<div class="dropdown-content">
+				<a href="HTML_Basic.html"; target="_self">HTML Basic</a>
+				<a href="HTML_Elements.html"; target="_self">HTML Elements</a>
+				<a href="HTML_Links.html"; target="_self">HTML Links und Images</a>
+				<a href="HTML_styles.html"; target="_self">HTML Styles</a>
+			</div>
+		</li>
+
+		<!--JavaScript-->
+		<li class="dropdown">
+			<a href="" class="dropbtn">JavaScript</a>
+			<div class="dropdown-content">
+				<a href="../JavaScript/JS_Output.html">JavaScript Output</a>
+			</div>
+		</li>
+
+		<!--Mathematik-->
+		<li class="dropdown">
+			<a href="" class="dropbtn">Mathematik</a>
+			<div class="dropdown-content">
+				<a href="../Mathematik/Sieb des Eratosthenes.html"; target="_self">Primzahlenfilter</a>
+			</div>
+		</li>
+	</ul>
+
+	<h1>HTML Styles</h1>
+
+	<div class="flex-container">
+		<div class="flex-item">
+			<h2>Styles</h2>
+			Mit Styles kann man entweder direkt im Skript oder in einer .css-Datei das Aussehen der Website ver&auml;ndern.
+			Hier wird erkl&auml;rt, wie man es direkt im Skript macht.
+			Im Abschnitt "HTML CSS" wird erkl&auml;rt wie man es &uuml;ber eine .css-Datei macht.
+			Um &uuml;berhaupt die Styles zu bearbeiten, muss man im Start-Tag das Attribut "style" einf&uuml;gen.
+			Dahinter kann man dann die, im Abschnitt folgenden, Styles angeben.
+			Man kann so mehrere Styles.
+			Nach jedem Style, den man angegeben hat, muss ein Semikolon ";" folgen.
+			Danach kann man den n&auml;chsten Sytle bearbeiten.
+			Hier ist ein Beispiel, wie man bei einem Paragraph die Schriftfarbe und die Schriftart &auml;ndert:<br>
+			<div class="example">
+				&lt;p style="color: red; font-family: papyrus"&gt;Hallo ich bin bunt und anders.&lt;/p&gt;
+				<br>
+				<p style="color: red; font-family:papyrus; font-size: 130%; text-shadow: none;">Hallo ich bin bunt und anders.</p>
+			</div>
+			Folgende Styles kann man ver&auml;ndern:<br>
+			
+			<h3>color</h3>
+			Mit dem Style color ver&auml;ndert man die Schriftfarbe des angegebenen Bereiches.
+			Man kann die Farbe als Zahl oder mit Namen angeben.
+			
+			<h3>font-family</h3>
+			Mit dem Style font-family ver&auml;ndert man die Schriftfarbe des angegebenen Bereiches.
+			Es funktionieren fast alle Schriftarten, die es auch im Word gibt.<br>
+
+			<h3>font-size</h3>
+			Mit dem Style font-size ver&auml;ndert man die Schriftgr&ouml;sse des angegebenen Bereiches.
+			Damit kann man Paragraphs sogar noch kleiner, headings noch gr&ouml;sser und umgekehrt.<br>
+			
+
+			<h3>background-color</h3>
+			Mit dem Style background-color kann man die Hintergrundfarbe bestimmen.
+			Auch hier kann man die Farbe als Zahl und mit Namen nennen.<br>
+			
+
+			<h3>text-align</h3>
+			Mit dem text-align Style setzt man den Text rechtsb&uuml;ndig, linksb&uuml;ndig und mittig setzen.<br>
+			rechtsb&uuml;ndig = text-align:right<br>
+			linksb&uuml;ndig = text-align:left<br>
+			mittig = text-align:center<br>
+
+			<h3>border</h3>
+			Der Style border ben&ouml;tigt noch 3 weitere Angaben.
+			Zuerst die Art, also ob es solid, gestrichelt, gepunktet usw. sein soll.
+			Danach die Dicke, die in Pixeln (px) angegeben wird.
+			Und zum Schluss die Farbe in der der Rahmen sein soll.
+			Dieser Style &auml;ndert nichts direkt am Text, sondern f&uuml;gt einen grossen Rahmen um das ganze hinzu.<br>
+
+			<h3>float</h3>
+			Mit float kann man bestimmen, ob das Bild links oder recht vom Text ist.<br>
+			Rechts = float:right<br>
+			Links = float:left<br>
+
+			<h3>text-shadow</h3>
+			Text-shadow verleiht dem Text einen Schatten.
+			Dazu braucht man vier verschiedene Angaben:<br>
+			<ul style="text-align: left;">
+				<li>Den horizontalen Unterschied</li>
+				<li>Den vertikalen Unterschied</li>
+				<li>Die "Dicke" des Schatten</li>
+				<li>Die Farbe des Schatten</li>
+			</ul>
+			Fast alle Texte in dieser Dokumentation haben einen Schatten.
+			Hier ein Beispiel wie man einem Heading einen Schatten gibt:<br>
+			<div class="example">
+				&lt;h4 style="text-shadow: 2px 2px 5px red"&gt;Ich habe einen Schatten.&lt;/p&gt;
+				<br>
+				<h4>Ich habe einen Schatten.</h4>
+			</div>
+
+			<h3>margin und padding</h3>
+			Die Margin ist der Bereich ausserhalb der unsichtbaren Border.
+			Jedes Objekt hat eine Border, mit dem border-style macht man sie nur sichtbar.
+			Durch das Vergrössern der Margin, kann man den Abstand zwischen zwei Objekten vergr&ouml;ssern.<br>
+			Der Padding ist genau das Gegenteil.
+			Er ist der Bereich innerhalb der unsichtbaren Border.
+			Durch das Vergrössern des Padding, kann man den Abstand zwischen dem sichtbaren Objekt und seiner Border vergr&ouml;ssern.<br>
+			Beides funktioniert natürlich auch umgekehrt.
+			Man kann diese Styles in Pixeln (px) oder Centimeter (cm) und vielen anderen Einheiten angeben.
+		</div>
+	</div>
+
+	<address class="flex-container">
+		<div class="flex-item">
+		This Website was coded by Silas Hardegger<br>
+		Report bugs here: <a target="-blank"; href="mailto:silas.hardegger@outlook.com"; style="border:none; background-image: none; text-decoration: underline;">silas.hardegger@tkb.ch</a>
+		</div>
+	</address>
+
+</body>
+</html>

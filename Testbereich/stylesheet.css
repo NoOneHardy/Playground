@@ -1,0 +1,114 @@
+#default {
+    background-image: linear-gradient(to bottom right, #e4f585, #009e01);
+    color: black;
+}
+
+#body2 {
+    background-image: linear-gradient(to bottom, #121212, #242424, #353535, #464646, #575757);
+    color: white;
+}
+
+#body3 {
+    background-image: linear-gradient(to bottom,#ff1b1c, #ec1534, #d80e4c, #c50764, #b1007c);
+}
+
+#body2 form {
+    background-color: #181818;
+}
+
+#body3 form {
+    background-color: #beb7a4
+}
+
+#body3 tr:nth-child(even) {
+    background-color: #fffffc;
+}
+
+#body2 td {
+    color: black;
+}
+
+body {
+    font-family: Fredoka One;
+    font-size: 130%;
+}
+
+button {
+    color: white;
+    background-color: #060606;
+    border-radius: 3px;
+    font-size: 150%;
+    margin: 10px;
+    border: none;
+}
+
+table {
+    border: solid 2px black;
+    margin: 10px;
+    border-collapse: collapse;
+    text-align: center;
+    overflow-wrap:break-word;
+    font-family: Roboto;
+}
+
+td, td button {
+    height: 40px;
+    min-width: 80px;
+    border-radius: 0;
+    border: none;
+    color: black;
+    font-size: 25px;
+}
+
+td button {
+    margin: 0px;
+}
+
+th {
+    color: black;
+    font-size: 120%;
+    height: 40px;
+    min-width: 80px;
+    padding: 10px;
+}
+
+tr:nth-child(even), tr:nth-child(even) button {
+    background-color: #f2f2f2;
+}
+
+tr {
+    background-color: white
+}
+
+form {
+    border: solid 2px black;
+    padding: 10px;
+    width: max-content;
+    background-color: #f2f2f2;
+    margin: 1cm;
+    color: black;
+}
+
+tr:nth-child(odd) button {
+    background-color: white;
+}
+
+td button:hover {
+    color: red;
+}
+
+#demoReplace0:hover, #demoReplace1:hover {
+    cursor:pointer;
+}
+
+#WwN {
+    background-color: black;
+}
+
+#GwN {
+    background-color: #22aa22;
+}
+
+#BwN {
+    background-color: #5555ee;
+}
