@@ -1,37 +1,46 @@
 //Wichtige Variablen und Konstanten
-var height = 10;
-var width = 10;
+var height = 10
+var width = 10
 
-const WwN = "KeinePrimzahl";
-const GwN = "Primfaktor";
-const BwN = "Primzahl";
-const numbers = [];
+const WwN = "KeinePrimzahl"
+const GwN = "Primfaktor"
+const BwN = "Primzahl"
+const numbers = []
 
 //Höhe eingeben und verarbeiten
 function DisplayHeight() {
-    if (document.getElementById("height").value < 1) {
-        document.getElementById("validHeight").innerHTML = "Höhe muss mindestens 1 sein."
-        return
+    //Don't repeat yourself
+    var inputHeight = document.getElementById("height")
+    var validHeight = document.getElementById("validHeight")
+    var displayHeight = document.getElementById("heightDisplay")
+    var total = document.getElementById("total")
+
+    if (inputHeight.value < 1) {
+        validHeight.innerHTML = "Höhe muss mindestens 1 sein."
     }
-    if (document.getElementById("height").value >= 1) {
-        document.getElementById("validHeight").innerHTML = "";
-        height = document.getElementById("height").value;
-        document.getElementById("heightDisplay").innerHTML = height;
-        document.getElementById("total").innerHTML = height * width;
+    else {
+        validHeight.innerHTML = ""
+        height = inputHeight.value
+        displayHeight.innerHTML = height
+        total.innerHTML = height * width
     }
 }
 
 //Höhe eingeben und verarbeiten
 function DisplayWidth() {
-    if (document.getElementById("width").value < 2) {
-        document.getElementById("validWidth").innerHTML = "Breite muss mindestens 2 sein."
-        return
+    //Don't repeat youself
+    var inputWidth = document.getElementById("width")
+    var validWidth = document.getElementById("validWidth")
+    var displayWidth = document.getElementById("widthDisplay")
+
+    if (inputWidth.value < 2) {
+        validWidth.innerHTML = "Breite muss mindestens 2 sein."
     }
-    if (document.getElementById("width").value >= 2) {
-        document.getElementById("validWidth").innerHTML = "";
-        width = document.getElementById("width").value;
-        document.getElementById("widthDisplay").innerHTML = width;
-        document.getElementById("total").innerHTML = height * width;
+    else {
+        validWidth.innerHTML = ""
+        width = inputWidth.value
+        displayWidth.innerHTML = width
+        total.innerHTML = height * width
     }
 }
 
@@ -42,75 +51,75 @@ function CreateViewModel() {
     let prime = 0;
     let number = 0;
     let numberOfFilteredNumbers = 0;
+    let x = 0;
 
     //Array mit Standartwert füllen
-    for (let x = 1; x <= height * width-2;) {
-        numbers[x] = BwN;
-        x++;
+    while (x <= height * width-2) {
+        numbers[x] = BwN
+        x++
     }
 
     //Main Engine
-    numberOfFilteredNumbers = 1;
+    numberOfFilteredNumbers = 1
     while (numberOfFilteredNumbers > 0) {
-        numberOfFilteredNumbers = 0;
+        numberOfFilteredNumbers = 0
 
         //"1" entfernen
         if (number == 0) {
-            numbers[number] = WwN;
-            number++;
+            numbers[number] = WwN
+            number++
         }
         
         //Nächste Primzahl finden
         while (numbers[number] != BwN) {
-            number++;
+            number++
         }
 
         //Primzahl und -faktor festlegen
-        prime = ++number;
-        number--;
-        numbers[number] = GwN;
-        number += prime;
+        prime = number + 1
+        numbers[number] = GwN
+        number += prime
         
         //Vielfache filtern
         while (number <= numbers.length) {
             if (numbers[number] != WwN) {
                 numbers[number] = WwN;
-                numberOfFilteredNumbers++;
+                numberOfFilteredNumbers++
             }
-            number += prime;
+            number += prime
         }
-        number = prime;
+        number = prime
     }
-    numbers[prime - 1] = BwN;
+    numbers[prime - 1] = BwN
 }
 
 //Primzahlen Filtern View erstellen
 function FilterNumbers() {
 
     //Variablen deklarieren
-    let text = "<div style='overflow-x:auto;'><table class='filterTable'>";
-    let row = 1;
-    let col = 1;
+    let text = "<div style='overflow-x:auto;'><table class='filterTable'>"
+    let row = 1
+    let col = 1
     let number = 0;
     
     //ViewModel erstellen
-    CreateViewModel();
+    CreateViewModel()
 
     //Tabelle erstellen
         while (row <= height) {
-            text += "<tr>";
+            text += "<tr>"
             while (col <= width) {
                 if (numbers[number] == WwN) {
-                    text += "<td id='WwN' class='filterTD'>" + "</td>";
-                    number++;
+                    text += "<td id='WwN' class='filterTD'>" + "</td>"
+                    number++
                 }
                 else {
                     if (numbers[number] == GwN) {
-                        text += "<td id='GwN' class='filterTD'>" + ++number + "</td>";
+                        text += "<td id='GwN' class='filterTD'>" + ++number + "</td>"
                     }
                     else {
                         if (numbers[number] == BwN) {
-                            text += "<td id='BwN' class='filterTD'>" + ++number + "</td>";
+                            text += "<td id='BwN' class='filterTD'>" + ++number + "</td>"
                         }
                     }
                 }
@@ -235,7 +244,7 @@ function nextStep() {
     }
     numbers[prime - 1] = BwN;
 
-    //Render-Prozess ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //Render-Prozess
     let tableRow = 0;
     let tableCol = 1;
     number = 0;
