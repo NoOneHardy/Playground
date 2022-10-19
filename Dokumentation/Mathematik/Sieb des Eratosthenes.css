@@ -89,6 +89,9 @@ td input {
     color: rgba(255, 255, 255, 0.8);
     border: none;
     border-radius: 5px;
+    font-size: 25px;
+    font-family: Fredoka One;
+    text-align: right;
 }
 
 #validHeight, #validWidth {

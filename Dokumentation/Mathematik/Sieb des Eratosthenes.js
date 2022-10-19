@@ -309,7 +309,5 @@ function nextStep() {
         }
     }
     text += "</tr></table>"
-
     document.getElementById("table").innerHTML = text;
-
 }
