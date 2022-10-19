@@ -49,7 +49,7 @@
 
 	<h1>Sieb des Eratosthenes</h1>
 
-	<h2>Primzahlenfilter Version 2.0</h2>
+	<h2>Primzahlenfilter Version 2.1</h2>
 
 	<div class="flex-container">
 		<div class="flex-item">
@@ -65,30 +65,33 @@
 					<td><p id="total">100</p></td>
 				</tr>
 				<tr>
-					<td class="table_btn"><button onclick="widthAdd(1)" class="table_btn">Breite +1</button></td>
-					<td class="table_btn"><button onclick="heightAdd(1)" class="table_btn">H&ouml;he +1</button></td>
+					<td><input type="number" id="width" oninput="DisplayWidth()" value="10"></td>
+					<td><input type="number" id="height" oninput="DisplayHeight()" value="10"></td>
 					<td class="table_btn"><button onclick="showTable()" class="table_btn" id="showMe"><img src='Icons/visibility.png'></button></td>
 				</tr>
 				<tr>
-					<td class="table_btn"><button onclick="widthRemove(1)" class="table_btn">Breite -1</button></td>
-					<td class="table_btn"><button onclick="heightRemove(1)" class="table_btn">H&ouml;he -1</button></td>
-					<td class="table_btn"><button onclick="Skip()" class="table_btn" id="Skip" style="display:none"><img src='Icons/Skip.png'></button></td>
+					<td><p id="validWidth"></p></td>
+					<td><p id="validHeight"></p></td>
 				</tr>
 				<tr>
-					<td class="table_btn"><button onclick="widthAdd(10)" class="table_btn">Breite +10</button></td>
-					<td class="table_btn"><button onclick="heightAdd(10)" class="table_btn">H&ouml;he +10</button></td>
 					<td class="table_btn"><button onclick="nextStep()" class="table_btn" id="OneStep" style="display:none"><img src='Icons/Play.png'></button></td>
-				</tr>
-				<tr>
-					<td class="table_btn"><button onclick="widthRemove(10)" class="table_btn">Breite -10</button></td>
-					<td class="table_btn"><button onclick="heightRemove(10)" class="table_btn">H&ouml;he -10</button></td>
-					<td></td>
+					<td class="table_btn"><button onclick="Skip()" class="table_btn" id="Skip" style="display:none"><img src='Icons/Skip.png'></button></td>
 				</tr>
 			</table>
 		</div>
 	</div>
 
 	<p id="table"></p>
+
+	<div class="flex-container">
+		<div class="flex-item">
+			<h3>Patch Notes</h3>
+			<ul style="text-align:left">
+				<li>Rendern in Schritten</li>
+				<li>Die Aktualisierungsfunktion wurde mit der<br>&Uuml;berspringen-Funktion verbunden</li>
+			</ul>
+		</div>
+	</div>
 
 	<address class="flex-container">
 		<div class="flex-item">

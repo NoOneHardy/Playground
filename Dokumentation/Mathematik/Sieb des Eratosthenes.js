@@ -7,44 +7,32 @@ const GwN = "Primfaktor";
 const BwN = "Primzahl";
 const numbers = [];
 
-//Höhe hinzufügen
-function heightAdd(x) {
-    height += x;
-    if (height <= 0) {
-        height = 1;
+//Höhe eingeben und verarbeiten
+function DisplayHeight() {
+    if (document.getElementById("height").value < 1) {
+        document.getElementById("validHeight").innerHTML = "Höhe muss mindestens 1 sein."
+        return
     }
-    document.getElementById("heightDisplay").innerHTML = height;
-    document.getElementById("total").innerHTML = height * width;
+    if (document.getElementById("height").value >= 1) {
+        document.getElementById("validHeight").innerHTML = "";
+        height = document.getElementById("height").value;
+        document.getElementById("heightDisplay").innerHTML = height;
+        document.getElementById("total").innerHTML = height * width;
+    }
 }
 
-//Höhe entfernen
-function heightRemove(x) {
-    height -= x;
-    if (height <= 0) {
-        height = 1;
+//Höhe eingeben und verarbeiten
+function DisplayWidth() {
+    if (document.getElementById("width").value < 2) {
+        document.getElementById("validWidth").innerHTML = "Breite muss mindestens 2 sein."
+        return
     }
-    document.getElementById("heightDisplay").innerHTML = height;
-    document.getElementById("total").innerHTML = height * width;
-}
-
-//Breite hinzufügen
-function widthAdd(x) {
-    width += x;
-    if (width <= 0) {
-        width = 1;
+    if (document.getElementById("width").value >= 2) {
+        document.getElementById("validWidth").innerHTML = "";
+        width = document.getElementById("width").value;
+        document.getElementById("widthDisplay").innerHTML = width;
+        document.getElementById("total").innerHTML = height * width;
     }
-    document.getElementById("widthDisplay").innerHTML = width;
-    document.getElementById("total").innerHTML = height * width;
-}
-
-//Breite entfernen
-function widthRemove(x) {
-    width -= x;
-    if (width <= 0) {
-        width = 1;
-    }
-    document.getElementById("widthDisplay").innerHTML = width;
-    document.getElementById("total").innerHTML = height * width;
 }
 
 //Primzahlen filtern ViewModel erstellen
