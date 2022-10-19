@@ -90,3 +90,8 @@ td input {
     border: none;
     border-radius: 5px;
 }
+
+#validHeight, #validWidth {
+    font-size: 17px;
+    color: #bb0000;
+}
