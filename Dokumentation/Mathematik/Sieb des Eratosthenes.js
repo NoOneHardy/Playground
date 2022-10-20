@@ -32,7 +32,7 @@ const total = document.getElementById("total")
 const table = document.getElementById("table")
 
 //Buttons
-const skip = document.getElementById("skip")
+const skip = document.getElementById("Skip")
 const oneStep = document.getElementById("OneStep")
 const showMe = document.getElementById("showMe")
 
@@ -124,6 +124,7 @@ function FilterNumbers() {
     CreateViewModel()
 
     //Tabelle erstellen
+    number = 0
     while (row <= height) {
         tableContent += "<tr>"
         while (col <= width) {
