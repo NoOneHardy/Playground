@@ -1,4 +1,4 @@
-.chessboard td{
+.chessboard td, td .piece{
     height: 2.5cm;
     width: 2.5cm;
 }
