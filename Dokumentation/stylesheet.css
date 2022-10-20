@@ -9,6 +9,12 @@ body {
 	background-repeat: no-repeat;
 }
 
+.icon {
+	height: 5mm;
+	width: 5mm;
+	margin: 0;
+}
+
 html {
 	min-height: 100%;
 }
@@ -42,12 +48,10 @@ li a, .dropbtn {
 
 .dropdown:hover .dropbtn {
 	background-color: #7100FF;
-	color: black;
 }
 
 li.navi-bar a:hover {
 	background-color: #7100FF;
-	color: black;
 }
 
 .dropdown-content {
@@ -71,7 +75,6 @@ li.navi-bar a:hover {
 
 .dropdown-content a:hover {
 	background-color: #6200FF;
-	color: black;
 }
 
 .dropdown:hover .dropdown-content {
