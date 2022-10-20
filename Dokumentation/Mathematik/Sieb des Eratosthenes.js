@@ -1,20 +1,43 @@
-//Wichtige Variablen und Konstanten
+//Wichtige Variablen
 var height = 10
 var width = 10
+var tableContent = "<div style='overflow-x:auto;'><table class='filterTable'>"
+var number = 0;
+var step = 1;
+var col = 1;
+var row = 0;
 
+//Wichtige Konstanten
 const WwN = "KeinePrimzahl"
 const GwN = "Primfaktor"
 const BwN = "Primzahl"
 const numbers = []
 
+//Don't repeat yourself-------------------------------------------------
+                                                                        
+//Height
+const inputHeight = document.getElementById("height")
+const validHeight = document.getElementById("validHeight")
+const displayHeight = document.getElementById("heightDisplay")
+
+//Width
+const inputWidth = document.getElementById("width")
+const validWidth = document.getElementById("validWidth")
+const displayWidth = document.getElementById("widthDisplay")
+
+//Width and Height
+const total = document.getElementById("total")
+
+//Table
+const table = document.getElementById("table")
+
+//Buttons
+const skip = document.getElementById("skip")
+const oneStep = document.getElementById("OneStep")
+const showMe = document.getElementById("showMe")
+
 //Höhe eingeben und verarbeiten
 function DisplayHeight() {
-    //Don't repeat yourself
-    const inputHeight = document.getElementById("height")
-    const validHeight = document.getElementById("validHeight")
-    const displayHeight = document.getElementById("heightDisplay")
-    const total = document.getElementById("total")
-
     if (inputHeight.value < 1) {
         validHeight.innerHTML = "Höhe muss mindestens 1 sein."
     }
@@ -28,11 +51,6 @@ function DisplayHeight() {
 
 //Höhe eingeben und verarbeiten
 function DisplayWidth() {
-    //Don't repeat youself
-    var inputWidth = document.getElementById("width")
-    var validWidth = document.getElementById("validWidth")
-    var displayWidth = document.getElementById("widthDisplay")
-
     if (inputWidth.value < 2) {
         validWidth.innerHTML = "Breite muss mindestens 2 sein."
     }
@@ -46,15 +64,15 @@ function DisplayWidth() {
 
 //Primzahlen filtern ViewModel erstellen
 function CreateViewModel() {
-    
+
     //Variablen deklarieren
     let prime = 0;
-    let number = 0;
+    number = 0;
     let numberOfFilteredNumbers = 0;
     let x = 0;
 
     //Array mit Standartwert füllen
-    while (x <= height * width-2) {
+    while (x <= height * width - 2) {
         numbers[x] = BwN
         x++
     }
@@ -69,7 +87,7 @@ function CreateViewModel() {
             numbers[number] = WwN
             number++
         }
-        
+
         //Nächste Primzahl finden
         while (numbers[number] != BwN) {
             number++
@@ -79,7 +97,7 @@ function CreateViewModel() {
         prime = number + 1
         numbers[number] = GwN
         number += prime
-        
+
         //Vielfache filtern
         while (number <= numbers.length) {
             if (numbers[number] != WwN) {
@@ -99,66 +117,67 @@ function FilterNumbers() {
     //Variablen deklarieren
     let row = 1
     let col = 1
-    let number = 0;
-    let text = "<div style='overflow-x:auto;'><table class='filterTable'>"
-    
+    number = 0;
+    tableContent = "<div style='overflow-x:auto;'><table class='filterTable'>"
+
     //ViewModel erstellen
     CreateViewModel()
 
     //Tabelle erstellen
-        while (row <= height) {
-            text += "<tr>"
-            while (col <= width) {
-                if (numbers[number] == WwN) {
-                    text += "<td id='WwN' class='filterTD'>" + "</td>"
-                    number++
-                }
-                else {
-                    if (numbers[number] == GwN) {
-                        text += "<td id='GwN' class='filterTD'>" + ++number + "</td>"
-                    }
-                    else {
-                        if (numbers[number] == BwN) {
-                            text += "<td id='BwN' class='filterTD'>" + ++number + "</td>"
-                        }
-                    }
-                }
-                col++;
-            }
-            row++;
-            text += "</tr>";
-            col = 1;
+    while (row <= height) {
+        tableContent += "<tr>"
+        while (col <= width) {
+            ReadTable()
+            col++
         }
-    text += "</table></div>";
+        row++
+        tableContent += "</tr>"
+        col = 1
+    }
+    tableContent += "</table></div>";
 
-    document.getElementById("table").innerHTML = text;
+    table.innerHTML = tableContent;
+}
+
+//Konstanten übersetzen
+function ReadTable() {
+    if (numbers[number] == WwN) {
+        tableContent += "<td id='WwN' class='filterTD'>" + "</td>"
+        number++
+    }
+    else {
+        if (numbers[number] == GwN) {
+            tableContent += "<td id='GwN' class='filterTD'>" + ++number + "</td>"
+        }
+        else {
+            if (numbers[number] == BwN) {
+                tableContent += "<td id='BwN' class='filterTD'>" + ++number + "</td>"
+            }
+        }
+    }
 }
 
 //Funktionen und Tabelle aus/einblenden
-var table = "";
+var tableStorage = "";
 function showTable() {
-    if (document.getElementById("showMe").innerHTML == '<img src="Icons/visibility.png">') {
-        document.getElementById("showMe").innerHTML = '<img src="Icons/visibility_off.png">';
-        document.getElementById("OneStep").style="display:inline";
-        document.getElementById("Skip").style="display:inline";
-        document.getElementById("table").innerHTML = table;
+    if (showMe.innerHTML == '<img src="Icons/visibility.png">') {
+        showMe.innerHTML = '<img src="Icons/visibility_off.png">'
+        oneStep.style = "display:inline"
+        skip.style = "display:inline"
+        table.innerHTML = tableStorage;
         return
     }
 
-    if (document.getElementById("showMe").innerHTML == '<img src="Icons/visibility_off.png">') {
-        document.getElementById("showMe").innerHTML = '<img src="Icons/visibility.png">';
-        document.getElementById("OneStep").style="display:none";
-        document.getElementById("Skip").style="display:none";
-        table = document.getElementById("table").innerHTML;
-        document.getElementById("table").innerHTML = "";
+    if (showMe.innerHTML == '<img src="Icons/visibility_off.png">') {
+        showMe.innerHTML = '<img src="Icons/visibility.png">';
+        oneStep.style = "display:none";
+        skip.style = "display:none";
+        tableStorage = table.innerHTML;
+        table.innerHTML = "";
         return
     }
 }
 
-
-var step = 1;
-var col = 1;
-var row = 0;
 //Tabelle refreshen
 function Skip() {
     FilterNumbers();
@@ -176,13 +195,13 @@ function count() {
         return
     }
 
-    if (col == width -1) {
+    if (col == width - 1) {
         col++;
         row++;
         step++;
         return
     }
-    
+
     if (row < height && col == width) {
         col = 1;
         step++;
@@ -195,22 +214,22 @@ function count() {
 //Nächste Zahl darstellen
 function nextStep() {
     //Variablen deklarieren
-    let number = 0;
+    number = 0;
     let prime = 0;
     let numberOfFilteredNumbers = 0;
     let x = 0;
-    let text = "<div style='overflow-x:auto;'><table class='filterTable'>"
+    tableContent = "<div style='overflow-x:auto;'><table class='filterTable'>"
 
     count();
 
     console.log(step);
- 
+
     //Array mit Standartwert füllen
     while (x <= step - 1) {
         numbers[x] = BwN;
         x++;
     }
- 
+
     //Main Engine
     numberOfFilteredNumbers = 1;
     while (numberOfFilteredNumbers > 0) {
@@ -221,17 +240,17 @@ function nextStep() {
             numbers[number] = WwN;
             number++;
         }
-        
+
         //Nächste Primzahl finden
         while (numbers[number] != BwN) {
             number++;
         }
-         
+
         //Primzahl und -faktor festlegen
         prime = number + 1;
         numbers[number] = GwN;
         number += prime;
-         
+
         //Vielfache filtern
         while (number <= step - 1) {
             if (numbers[number] != WwN) {
@@ -251,72 +270,33 @@ function nextStep() {
 
     if (col == width) {
         while (tableRow < row) {
-            text += "<tr>";
+            tableContent += "<tr>";
             while (tableCol <= width) {
-                if (numbers[number] == WwN) {
-                    text += "<td id='WwN' class='filterTD'>" + "</td>";
-                    number++;
-                }
-                else {
-                    if (numbers[number] == GwN) {
-                        text += "<td id='GwN' class='filterTD'>" + ++number + "</td>";
-                    }
-                    else {
-                        if (numbers[number] == BwN) {
-                            text += "<td id='BwN' class='filterTD'>" + ++number + "</td>";
-                        }
-                    }
-                }
-                tableCol++;
-            } 
-            text += "</tr>"
-            tableRow++;
+                ReadTable()
+                tableCol++
+            }
+            tableContent += "</tr>"
+            tableRow++
             tableCol = 1;
         }
     }
     else {
         while (tableRow < row) {
-            text += "<tr>";
+            tableContent += "<tr>";
             while (tableCol <= width) {
-                if (numbers[number] == WwN) {
-                    text += "<td id='WwN' class='filterTD'>" + "</td>";
-                    number++;
-                }
-                else {
-                    if (numbers[number] == GwN) {
-                        text += "<td id='GwN' class='filterTD'>" + ++number + "</td>";
-                    }
-                    else {
-                        if (numbers[number] == BwN) {
-                            text += "<td id='BwN' class='filterTD'>" + ++number + "</td>";
-                        }
-                    }
-                }
+                ReadTable()
                 tableCol++;
-            } 
-            text += "</tr>"
+            }
+            tableContent += "</tr>"
             tableRow++;
             tableCol = 1;
         }
-        text += "<tr>"
+        tableContent += "<tr>"
         while (tableCol <= col % width) {
-            if (numbers[number] == WwN) {
-                text += "<td id='WwN' class='filterTD'>" + "</td>";
-                number++;
-            }
-            else {
-                if (numbers[number] == GwN) {
-                    text += "<td id='GwN' class='filterTD'>" + ++number + "</td>";
-                }
-                else {
-                    if (numbers[number] == BwN) {
-                        text += "<td id='BwN' class='filterTD'>" + ++number + "</td>";
-                    }
-                }
-            }
+            ReadTable()
             tableCol++
         }
     }
-    text += "</tr></table>"
-    document.getElementById("table").innerHTML = text;
+    tableContent += "</tr></table>"
+    table.innerHTML = tableContent;
 }
