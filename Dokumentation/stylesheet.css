@@ -4,7 +4,7 @@ body {
 	background-repeat: no-repeat;
 	background-image: linear-gradient(to bottom, #BB00FF, #9E00FF, #8000FF, #6200FF,#4400FF);
 	margin: 0;
-	height: 100%;
+	min-height: 100%;
 	text-align: center;
 	background-repeat: no-repeat;
 }

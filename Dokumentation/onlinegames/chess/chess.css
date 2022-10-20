@@ -1,6 +1,11 @@
 .chessboard td, td .piece{
     height: 2.5cm;
     width: 2.5cm;
+    padding: 0;
+}
+
+td .piece {
+    margin: 0;
 }
 
 .chessboard {
@@ -24,4 +29,13 @@
 }
 .chessboard tr:nth-child(even) td:nth-child(odd) {
     background-color: #343434
+}
+
+.startButton {
+    font-size: 130%;
+    border-radius: 5px;
+}
+
+html, body {
+    min-height: 101%;
 }
