@@ -10,10 +10,10 @@ const numbers = []
 //Höhe eingeben und verarbeiten
 function DisplayHeight() {
     //Don't repeat yourself
-    var inputHeight = document.getElementById("height")
-    var validHeight = document.getElementById("validHeight")
-    var displayHeight = document.getElementById("heightDisplay")
-    var total = document.getElementById("total")
+    const inputHeight = document.getElementById("height")
+    const validHeight = document.getElementById("validHeight")
+    const displayHeight = document.getElementById("heightDisplay")
+    const total = document.getElementById("total")
 
     if (inputHeight.value < 1) {
         validHeight.innerHTML = "Höhe muss mindestens 1 sein."
@@ -97,10 +97,10 @@ function CreateViewModel() {
 function FilterNumbers() {
 
     //Variablen deklarieren
-    let text = "<div style='overflow-x:auto;'><table class='filterTable'>"
     let row = 1
     let col = 1
     let number = 0;
+    let text = "<div style='overflow-x:auto;'><table class='filterTable'>"
     
     //ViewModel erstellen
     CreateViewModel()
@@ -195,11 +195,11 @@ function count() {
 //Nächste Zahl darstellen
 function nextStep() {
     //Variablen deklarieren
-    let text = "<div style='overflow-x: auto;'><table class='filterTable'>";
     let number = 0;
     let prime = 0;
     let numberOfFilteredNumbers = 0;
     let x = 0;
+    let text = "<div style='overflow-x:auto;'><table class='filterTable'>"
 
     count();
 
