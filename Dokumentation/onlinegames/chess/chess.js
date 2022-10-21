@@ -60,7 +60,7 @@ function CreateChessboard() {
         boardContent += "<tr>"
         while (col < 8) {
             occupancy[activeFieldID] = false
-            boardContent += "<td id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+            boardContent += "<td class='piece' onclick='move(" + activeFieldID + ", " + pieces[activeFieldID] + ") id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
             col++
         }
         boardContent += "</tr>"
