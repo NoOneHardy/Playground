@@ -11,7 +11,7 @@ var activeField = document.getElementById("fieldId")
 const chessboard = document.getElementById("chessboard")
 const startButton = document.getElementById("startButton")
 const occupancy = []
-const opportunity = []
+const opportunity = ["Buffer"]
 
 //Important objects
 const WhitePawn1 = { field: 48 }
@@ -171,13 +171,11 @@ function StartingPosition() {
 
 //Weisser Bauer Mitte Möglichkeiten anzeigen
 function showPossibilityWhitePawnMiddle(piece) {
-    for (let x = 0; x <= opportunity.length;) {
-    }
     if (piece <= 54 || piece >= 49) {
         for (let x = 1; x <= 2;) {
             if (occupancy[piece - 8] == false) {
-                document.getElementById(opportunity[-1]).style="background-color: #00AA00"
-                opportunity = [piece - 8]
+                opportunity.push(piece - 8)
+                document.getElementById(opportunity[opportunity.length - 1]).style="background-color: #00AA00"
             }
             else {
                 x = 2
