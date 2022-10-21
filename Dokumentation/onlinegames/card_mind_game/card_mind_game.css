@@ -3,3 +3,12 @@
     font-family: Fredoka One;
     padding: 3mm;
 }
+
+.card {
+    margin: 10mm auto;
+}
+
+.card_board {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
