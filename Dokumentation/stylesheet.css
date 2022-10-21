@@ -1,6 +1,6 @@
 body {
 	font-family: Fredoka One, audiowide, courier, courier new;
-	color: white;
+	color: rgba(255, 255, 255, 0.875);
 	background-repeat: no-repeat;
 	background-image: linear-gradient(to bottom, #BB00FF, #9E00FF, #8000FF, #6200FF,#4400FF);
 	margin: 0;
@@ -129,9 +129,10 @@ pre {
 
 h2 {
 	color: white;
-	font-size: 150%;
+	font-size: 35px;
 	padding: 0;
 	margin: 0.25cm;
+	color: #1d1d1d;
 }
 
 h3 {
@@ -140,8 +141,12 @@ h3 {
 }
 
 button {
-	background-color: black;
-	color: white;
+	background-color: #1d1d1d;
+	color: rgba(255, 255, 255, 0.875);
 	margin: 0.5cm 0cm;
-	border-radius: 50px;
+	border-radius: 5px;
+}
+
+p {
+	font-size: 20px;
 }

@@ -3,7 +3,7 @@
 
 <head>
     <title>Karten Merk-Spiel</title>
-    <link rel="stylesheet" href="card_ming_game.css">
+    <link rel="stylesheet" href="card_mind_game.css">
     <link rel="stylesheet" href="../../stylesheet.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka One">
 </head>
@@ -16,8 +16,8 @@
         <li class="dropdown">
             <a href="" class="dropbtn">YouTube</a>
             <div class="dropdown-content">
-                <a href="https://www.youtube.com/channel/UCqJsIVDT-GJ8QSBp1M03LFw" target="_blank">KayaZockt</a>
-                <a href="https://www.youtube.com/c/KAYAbackstage/featured" target="_blank">Kaya Backstage</a>
+                <a href="https://www.youtube.com/c/KayaZockt" target="_blank">KayaZockt</a>
+                <a href="https://www.youtube.com/c/KAYAbackstage" target="_blank">Kaya Backstage</a>
                 <a href="https://www.youtube.com/c/LetsGameItOut" target="_blank">Let's Game It Out</a>
                 <a href="https://www.youtube.com/c/HungrigerHugo" target="_blank">Hungriger Hugo</a>
                 <a href="https://www.youtube.com/c/SatterHugo" target="_blank">Satter Hugo</a>
@@ -61,6 +61,52 @@
     </ul>
 
     <h1>Karten Merk-Spiel</h1>
+
+    <!--Anleitung-->
+    <div id="instruction">
+        <h2>Anleitung</h2>
+        <p id="instruction">
+            Sobald du das Spiel gestartet hast, werden dir 10 Karten für 15 Sekunden
+            angezeigt.<br><br>
+            Du sollst versuchen die alle in der richtigen Reihenfolge zu<br>
+            merken. Nach den 15 Sekunden werden sie wieder ausgeblendet und du kannst<br>
+            sie dir nacheinander wieder anzeigen lassen.<br><br>
+            Es wird nicht ausgewertet.<br>
+            Das bedeutet, dass du für dich kontrollieren sollst ob es stimmt.<br><br>
+            Viel Spass!
+        </p>
+    </div>
+
+    <button id="start_btn" class="game_btn" onclick="StartGame()">Spiel Start</button><br>
+    <button style="display:none" id="firstCard" class="game_btn" onclick="ShowFirstCard()">
+        Zeige die 1.Karte
+    </button><br>
+    <button style="display:none" id="nextCard" class="game_btn" onclick="ShowNextCard()">
+        Zeige die n&auml;chsteKarte
+    </button>
+
+    <div class="flex-container">
+        <div class="flex-item" id="card1" style="display:none">
+        </div>
+        <div class="flex-item" id="card2" style="display:none">
+        </div>
+        <div class="flex-item" id="card3" style="display:none">
+        </div>
+        <div class="flex-item" id="card4" style="display:none">
+        </div>
+        <div class="flex-item" id="card5" style="display:none">
+        </div>
+        <div class="flex-item" id="card6" style="display:none">
+        </div>
+        <div class="flex-item" id="card7" style="display:none">
+        </div>
+        <div class="flex-item" id="card8" style="display:none">
+        </div>
+        <div class="flex-item" id="card9" style="display:none">
+        </div>
+        <div class="flex-item" id="card10" style="display:none">
+        </div>
+    </div>
 
     <address class="flex-container">
         <div class="flex-item">
