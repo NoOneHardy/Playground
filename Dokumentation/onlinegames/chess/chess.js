@@ -5,7 +5,7 @@ var boardContent = "<table  class='chessboard'>"
 var activeFieldID = 0
 var blackTurn = false;
 var whiteTurn = true;
-var activePieceType = ""
+var activePieceactiveType = ""
 var field = document.getElementById("activeFieldID")
 
 //Important constants
@@ -59,7 +59,7 @@ function CreateChessboard() {
     while (row < 8) {
         boardContent += "<tr>"
         while (col < 8) {
-            if (pieces[activeFieldID] == ""){
+            if (pieces[activeFieldID] == "") {
                 occupancy[activeFieldID] = false
             }
             else {
@@ -89,7 +89,7 @@ function move(startPosition) {
     while (row < 8) {
         boardContent += "<tr>"
         while (col < 8) {
-            if (pieces[activeFieldID] == ""){
+            if (pieces[activeFieldID] == "") {
                 occupancy[activeFieldID] = false
             }
             else {
@@ -109,44 +109,72 @@ function move(startPosition) {
 }
 
 function toHere(finalPosition, activeOccupancy) {
-    if (activeOccupancy == false) {
-        let type = pieces[activeFieldID];
-        pieces[activeFieldID] = "";
-        occupancy[activeFieldID] = false;
-        pieces[finalPosition] = type;
-        occupancy[finalPosition] = true;
+    var activeType = pieces[activeFieldID];
+    if (activeType == "Bauer weiss") {
+        if (finalPosition == activeFieldID - 9 || finalPosition == activeFieldID - 7) {
+            if (occupancy[activeFieldID - 9] == true || occupancy[activeFieldID - 7] == true) {
+                if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8) && Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
+                    pieces[activeFieldID] = "";
+                    occupancy[activeFieldID] = false;
+                    pieces[finalPosition] = activeType;
+                    occupancy[finalPosition] = true;
+                }
+            }
+        } else if (finalPosition == activeFieldID - 8) {
+            if (occupancy[activeFieldID - 8] != true) {
+                pieces[activeFieldID] = "";
+                occupancy[activeFieldID] = false;
+                pieces[finalPosition] = activeType;
+                occupancy[finalPosition] = true;
+            }
+        } else if (activeFieldID > 47 && activeFieldID - 16) {
+            if (occupancy[activeFieldID - 16] != true) {
+                pieces[activeFieldID] = "";
+                occupancy[activeFieldID] = false;
+                pieces[finalPosition] = activeType;
+                occupancy[finalPosition] = true;
+            }
+        }
+    }
 
 
-    } else if (activeOccupancy == true && finalPosition != activeFieldID) {
+    /*
+    if (occupancy[finalPosition] == true && finalPosition != activeFieldID) {
         alert("Hier ist schon eine Figur.")
         return
     }
-
+     
+    if (activeOccupancy == false) {
+        pieces[activeFieldID] = "";
+        occupancy[activeFieldID] = false;
+        pieces[finalPosition] = activeType;
+        occupancy[finalPosition] = true;
+    */
     row = 0;
-        col = 0;
-        boardContent = "<table  class='chessboard' id='chessboard'>"
-    
-        activeFieldID = 0
-        while (row < 8) {
-            boardContent += "<tr>"
-            while (col < 8) {
-                if (pieces[activeFieldID] == ""){
-                    occupancy[activeFieldID] = false
-                }
-                else {
-                    occupancy[activeFieldID] = true
-                }
-                boardContent += "<td class='piece' onclick='move(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
-                col++
+    col = 0;
+    boardContent = "<table  class='chessboard' id='chessboard'>"
+
+    activeFieldID = 0
+    while (row < 8) {
+        boardContent += "<tr>"
+        while (col < 8) {
+            if (pieces[activeFieldID] == "") {
+                occupancy[activeFieldID] = false
             }
-            boardContent += "</tr>"
-            row++
-            col = 0
+            else {
+                occupancy[activeFieldID] = true
+            }
+            boardContent += "<td class='piece' onclick='move(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+            col++
         }
-        boardContent += "</table>"
-        chessboard.innerHTML = boardContent
-    
-        chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
+        boardContent += "</tr>"
+        row++
+        col = 0
+    }
+    boardContent += "</table>"
+    chessboard.innerHTML = boardContent
+
+    chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
 }
 
 CreateChessboard()
