@@ -5,11 +5,11 @@ var boardContent = "<table  class='chessboard'>"
 var activeFieldID = 0
 var blackTurn = false;
 var whiteTurn = true;
+var activePieceType = ""
 var field = document.getElementById("activeFieldID")
 
 //Important constants
 const chessboard = document.getElementById("chessboard")
-const startButton = document.getElementById("startButton")
 const occupancy = []
 
 const pieces = []
@@ -59,8 +59,13 @@ function CreateChessboard() {
     while (row < 8) {
         boardContent += "<tr>"
         while (col < 8) {
-            occupancy[activeFieldID] = false
-            boardContent += "<td class='piece' onclick='move(" + activeFieldID + ", " + pieces[activeFieldID] + ") id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+            if (pieces[activeFieldID] == ""){
+                occupancy[activeFieldID] = false
+            }
+            else {
+                occupancy[activeFieldID] = true
+            }
+            boardContent += "<td class='piece' onclick='move(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
             col++
         }
         boardContent += "</tr>"
@@ -69,13 +74,43 @@ function CreateChessboard() {
     }
     boardContent += "</table>"
     chessboard.innerHTML = boardContent
-
-    startButton.style = "display:inline"
 }
 
-function startPosition() {
+function move(startPosition) {
+    if (occupancy[startPosition] == false) {
+        alert("Hier steht keine Figur.")
+        return
+    }
+    boardContent = "<table  class='chessboard' id='chessboard'>"
+    row = 0
+    col = 0
     activeFieldID = 0
 
+    while (row < 8) {
+        boardContent += "<tr>"
+        while (col < 8) {
+            if (pieces[activeFieldID] == ""){
+                occupancy[activeFieldID] = false
+            }
+            else {
+                occupancy[activeFieldID] = true
+            }
+            boardContent += "<td class='piece' onclick='here(" + activeFieldID + ", " + occupancy[activeFieldID] + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+            col++
+        }
+        boardContent += "</tr>"
+        row++
+        col = 0
+    }
+    boardContent += "</table>"
+    chessboard.innerHTML = boardContent
+    chessboard.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+    activeFieldID = startPosition
+}
+
+function here(finalPosition, occupancy) {
+    
+    chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
 }
 
 CreateChessboard()
