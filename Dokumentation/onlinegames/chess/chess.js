@@ -95,7 +95,7 @@ function move(startPosition) {
             else {
                 occupancy[activeFieldID] = true
             }
-            boardContent += "<td class='piece' onclick='here(" + activeFieldID + ", " + occupancy[activeFieldID] + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+            boardContent += "<td class='piece' onclick='toHere(" + activeFieldID + ", " + occupancy[activeFieldID] + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
             col++
         }
         boardContent += "</tr>"
@@ -108,9 +108,45 @@ function move(startPosition) {
     activeFieldID = startPosition
 }
 
-function here(finalPosition, occupancy) {
+function toHere(finalPosition, activeOccupancy) {
+    if (activeOccupancy == false) {
+        let type = pieces[activeFieldID];
+        pieces[activeFieldID] = "";
+        occupancy[activeFieldID] = false;
+        pieces[finalPosition] = type;
+        occupancy[finalPosition] = true;
+
+
+    } else if (activeOccupancy == true && finalPosition != activeFieldID) {
+        alert("Hier ist schon eine Figur.")
+        return
+    }
+
+    row = 0;
+        col = 0;
+        boardContent = "<table  class='chessboard' id='chessboard'>"
     
-    chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
+        activeFieldID = 0
+        while (row < 8) {
+            boardContent += "<tr>"
+            while (col < 8) {
+                if (pieces[activeFieldID] == ""){
+                    occupancy[activeFieldID] = false
+                }
+                else {
+                    occupancy[activeFieldID] = true
+                }
+                boardContent += "<td class='piece' onclick='move(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+                col++
+            }
+            boardContent += "</tr>"
+            row++
+            col = 0
+        }
+        boardContent += "</table>"
+        chessboard.innerHTML = boardContent
+    
+        chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
 }
 
 CreateChessboard()
