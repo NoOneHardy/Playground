@@ -39,3 +39,7 @@ td .piece {
 html, body {
     min-height: 101%;
 }
+
+.piece {
+    cursor: pointer;
+}
