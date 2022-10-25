@@ -95,7 +95,7 @@ function move(startPosition) {
             else {
                 occupancy[activeFieldID] = true
             }
-            boardContent += "<td class='piece' onclick='here(" + activeFieldID + ", " + occupancy[activeFieldID] + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+            boardContent += "<td class='piece' onclick='toHere(" + activeFieldID + ", " + occupancy[activeFieldID] + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
             col++
         }
         boardContent += "</tr>"
@@ -108,14 +108,14 @@ function move(startPosition) {
     activeFieldID = startPosition
 }
 
-function here(finalPosition, activeOccupancy) {
+function toHere(finalPosition, activeOccupancy) {
     if (activeOccupancy == false) {
         let type = pieces[activeFieldID];
         pieces[activeFieldID] = "";
         occupancy[activeFieldID] = false;
         pieces[finalPosition] = type;
         occupancy[finalPosition] = true;
-        
+
 
     } else if (activeOccupancy == true && finalPosition != activeFieldID) {
         alert("Hier ist schon eine Figur.")
