@@ -111,8 +111,8 @@ function move(startPosition) {
 function toHere(finalPosition, activeOccupancy) {
     var activeType = pieces[activeFieldID];
     if (activeType == "Bauer weiss") {
-        if (finalPosition == activeFieldID - 9 || finalPosition == activeFieldID - 7) {
-            if (occupancy[activeFieldID - 9] == true || occupancy[activeFieldID - 7] == true) {
+        if ((finalPosition == activeFieldID - 9 || finalPosition == activeFieldID - 7)) {
+            if (occupancy[finalPosition] == true) {
                 if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8) && Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
                     pieces[activeFieldID] = "";
                     occupancy[activeFieldID] = false;
