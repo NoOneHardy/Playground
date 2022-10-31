@@ -291,7 +291,79 @@ function toHere(finalPosition) {
                 blackTurn = true
             }
             
-            if ((occupancy[activeFieldID + 8] == false || color[activeFieldID + 8] == "schwarz") && finalPosition == activeFieldID + 8) {
+            if (occupancy[activeFieldID + 8] == false) {
+                if (occupancy[activeFieldID + 16] == false) {
+                    if (occupancy[activeFieldID + 24]) {
+                        if (occupancy[activeFieldID + 32]) {
+                            if (occupancy[activeFieldID + 40]) {
+                                if (occupancy[activeFieldID + 48]) {
+                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != "weiss") {
+                                        pieces[activeFieldID] = ""
+                                        color[activeFieldID] = ""
+                                        occupancy[activeFieldID] = false
+                                        pieces[finalPosition] = activeType
+                                        occupancy[finalPosition] = true
+                                        color[finalPosition] = "weiss"
+                                        whiteTurn = false
+                                        blackTurn = true
+                                    }
+                                }
+                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != "weiss") {
+                                    pieces[activeFieldID] = ""
+                                    color[activeFieldID] = ""
+                                    occupancy[activeFieldID] = false
+                                    pieces[finalPosition] = activeType
+                                    occupancy[finalPosition] = true
+                                    color[finalPosition] = "weiss"
+                                    whiteTurn = false
+                                    blackTurn = true
+                                }
+                            }
+                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != "weiss") {
+                                pieces[activeFieldID] = ""
+                                color[activeFieldID] = ""
+                                occupancy[activeFieldID] = false
+                                pieces[finalPosition] = activeType
+                                occupancy[finalPosition] = true
+                                color[finalPosition] = "weiss"
+                                whiteTurn = false
+                                blackTurn = true
+                            }
+                        }
+                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != "weiss") {
+                            pieces[activeFieldID] = ""
+                            color[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            color[finalPosition] = "weiss"
+                            whiteTurn = false
+                            blackTurn = true
+                        }
+                    }
+                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != "weiss") {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = "weiss"
+                        whiteTurn = false
+                        blackTurn = true
+                    }
+                }
+                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != "weiss") {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "weiss"
+                    whiteTurn = false
+                    blackTurn = true
+                }
+            }
+            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "weiss") {
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
@@ -300,53 +372,6 @@ function toHere(finalPosition) {
                 color[finalPosition] = "weiss"
                 whiteTurn = false
                 blackTurn = true
-            } else if ((occupancy[activeFieldID + 16] == false || color[activeFieldID + 16] == "schwarz") && finalPosition == activeFieldID + 16) {
-                pieces[activeFieldID] = ""
-                color[activeFieldID] = ""
-                occupancy[activeFieldID] = false
-                pieces[finalPosition] = activeType
-                occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
-            } else if ((occupancy[activeFieldID + 24] == false || color[activeFieldID + 24] == "schwarz") && finalPosition == activeFieldID + 24) {
-                pieces[activeFieldID] = ""
-                color[activeFieldID] = ""
-                occupancy[activeFieldID] = false
-                pieces[finalPosition] = activeType
-                occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
-            } else if ((occupancy[activeFieldID + 32] == false || color[activeFieldID + 32] == "schwarz") && finalPosition == activeFieldID + 32) {
-                pieces[activeFieldID] = ""
-                color[activeFieldID] = ""
-                occupancy[activeFieldID] = false
-                pieces[finalPosition] = activeType
-                occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
-            } else if ((occupancy[activeFieldID + 40] == false || color[activeFieldID + 40] == "schwarz") && finalPosition == activeFieldID + 40) {
-                pieces[activeFieldID] = ""
-                color[activeFieldID] = ""
-                occupancy[activeFieldID] = false
-                pieces[finalPosition] = activeType
-                occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
-            } else if ((occupancy[activeFieldID + 48] == false || color[activeFieldID + 48] == "schwarz") && finalPosition == activeFieldID + 48) {
-                pieces[activeFieldID] = ""
-                color[activeFieldID] = ""
-                occupancy[activeFieldID] = false
-                pieces[finalPosition] = activeType
-                occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
-            } else if ((occupancy[activeFieldID + 56] == false || color[activeFieldID + 56] == "schwarz") && finalPosition == activeFieldID + 56) {
-
             }
         }
     }
