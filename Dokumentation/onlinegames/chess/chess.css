@@ -43,3 +43,12 @@ html, body {
 .piece {
     cursor: pointer;
 }
+
+.grid-container {
+    display: grid;
+    justify-content: space-around;
+}
+
+.grid-item {
+    margin: 10mm 0mm 10mm 0mm;
+}
