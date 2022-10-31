@@ -3034,6 +3034,8 @@ function toHere(finalPosition) {
         }
     }
 
+    let whiteWin = pieces.find(searchWhite())
+    let blackWin = pieces.find(searchBlack())
     row = 0;
     col = 0;
     boardContent = "<table  class='chessboard' id='chessboard'>"
@@ -3059,6 +3061,24 @@ function toHere(finalPosition) {
     chessboard.innerHTML = boardContent
 
     chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
+
+    if (whiteWin == undefined) {
+        alert("Weiss hat gewonnen!")
+        CreateChessboard()
+    }
+
+    if (blackWin == undefined) {
+        alert("Schwaz hat gewonnen!")
+        CreateChessboard()
+    }
+}
+
+function searchWhite(value) {
+    return value == "K&ouml;nig schwarz"
+}
+
+function searchBlack(value) {
+    return value == "K&ouml;nig weiss"
 }
 
 CreateChessboard()
