@@ -1,3 +1,16 @@
+.grid-container {
+    display: grid;
+    justify-content: space-around;
+}
+
+.grid-item {
+    text-align: center;
+    border-style: dashed none;
+    border-width: 2px;
+    padding: 0px 50px;
+    margin-top: 20px;
+}
+
 table {
     border: solid 2px black;
     margin: 1cm auto;
@@ -35,7 +48,7 @@ td {
 }
 
 .filterTD {
-    background-color:rgba(20, 20, 20, 0.5);
+    background-color: rgba(20, 20, 20, 0.5);
 }
 
 img {
@@ -85,7 +98,8 @@ td input {
     width: 40mm;
 }
 
-#height, #width {
+#height,
+#width {
     background-color: #0d0d0d;
     color: rgba(255, 255, 255, 0.8);
     border: none;
@@ -95,7 +109,8 @@ td input {
     text-align: right;
 }
 
-#validHeight, #validWidth {
+#validHeight,
+#validWidth {
     font-size: 17px;
     color: #CC0000;
 }
