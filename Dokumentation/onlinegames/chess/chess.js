@@ -151,35 +151,55 @@ function move(startPosition) {
 
 function toHere(finalPosition) {
     var activeType = pieces[activeFieldID];
-    if (activeType == "Bauer weiss") {
-        if (finalPosition == activeFieldID - 9 || finalPosition == activeFieldID - 7) {
-            if (color[finalPosition] == "schwarz") {
-                if (occupancy[finalPosition] == true) {
-                    if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8) || Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
-                        pieces[activeFieldID] = "";
-                        occupancy[activeFieldID] = false;
-                        pieces[finalPosition] = activeType;
-                        occupancy[finalPosition] = true;
+    if (whiteTurn == true) {
+        if (activeType == "Bauer weiss") {
+            if (finalPosition == activeFieldID - 9) {
+                if (color[finalPosition] == "schwarz") {
+                    if (occupancy[finalPosition] == true) {
+                        if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8)) {
+                            pieces[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            whiteTurn = false
+                            blackTurn = true
+                        }
                     }
                 }
-            }
-        } else if (finalPosition == activeFieldID - 8) {
-            if (occupancy[activeFieldID - 8] != true) {
-                pieces[activeFieldID] = "";
-                occupancy[activeFieldID] = false;
-                pieces[finalPosition] = activeType;
-                occupancy[finalPosition] = true;
-            }
-        } else if (activeFieldID > 47 && finalPosition == activeFieldID - 16) {
-            if (occupancy[activeFieldID - 16] != true) {
-                pieces[activeFieldID] = "";
-                occupancy[activeFieldID] = false;
-                pieces[finalPosition] = activeType;
-                occupancy[finalPosition] = true;
+            } else if (finalPosition == activeFieldID - 7) {
+                if (color[finalPosition] == "schwarz") {
+                    if (occupancy[finalPosition] == true) {
+                        if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
+                            pieces[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            whiteTurn = false
+                            blackTurn = true
+                        }
+                    }
+                }
+            } else if (finalPosition == activeFieldID - 8) {
+                if (occupancy[activeFieldID - 8] != true) {
+                    pieces[activeFieldID] = "";
+                    occupancy[activeFieldID] = false;
+                    pieces[finalPosition] = activeType;
+                    occupancy[finalPosition] = true;
+                    whiteTurn = false
+                    blackTurn = true
+                }
+            } else if (activeFieldID > 47 && finalPosition == activeFieldID - 16) {
+                if (occupancy[activeFieldID - 16] != true) {
+                    pieces[activeFieldID] = "";
+                    occupancy[activeFieldID] = false;
+                    pieces[finalPosition] = activeType;
+                    occupancy[finalPosition] = true;
+                    whiteTurn = false
+                    blackTurn = true
+                }
             }
         }
     }
-
 
     /*
     if (occupancy[finalPosition] == true && finalPosition != activeFieldID) {
