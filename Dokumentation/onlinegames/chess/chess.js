@@ -12,6 +12,47 @@ var field = document.getElementById("activeFieldID")
 const chessboard = document.getElementById("chessboard")
 const occupancy = []
 
+const color = []
+for (let x = 0; x < 64;) {
+    color[x++] = ""
+}
+
+color.splice(0, 16,
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz",
+    "schwarz")
+
+color.splice(48, 16,
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss",
+    "weiss")
+
 const pieces = []
 for (let x = 0; x < 64;) {
     pieces[x++] = ""
@@ -95,7 +136,7 @@ function move(startPosition) {
             else {
                 occupancy[activeFieldID] = true
             }
-            boardContent += "<td class='piece' onclick='toHere(" + activeFieldID + ", " + occupancy[activeFieldID] + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+            boardContent += "<td class='piece' onclick='toHere(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
             col++
         }
         boardContent += "</tr>"
@@ -108,16 +149,18 @@ function move(startPosition) {
     activeFieldID = startPosition
 }
 
-function toHere(finalPosition, activeOccupancy) {
+function toHere(finalPosition) {
     var activeType = pieces[activeFieldID];
     if (activeType == "Bauer weiss") {
-        if ((finalPosition == activeFieldID - 9 || finalPosition == activeFieldID - 7)) {
-            if (occupancy[finalPosition] == true) {
-                if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8) && Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
-                    pieces[activeFieldID] = "";
-                    occupancy[activeFieldID] = false;
-                    pieces[finalPosition] = activeType;
-                    occupancy[finalPosition] = true;
+        if (finalPosition == activeFieldID - 9 || finalPosition == activeFieldID - 7) {
+            if (color[finalPosition] == "schwarz") {
+                if (occupancy[finalPosition] == true) {
+                    if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8) || Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
+                        pieces[activeFieldID] = "";
+                        occupancy[activeFieldID] = false;
+                        pieces[finalPosition] = activeType;
+                        occupancy[finalPosition] = true;
+                    }
                 }
             }
         } else if (finalPosition == activeFieldID - 8) {
@@ -127,7 +170,7 @@ function toHere(finalPosition, activeOccupancy) {
                 pieces[finalPosition] = activeType;
                 occupancy[finalPosition] = true;
             }
-        } else if (activeFieldID > 47 && activeFieldID - 16) {
+        } else if (activeFieldID > 47 && finalPosition == activeFieldID - 16) {
             if (occupancy[activeFieldID - 16] != true) {
                 pieces[activeFieldID] = "";
                 occupancy[activeFieldID] = false;
