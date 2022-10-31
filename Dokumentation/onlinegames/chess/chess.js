@@ -11,92 +11,98 @@ var field = document.getElementById("activeFieldID")
 //Important constants
 const chessboard = document.getElementById("chessboard")
 const occupancy = []
-
 const color = []
-for (let x = 0; x < 64;) {
-    color[x++] = ""
-}
-
-color.splice(0, 16,
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz",
-    "schwarz")
-
-color.splice(48, 16,
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss",
-    "weiss")
-
 const pieces = []
-for (let x = 0; x < 64;) {
-    pieces[x++] = ""
-}
-
-pieces.splice(0, 16,
-    "Turm schwarz",
-    "Pferd schwarz",
-    "L&auml;ufer schwarz",
-    "K&ouml;nigin schwarz",
-    "K&ouml;nig schwarz",
-    "L&auml;ufer schwarz",
-    "Pferd schwarz",
-    "Turm schwarz",
-    "Bauer schwarz",
-    "Bauer schwarz",
-    "Bauer schwarz",
-    "Bauer schwarz",
-    "Bauer schwarz",
-    "Bauer schwarz",
-    "Bauer schwarz",
-    "Bauer schwarz",)
-
-pieces.splice(48, 16,
-    "Bauer weiss",
-    "Bauer weiss",
-    "Bauer weiss",
-    "Bauer weiss",
-    "Bauer weiss",
-    "Bauer weiss",
-    "Bauer weiss",
-    "Bauer weiss",
-    "Turm weiss",
-    "Pferd weiss",
-    "L&auml;ufer weiss",
-    "K&ouml;nigin weiss",
-    "K&ouml;nig weiss",
-    "L&auml;ufer weiss",
-    "Pferd weiss",
-    "Turm weiss")
 
 //Create the chessboard
 function CreateChessboard() {
     activeFieldID = 0
+    boardContent = "<table  class='chessboard'>"
+    row = 0
+    col = 0
+    whiteTurn = true
+    blackTurn = false
+
+    for (let x = 0; x < 64;) {
+        pieces[x++] = ""
+    }
+    
+    pieces.splice(0, 16,
+        "Turm schwarz",
+        "Pferd schwarz",
+        "L&auml;ufer schwarz",
+        "K&ouml;nigin schwarz",
+        "K&ouml;nig schwarz",
+        "L&auml;ufer schwarz",
+        "Pferd schwarz",
+        "Turm schwarz",
+        "Bauer schwarz",
+        "Bauer schwarz",
+        "Bauer schwarz",
+        "Bauer schwarz",
+        "Bauer schwarz",
+        "Bauer schwarz",
+        "Bauer schwarz",
+        "Bauer schwarz",)
+    
+    pieces.splice(48, 16,
+        "Bauer weiss",
+        "Bauer weiss",
+        "Bauer weiss",
+        "Bauer weiss",
+        "Bauer weiss",
+        "Bauer weiss",
+        "Bauer weiss",
+        "Bauer weiss",
+        "Turm weiss",
+        "Pferd weiss",
+        "L&auml;ufer weiss",
+        "K&ouml;nigin weiss",
+        "K&ouml;nig weiss",
+        "L&auml;ufer weiss",
+        "Pferd weiss",
+        "Turm weiss")
+
+    for (let x = 0; x < 64;) {
+        color[x++] = ""
+    }
+    
+    color.splice(0, 16,
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz",
+        "schwarz")
+    
+    color.splice(48, 16,
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss",
+        "weiss")
+
     while (row < 8) {
         boardContent += "<tr>"
         while (col < 8) {
@@ -151,6 +157,7 @@ function move(startPosition) {
 
 function toHere(finalPosition) {
     var activeType = pieces[activeFieldID];
+    var opponent = pieces[finalPosition];
     if (whiteTurn == true) {
         if (activeType == "Bauer weiss") {
             if (finalPosition == activeFieldID - 9) {
@@ -1580,6 +1587,47 @@ function toHere(finalPosition) {
                 }
             }
             if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != "weiss" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = "weiss"
+                whiteTurn = false
+                blackTurn = true
+            }
+        }
+
+        if (activeType == "K&ouml;nig weiss") {
+            if (color[activeFieldID - 1] != "weiss" && finalPosition == activeFieldID - 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = "weiss"
+                whiteTurn = false
+                blackTurn = true
+            } else if (color[activeFieldID + 1] != "weiss" && finalPosition == activeFieldID + 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = "weiss"
+                whiteTurn = false
+                blackTurn = true
+            }
+            if (color[activeFieldID - 8] != "weiss" && finalPosition == activeFieldID - 8 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = "weiss"
+                whiteTurn = false
+                blackTurn = true
+            } else if (color[activeFieldID + 8] != "weiss" && finalPosition == activeFieldID + 8 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
@@ -3030,12 +3078,9 @@ function toHere(finalPosition) {
                 whiteTurn = true
                 blackTurn = false
             }
-
         }
     }
 
-    let whiteWin = pieces.find(searchWhite())
-    let blackWin = pieces.find(searchBlack())
     row = 0;
     col = 0;
     boardContent = "<table  class='chessboard' id='chessboard'>"
@@ -3062,23 +3107,15 @@ function toHere(finalPosition) {
 
     chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
 
-    if (whiteWin == undefined) {
+    if (opponent == "K&ouml;nig schwarz") {
         alert("Weiss hat gewonnen!")
         CreateChessboard()
     }
 
-    if (blackWin == undefined) {
-        alert("Schwaz hat gewonnen!")
+    if (opponent == "K&ouml;nig weiss") {
+        alert("Schwarz hat gewonnen!")
         CreateChessboard()
     }
-}
-
-function searchWhite(value) {
-    return value == "K&ouml;nig schwarz"
-}
-
-function searchBlack(value) {
-    return value == "K&ouml;nig weiss"
 }
 
 CreateChessboard()
