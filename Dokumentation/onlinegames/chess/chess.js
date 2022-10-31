@@ -279,7 +279,7 @@ function toHere(finalPosition) {
                     whiteTurn = false
                     blackTurn = true
                 }
-            } 
+            }
             if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "weiss") {
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
@@ -290,14 +290,14 @@ function toHere(finalPosition) {
                 whiteTurn = false
                 blackTurn = true
             }
-            
+
             if (occupancy[activeFieldID + 8] == false) {
                 if (occupancy[activeFieldID + 16] == false) {
-                    if (occupancy[activeFieldID + 24]) {
-                        if (occupancy[activeFieldID + 32]) {
-                            if (occupancy[activeFieldID + 40]) {
-                                if (occupancy[activeFieldID + 48]) {
-                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != "weiss") {
+                    if (occupancy[activeFieldID + 24] == false) {
+                        if (occupancy[activeFieldID + 32] == false) {
+                            if (occupancy[activeFieldID + 40] == false) {
+                                if (occupancy[activeFieldID + 48] == false) {
+                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != "weiss") {
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
@@ -308,7 +308,7 @@ function toHere(finalPosition) {
                                         blackTurn = true
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != "weiss") {
+                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != "weiss") {
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
@@ -319,7 +319,7 @@ function toHere(finalPosition) {
                                     blackTurn = true
                                 }
                             }
-                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != "weiss") {
+                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != "weiss") {
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
@@ -330,7 +330,7 @@ function toHere(finalPosition) {
                                 blackTurn = true
                             }
                         }
-                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != "weiss") {
+                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != "weiss") {
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
@@ -341,7 +341,7 @@ function toHere(finalPosition) {
                             blackTurn = true
                         }
                     }
-                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != "weiss") {
+                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != "weiss") {
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
@@ -352,7 +352,7 @@ function toHere(finalPosition) {
                         blackTurn = true
                     }
                 }
-                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != "weiss") {
+                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != "weiss") {
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
@@ -363,7 +363,7 @@ function toHere(finalPosition) {
                     blackTurn = true
                 }
             }
-            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "weiss") {
+            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != "weiss") {
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
@@ -373,9 +373,178 @@ function toHere(finalPosition) {
                 whiteTurn = false
                 blackTurn = true
             }
+
+            if (Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                if (occupancy[activeFieldID + 1] == false) {
+                    if (occupancy[activeFieldID + 2] == false) {
+                        if (occupancy[activeFieldID + 3] == false) {
+                            if (occupancy[activeFieldID + 4] == false) {
+                                if (occupancy[activeFieldID + 5] == false) {
+                                    if (occupancy[activeFieldID + 6] == false) {
+                                        if (color[activeFieldID + 7] != "weiss" && finalPosition == activeFieldID + 7) {
+                                            pieces[activeFieldID] = ""
+                                            color[activeFieldID] = ""
+                                            occupancy[activeFieldID] = false
+                                            pieces[finalPosition] = activeType
+                                            occupancy[finalPosition] = true
+                                            color[finalPosition] = "weiss"
+                                            whiteTurn = false
+                                            blackTurn = true
+                                        }
+                                    }
+                                    if (color[activeFieldID + 6] != "weiss" && finalPosition == activeFieldID + 6) {
+                                        pieces[activeFieldID] = ""
+                                        color[activeFieldID] = ""
+                                        occupancy[activeFieldID] = false
+                                        pieces[finalPosition] = activeType
+                                        occupancy[finalPosition] = true
+                                        color[finalPosition] = "weiss"
+                                        whiteTurn = false
+                                        blackTurn = true
+                                    }
+                                }
+                                if (color[activeFieldID + 5] != "weiss" && finalPosition == activeFieldID + 5) {
+                                    pieces[activeFieldID] = ""
+                                    color[activeFieldID] = ""
+                                    occupancy[activeFieldID] = false
+                                    pieces[finalPosition] = activeType
+                                    occupancy[finalPosition] = true
+                                    color[finalPosition] = "weiss"
+                                    whiteTurn = false
+                                    blackTurn = true
+                                }
+                            }
+                            if (color[activeFieldID + 4] != "weiss" && finalPosition == activeFieldID + 4) {
+                                pieces[activeFieldID] = ""
+                                color[activeFieldID] = ""
+                                occupancy[activeFieldID] = false
+                                pieces[finalPosition] = activeType
+                                occupancy[finalPosition] = true
+                                color[finalPosition] = "weiss"
+                                whiteTurn = false
+                                blackTurn = true
+                            }
+                        }
+                        if (color[activeFieldID + 3] != "weiss" && finalPosition == activeFieldID + 3) {
+                            pieces[activeFieldID] = ""
+                            color[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            color[finalPosition] = "weiss"
+                            whiteTurn = false
+                            blackTurn = true
+                        }
+                    }
+                    if (color[activeFieldID + 2] != "weiss" && finalPosition == activeFieldID + 2) {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = "weiss"
+                        whiteTurn = false
+                        blackTurn = true
+                    }
+                }
+                if (color[activeFieldID + 1] != "weiss" && finalPosition == activeFieldID + 1) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "weiss"
+                    whiteTurn = false
+                    blackTurn = true
+                }
+
+                if (occupancy[activeFieldID - 1] == false) {
+                    if (occupancy[activeFieldID - 2] == false) {
+                        if (occupancy[activeFieldID - 3] == false) {
+                            if (occupancy[activeFieldID - 4] == false) {
+                                if (occupancy[activeFieldID - 5] == false) {
+                                    if (occupancy[activeFieldID - 6] == false) {
+                                        if (color[activeFieldID - 7] != "weiss" && finalPosition == activeFieldID - 7) {
+                                            pieces[activeFieldID] = ""
+                                            color[activeFieldID] = ""
+                                            occupancy[activeFieldID] = false
+                                            pieces[finalPosition] = activeType
+                                            occupancy[finalPosition] = true
+                                            color[finalPosition] = "weiss"
+                                            whiteTurn = false
+                                            blackTurn = true
+                                        }
+                                    }
+                                    if (color[activeFieldID - 6] != "weiss" && finalPosition == activeFieldID - 6) {
+                                        pieces[activeFieldID] = ""
+                                        color[activeFieldID] = ""
+                                        occupancy[activeFieldID] = false
+                                        pieces[finalPosition] = activeType
+                                        occupancy[finalPosition] = true
+                                        color[finalPosition] = "weiss"
+                                        whiteTurn = false
+                                        blackTurn = true
+                                    }
+                                }
+                                if (color[activeFieldID - 5] != "weiss" && finalPosition == activeFieldID - 5) {
+                                    pieces[activeFieldID] = ""
+                                    color[activeFieldID] = ""
+                                    occupancy[activeFieldID] = false
+                                    pieces[finalPosition] = activeType
+                                    occupancy[finalPosition] = true
+                                    color[finalPosition] = "weiss"
+                                    whiteTurn = false
+                                    blackTurn = true
+                                }
+                            }
+                            if (color[activeFieldID - 4] != "weiss" && finalPosition == activeFieldID - 4) {
+                                pieces[activeFieldID] = ""
+                                color[activeFieldID] = ""
+                                occupancy[activeFieldID] = false
+                                pieces[finalPosition] = activeType
+                                occupancy[finalPosition] = true
+                                color[finalPosition] = "weiss"
+                                whiteTurn = false
+                                blackTurn = true
+                            }
+                        }
+                        if (color[activeFieldID - 3] != "weiss" && finalPosition == activeFieldID - 3) {
+                            pieces[activeFieldID] = ""
+                            color[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            color[finalPosition] = "weiss"
+                            whiteTurn = false
+                            blackTurn = true
+                        }
+                    }
+                    if (color[activeFieldID - 2] != "weiss" && finalPosition == activeFieldID - 2) {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = "weiss"
+                        whiteTurn = false
+                        blackTurn = true
+                    }
+                }
+                if (color[activeFieldID - 1] != "weiss" && finalPosition == activeFieldID - 1) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "weiss"
+                    whiteTurn = false
+                    blackTurn = true
+                }
+            }
         }
     }
-    if (blackTurn = true) {
+
+    if (blackTurn == true) {
         if (activeType == "Bauer schwarz") {
             if (finalPosition == activeFieldID + 9) {
                 if (color[finalPosition] == "weiss") {
@@ -431,20 +600,343 @@ function toHere(finalPosition) {
                 }
             }
         }
+        if (activeType == "Turm schwarz") {
+            if (occupancy[activeFieldID - 8] == false) {
+                if (occupancy[activeFieldID - 16] == false) {
+                    if (occupancy[activeFieldID - 24] == false) {
+                        if (occupancy[activeFieldID - 32] == false) {
+                            if (occupancy[activeFieldID - 40] == false) {
+                                if (occupancy[activeFieldID - 48] == false) {
+                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != "schwarz") {
+                                        pieces[activeFieldID] = ""
+                                        color[activeFieldID] = ""
+                                        occupancy[activeFieldID] = false
+                                        pieces[finalPosition] = activeType
+                                        occupancy[finalPosition] = true
+                                        color[finalPosition] = "schwarz"
+                                        whiteTurn = true
+                                        blackTurn = false
+                                    }
+                                }
+                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != "schwarz") {
+                                    pieces[activeFieldID] = ""
+                                    color[activeFieldID] = ""
+                                    occupancy[activeFieldID] = false
+                                    pieces[finalPosition] = activeType
+                                    occupancy[finalPosition] = true
+                                    color[finalPosition] = "schwarz"
+                                    whiteTurn = true
+                                    blackTurn = false
+                                }
+                            }
+                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != "schwarz") {
+                                pieces[activeFieldID] = ""
+                                color[activeFieldID] = ""
+                                occupancy[activeFieldID] = false
+                                pieces[finalPosition] = activeType
+                                occupancy[finalPosition] = true
+                                color[finalPosition] = "schwarz"
+                                whiteTurn = true
+                                blackTurn = false
+                            }
+                        }
+                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != "schwarz") {
+                            pieces[activeFieldID] = ""
+                            color[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            color[finalPosition] = "schwarz"
+                            whiteTurn = true
+                            blackTurn = false
+                        }
+                    }
+                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != "schwarz") {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = "schwarz"
+                        whiteTurn = true
+                        blackTurn = false
+                    }
+                }
+                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != "schwarz") {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+            }
+            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "schwarz") {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = "schwarz"
+                whiteTurn = true
+                blackTurn = false
+            }
+
+            if (occupancy[activeFieldID + 8] == false) {
+                if (occupancy[activeFieldID + 16] == false) {
+                    if (occupancy[activeFieldID + 24] == false) {
+                        if (occupancy[activeFieldID + 32] == false) {
+                            if (occupancy[activeFieldID + 40] == false) {
+                                if (occupancy[activeFieldID + 48] == false) {
+                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != "schwarz") {
+                                        pieces[activeFieldID] = ""
+                                        color[activeFieldID] = ""
+                                        occupancy[activeFieldID] = false
+                                        pieces[finalPosition] = activeType
+                                        occupancy[finalPosition] = true
+                                        color[finalPosition] = "schwarz"
+                                        whiteTurn = true
+                                        blackTurn = false
+                                    }
+                                }
+                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != "schwarz") {
+                                    pieces[activeFieldID] = ""
+                                    color[activeFieldID] = ""
+                                    occupancy[activeFieldID] = false
+                                    pieces[finalPosition] = activeType
+                                    occupancy[finalPosition] = true
+                                    color[finalPosition] = "schwarz"
+                                    whiteTurn = true
+                                    blackTurn = false
+                                }
+                            }
+                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != "schwarz") {
+                                pieces[activeFieldID] = ""
+                                color[activeFieldID] = ""
+                                occupancy[activeFieldID] = false
+                                pieces[finalPosition] = activeType
+                                occupancy[finalPosition] = true
+                                color[finalPosition] = "schwarz"
+                                whiteTurn = true
+                                blackTurn = false
+                            }
+                        }
+                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != "schwarz") {
+                            pieces[activeFieldID] = ""
+                            color[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            color[finalPosition] = "schwarz"
+                            whiteTurn = true
+                            blackTurn = false
+                        }
+                    }
+                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != "schwarz") {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = "schwarz"
+                        whiteTurn = true
+                        blackTurn = false
+                    }
+                }
+                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != "schwarz") {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+            }
+            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != "schwarz") {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = "schwarz"
+                whiteTurn = true
+                blackTurn = false
+            }
+
+            if (Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                if (occupancy[activeFieldID + 1] == false) {
+                    if (occupancy[activeFieldID + 2] == false) {
+                        if (occupancy[activeFieldID + 3] == false) {
+                            if (occupancy[activeFieldID + 4] == false) {
+                                if (occupancy[activeFieldID + 5] == false) {
+                                    if (occupancy[activeFieldID + 6] == false) {
+                                        if (color[activeFieldID + 7] != "schwarz" && finalPosition == activeFieldID + 7) {
+                                            pieces[activeFieldID] = ""
+                                            color[activeFieldID] = ""
+                                            occupancy[activeFieldID] = false
+                                            pieces[finalPosition] = activeType
+                                            occupancy[finalPosition] = true
+                                            color[finalPosition] = "schwarz"
+                                            whiteTurn = true
+                                            blackTurn = false
+                                        }
+                                    }
+                                    if (color[activeFieldID + 6] != "schwarz" && finalPosition == activeFieldID + 6) {
+                                        pieces[activeFieldID] = ""
+                                        color[activeFieldID] = ""
+                                        occupancy[activeFieldID] = false
+                                        pieces[finalPosition] = activeType
+                                        occupancy[finalPosition] = true
+                                        color[finalPosition] = "schwarz"
+                                        whiteTurn = true
+                                        blackTurn = false
+                                    }
+                                }
+                                if (color[activeFieldID + 5] != "schwarz" && finalPosition == activeFieldID + 5) {
+                                    pieces[activeFieldID] = ""
+                                    color[activeFieldID] = ""
+                                    occupancy[activeFieldID] = false
+                                    pieces[finalPosition] = activeType
+                                    occupancy[finalPosition] = true
+                                    color[finalPosition] = "schwarz"
+                                    whiteTurn = true
+                                    blackTurn = false
+                                }
+                            }
+                            if (color[activeFieldID + 4] != "schwarz" && finalPosition == activeFieldID + 4) {
+                                pieces[activeFieldID] = ""
+                                color[activeFieldID] = ""
+                                occupancy[activeFieldID] = false
+                                pieces[finalPosition] = activeType
+                                occupancy[finalPosition] = true
+                                color[finalPosition] = "schwarz"
+                                whiteTurn = true
+                                blackTurn = false
+                            }
+                        }
+                        if (color[activeFieldID + 3] != "schwarz" && finalPosition == activeFieldID + 3) {
+                            pieces[activeFieldID] = ""
+                            color[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            color[finalPosition] = "schwarz"
+                            whiteTurn = true
+                            blackTurn = false
+                        }
+                    }
+                    if (color[activeFieldID + 2] != "schwarz" && finalPosition == activeFieldID + 2) {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = "schwarz"
+                        whiteTurn = true
+                        blackTurn = false
+                    }
+                }
+                if (color[activeFieldID + 1] != "schwarz" && finalPosition == activeFieldID + 1) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+
+                if (occupancy[activeFieldID - 1] == false) {
+                    if (occupancy[activeFieldID - 2] == false) {
+                        if (occupancy[activeFieldID - 3] == false) {
+                            if (occupancy[activeFieldID - 4] == false) {
+                                if (occupancy[activeFieldID - 5] == false) {
+                                    if (occupancy[activeFieldID - 6] == false) {
+                                        if (color[activeFieldID - 7] != "schwarz" && finalPosition == activeFieldID - 7) {
+                                            pieces[activeFieldID] = ""
+                                            color[activeFieldID] = ""
+                                            occupancy[activeFieldID] = false
+                                            pieces[finalPosition] = activeType
+                                            occupancy[finalPosition] = true
+                                            color[finalPosition] = "schwarz"
+                                            whiteTurn = true
+                                            blackTurn = false
+                                        }
+                                    }
+                                    if (color[activeFieldID - 6] != "schwarz" && finalPosition == activeFieldID - 6) {
+                                        pieces[activeFieldID] = ""
+                                        color[activeFieldID] = ""
+                                        occupancy[activeFieldID] = false
+                                        pieces[finalPosition] = activeType
+                                        occupancy[finalPosition] = true
+                                        color[finalPosition] = "schwarz"
+                                        whiteTurn = true
+                                        blackTurn = false
+                                    }
+                                }
+                                if (color[activeFieldID - 5] != "schwarz" && finalPosition == activeFieldID - 5) {
+                                    pieces[activeFieldID] = ""
+                                    color[activeFieldID] = ""
+                                    occupancy[activeFieldID] = false
+                                    pieces[finalPosition] = activeType
+                                    occupancy[finalPosition] = true
+                                    color[finalPosition] = "schwarz"
+                                    whiteTurn = true
+                                    blackTurn = false
+                                }
+                            }
+                            if (color[activeFieldID - 4] != "schwarz" && finalPosition == activeFieldID - 4) {
+                                pieces[activeFieldID] = ""
+                                color[activeFieldID] = ""
+                                occupancy[activeFieldID] = false
+                                pieces[finalPosition] = activeType
+                                occupancy[finalPosition] = true
+                                color[finalPosition] = "schwarz"
+                                whiteTurn = true
+                                blackTurn = false
+                            }
+                        }
+                        if (color[activeFieldID - 3] != "schwarz" && finalPosition == activeFieldID - 3) {
+                            pieces[activeFieldID] = ""
+                            color[activeFieldID] = ""
+                            occupancy[activeFieldID] = false
+                            pieces[finalPosition] = activeType
+                            occupancy[finalPosition] = true
+                            color[finalPosition] = "schwarz"
+                            whiteTurn = true
+                            blackTurn = false
+                        }
+                    }
+                    if (color[activeFieldID - 2] != "schwarz" && finalPosition == activeFieldID - 2) {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = "schwarz"
+                        whiteTurn = true
+                        blackTurn = false
+                    }
+                }
+                if (color[activeFieldID - 1] != "schwarz" && finalPosition == activeFieldID - 1) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+            }
+        }
     }
 
-    /*
-    if (occupancy[finalPosition] == true && finalPosition != activeFieldID) {
-        alert("Hier ist schon eine Figur.")
-        return
-    }
-     
-    if (activeOccupancy == false) {
-        pieces[activeFieldID] = "";
-        occupancy[activeFieldID] = false;
-        pieces[finalPosition] = activeType;
-        occupancy[finalPosition] = true;
-    */
     row = 0;
     col = 0;
     boardContent = "<table  class='chessboard' id='chessboard'>"
