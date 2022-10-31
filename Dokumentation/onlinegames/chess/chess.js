@@ -207,6 +207,7 @@ function toHere(finalPosition) {
                 }
             }
         }
+
         if (activeType == "Turm weiss") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
@@ -542,6 +543,51 @@ function toHere(finalPosition) {
                 }
             }
         }
+
+        if (activeType == "Pferd weiss") {
+            if (color[finalPosition] != "weiss") {
+                if ((finalPosition == activeFieldID - 15 || finalPosition == activeFieldID - 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 2)) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "weiss"
+                    whiteTurn = false
+                    blackTurn = true
+                }
+                if ((finalPosition == activeFieldID - 6 || finalPosition == activeFieldID - 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 1)) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "weiss"
+                    whiteTurn = false
+                    blackTurn = true
+                }
+                if ((finalPosition == activeFieldID + 15 || finalPosition == activeFieldID + 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 2)) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "weiss"
+                    whiteTurn = false
+                    blackTurn = true
+                }
+                if ((finalPosition == activeFieldID + 6 || finalPosition == activeFieldID + 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 1)) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "weiss"
+                    whiteTurn = false
+                    blackTurn = true
+                }
+            }
+        }
     }
 
     if (blackTurn == true) {
@@ -600,6 +646,7 @@ function toHere(finalPosition) {
                 }
             }
         }
+
         if (activeType == "Turm schwarz") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
@@ -924,6 +971,51 @@ function toHere(finalPosition) {
                     }
                 }
                 if (color[activeFieldID - 1] != "schwarz" && finalPosition == activeFieldID - 1) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+            }
+        }
+
+        if (activeType == "Pferd schwarz") {
+            if (color[finalPosition] != "schwarz") {
+                if ((finalPosition == activeFieldID - 15 || finalPosition == activeFieldID - 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 2)) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+                if ((finalPosition == activeFieldID - 6 || finalPosition == activeFieldID - 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 1)) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+                if ((finalPosition == activeFieldID + 15 || finalPosition == activeFieldID + 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 2)) {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = "schwarz"
+                    whiteTurn = true
+                    blackTurn = false
+                }
+                if ((finalPosition == activeFieldID + 6 || finalPosition == activeFieldID + 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 1)) {
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
