@@ -8,7 +8,12 @@ td .piece {
     margin: 0;
 }
 
+.item2 p {
+    margin-top: 10mm;
+}
+
 .chessboard {
+    margin-top: 0;
     border-collapse: collapse;
     border-bottom: outset 5px #000000;
     border-right: outset 5px #000000;
@@ -31,11 +36,6 @@ td .piece {
     background-color: #343434
 }
 
-.startButton {
-    font-size: 130%;
-    border-radius: 5px;
-}
-
 html, body {
     min-height: 101%;
 }
@@ -46,9 +46,32 @@ html, body {
 
 .grid-container {
     display: grid;
+    grid-template-columns: 20% auto 20%;
     justify-content: space-around;
 }
 
 .grid-item {
-    margin: 10mm 0mm 10mm 0mm;
+    margin: 0mm 5mm 5mm 5mm;
+    text-align: center;
+    padding: 0mm;
+}
+
+.deadPieces th, .deadPieces td {
+    border: solid 2px black;
+    padding: 2.5mm;
+    min-width: 50mm
+}
+
+.deadPieces th {
+    font-size: 9mm;
+}
+
+.deadPieces td {
+    font-size: 6mm
+}
+
+.deadPieces {
+    border-collapse: collapse;
+    margin-top: 10mm;
+    background-color: #3d3d3d;
 }
