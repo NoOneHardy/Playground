@@ -4,12 +4,18 @@
     padding: 0;
 }
 
+td img {
+    height: 2.25cm;
+    margin: 0;
+}
+
 td .piece {
     margin: 0;
 }
 
 .item2 p {
     margin-top: 10mm;
+    font-size: 40px;
 }
 
 .chessboard {
@@ -59,7 +65,7 @@ html, body {
 .deadPieces th, .deadPieces td {
     border: solid 2px black;
     padding: 2.5mm;
-    min-width: 50mm
+    min-width: 50mm;
 }
 
 .deadPieces th {
@@ -67,7 +73,11 @@ html, body {
 }
 
 .deadPieces td {
-    font-size: 6mm
+    font-size: 5mm;
+}
+
+.deadPieces tr {
+    height: 2.75cm;
 }
 
 .deadPieces {

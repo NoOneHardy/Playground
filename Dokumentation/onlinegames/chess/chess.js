@@ -5,8 +5,7 @@ var rowWhite = 1
 var rowBlack = 1
 var boardContent = "<table  class='chessboard'>"
 var activeFieldID = 0
-var blackTurn = false;
-var whiteTurn = true;
+var player = "Weiss";
 var activePieceactiveType = ""
 
 //Important constants
@@ -16,6 +15,8 @@ const color = []
 const pieces = []
 const deadWhite = []
 const deadBlack = []
+const white = "Weiss"
+const black = "Schwarz"
 
 //Create the chessboard
 function CreateChessboard() {
@@ -23,88 +24,100 @@ function CreateChessboard() {
     boardContent = "<table  class='chessboard'>"
     row = 0
     col = 0
-    whiteTurn = true
-    blackTurn = false
+    player = white
+    let id = ""
+
+    for (let x = 1; x <= 16;) {
+        id = x + "white"
+        document.getElementById(id).innerHTML = ""
+        x++
+    }
+
+    for (let x = 1; x <= 16;) {
+        id = x + "black"
+        document.getElementById(id).innerHTML = ""
+        x++
+    }
 
     for (let x = 0; x < 64;) {
         pieces[x++] = ""
     }
 
     pieces.splice(0, 16,
-        "Turm schwarz",
-        "Pferd schwarz",
-        "L&auml;ufer schwarz",
-        "K&ouml;nigin schwarz",
-        "K&ouml;nig schwarz",
-        "L&auml;ufer schwarz",
-        "Pferd schwarz",
-        "Turm schwarz",
-        "Bauer schwarz",
-        "Bauer schwarz",
-        "Bauer schwarz",
-        "Bauer schwarz",
-        "Bauer schwarz",
-        "Bauer schwarz",
-        "Bauer schwarz",
-        "Bauer schwarz",)
+        "<img src='Icons/black_rook.png'>",
+        "<img src='Icons/black_knight.png'>",
+        "<img src='Icons/black_bishop.png'>",
+        "<img src='Icons/black_queen.png'>",
+        "<img src='Icons/black_king.png'>",
+        "<img src='Icons/black_bishop.png'>",
+        "<img src='Icons/black_knight.png'>",
+        "<img src='Icons/black_rook.png'>",
+        "<img src='Icons/black_pawn.png'>",
+        "<img src='Icons/black_pawn.png'>",
+        "<img src='Icons/black_pawn.png'>",
+        "<img src='Icons/black_pawn.png'>",
+        "<img src='Icons/black_pawn.png'>",
+        "<img src='Icons/black_pawn.png'>",
+        "<img src='Icons/black_pawn.png'>",
+        "<img src='Icons/black_pawn.png'>",)
 
     pieces.splice(48, 16,
-        "Bauer weiss",
-        "Bauer weiss",
-        "Bauer weiss",
-        "Bauer weiss",
-        "Bauer weiss",
-        "Bauer weiss",
-        "Bauer weiss",
-        "Bauer weiss",
-        "Turm weiss",
-        "Pferd weiss",
-        "L&auml;ufer weiss",
-        "K&ouml;nigin weiss",
-        "K&ouml;nig weiss",
-        "L&auml;ufer weiss",
-        "Pferd weiss",
-        "Turm weiss")
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_pawn.png'>",
+        "<img src='Icons/white_rook.png'>",
+        "<img src='Icons/white_knight.png'>",
+        "<img src='Icons/white_bishop.png'>",
+        "<img src='Icons/white_queen.png'>",
+        "<img src='Icons/white_king.png'>",
+        "<img src='Icons/white_bishop.png'>",
+        "<img src='Icons/white_knight.png'>",
+        "<img src='Icons/white_rook.png'>")
 
     for (let x = 0; x < 64;) {
         color[x++] = ""
     }
 
     color.splice(0, 16,
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz",
-        "schwarz")
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black)
 
     color.splice(48, 16,
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss",
-        "weiss")
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white,
+        white)
 
     while (row < 8) {
         boardContent += "<tr>"
@@ -158,148 +171,150 @@ function move(startPosition) {
     activeFieldID = startPosition
 }
 
+var opponent = ""
+
 function toHere(finalPosition) {
+    opponent = ""
     var activeType = pieces[activeFieldID];
-    var opponent = pieces[finalPosition];
-    if (whiteTurn == true) {
-        if (activeType == "Bauer weiss") {
+    if (player == white) {
+        if (activeType == "<img src='Icons/white_pawn.png'>") {
             if (finalPosition == activeFieldID - 9) {
-                if (color[finalPosition] == "schwarz") {
+                if (color[finalPosition] == black) {
                     if (occupancy[finalPosition] == true) {
                         if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
                 }
             } else if (finalPosition == activeFieldID - 7) {
-                if (color[finalPosition] == "schwarz") {
+                if (color[finalPosition] == black) {
                     if (occupancy[finalPosition] == true) {
                         if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
                 }
             } else if (finalPosition == activeFieldID - 8) {
                 if (occupancy[activeFieldID - 8] != true) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             } else if (activeFieldID > 47 && finalPosition == activeFieldID - 16) {
                 if (occupancy[activeFieldID - 16] != true) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
         }
 
-        if (activeType == "Turm weiss") {
+        if (activeType == "<img src='Icons/white_rook.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
                         if (occupancy[activeFieldID - 32] == false) {
                             if (occupancy[activeFieldID - 40] == false) {
                                 if (occupancy[activeFieldID - 48] == false) {
-                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != "weiss") {
+                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != white) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != "weiss") {
+                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != white) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != "weiss") {
+                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != white) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != "weiss") {
+                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != white) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != "weiss") {
+                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != white) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != "weiss") {
+                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != white) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "weiss") {
+            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != white) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID + 8] == false) {
@@ -308,81 +323,81 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 32] == false) {
                             if (occupancy[activeFieldID + 40] == false) {
                                 if (occupancy[activeFieldID + 48] == false) {
-                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != "weiss") {
+                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != white) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != "weiss") {
+                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != white) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != "weiss") {
+                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != white) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != "weiss") {
+                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != white) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != "weiss") {
+                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != white) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != "weiss") {
+                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != white) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != "weiss") {
+            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != white) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
@@ -392,81 +407,80 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID + 4] == false) {
                                 if (occupancy[activeFieldID + 5] == false) {
                                     if (occupancy[activeFieldID + 6] == false) {
-                                        if (color[activeFieldID + 7] != "weiss" && finalPosition == activeFieldID + 7) {
+                                        if (color[activeFieldID + 7] != white && finalPosition == activeFieldID + 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "weiss"
-                                            whiteTurn = false
-                                            blackTurn = true
+                                            color[finalPosition] = white
+                                            player = black
                                         }
                                     }
-                                    if (color[activeFieldID + 6] != "weiss" && finalPosition == activeFieldID + 6) {
+                                    if (color[activeFieldID + 6] != white && finalPosition == activeFieldID + 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (color[activeFieldID + 5] != "weiss" && finalPosition == activeFieldID + 5) {
+                                if (color[activeFieldID + 5] != white && finalPosition == activeFieldID + 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (color[activeFieldID + 4] != "weiss" && finalPosition == activeFieldID + 4) {
+                            if (color[activeFieldID + 4] != white && finalPosition == activeFieldID + 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (color[activeFieldID + 3] != "weiss" && finalPosition == activeFieldID + 3) {
+                        if (color[activeFieldID + 3] != white && finalPosition == activeFieldID + 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (color[activeFieldID + 2] != "weiss" && finalPosition == activeFieldID + 2) {
+                    if (color[activeFieldID + 2] != white && finalPosition == activeFieldID + 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (color[activeFieldID + 1] != "weiss" && finalPosition == activeFieldID + 1) {
+                if (color[activeFieldID + 1] != white && finalPosition == activeFieldID + 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
 
                 if (occupancy[activeFieldID - 1] == false) {
@@ -475,212 +489,211 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID - 4] == false) {
                                 if (occupancy[activeFieldID - 5] == false) {
                                     if (occupancy[activeFieldID - 6] == false) {
-                                        if (color[activeFieldID - 7] != "weiss" && finalPosition == activeFieldID - 7) {
+                                        if (color[activeFieldID - 7] != white && finalPosition == activeFieldID - 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "weiss"
-                                            whiteTurn = false
-                                            blackTurn = true
+                                            color[finalPosition] = white
+                                            player = black
                                         }
                                     }
-                                    if (color[activeFieldID - 6] != "weiss" && finalPosition == activeFieldID - 6) {
+                                    if (color[activeFieldID - 6] != white && finalPosition == activeFieldID - 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (color[activeFieldID - 5] != "weiss" && finalPosition == activeFieldID - 5) {
+                                if (color[activeFieldID - 5] != white && finalPosition == activeFieldID - 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (color[activeFieldID - 4] != "weiss" && finalPosition == activeFieldID - 4) {
+                            if (color[activeFieldID - 4] != white && finalPosition == activeFieldID - 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (color[activeFieldID - 3] != "weiss" && finalPosition == activeFieldID - 3) {
+                        if (color[activeFieldID - 3] != white && finalPosition == activeFieldID - 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (color[activeFieldID - 2] != "weiss" && finalPosition == activeFieldID - 2) {
+                    if (color[activeFieldID - 2] != white && finalPosition == activeFieldID - 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (color[activeFieldID - 1] != "weiss" && finalPosition == activeFieldID - 1) {
+                if (color[activeFieldID - 1] != white && finalPosition == activeFieldID - 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
         }
 
-        if (activeType == "Pferd weiss") {
-            if (color[finalPosition] != "weiss") {
+        if (activeType == "<img src='Icons/white_knight.png'>") {
+            if (color[finalPosition] != white) {
                 if ((finalPosition == activeFieldID - 15 || finalPosition == activeFieldID - 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 2)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
                 if ((finalPosition == activeFieldID - 6 || finalPosition == activeFieldID - 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 1)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
                 if ((finalPosition == activeFieldID + 15 || finalPosition == activeFieldID + 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 2)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
                 if ((finalPosition == activeFieldID + 6 || finalPosition == activeFieldID + 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 1)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
         }
 
-        if (activeType == "L&auml;ufer weiss") {
+        if (activeType == "<img src='Icons/white_bishop.png'>") {
             if (occupancy[activeFieldID - 7] == false) {
                 if (occupancy[activeFieldID - 14] == false) {
                     if (occupancy[activeFieldID - 21] == false) {
                         if (occupancy[activeFieldID - 28] == false) {
                             if (occupancy[activeFieldID - 35] == false) {
                                 if (occupancy[activeFieldID - 42] == false) {
-                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != "weiss" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != white && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != "weiss" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != white && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != "weiss" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != white && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != "weiss" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != white && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != "weiss" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != white && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != "weiss" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != white && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != "weiss" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != white && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID + 7] == false) {
@@ -689,81 +702,81 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 28] == false) {
                             if (occupancy[activeFieldID + 35] == false) {
                                 if (occupancy[activeFieldID + 42] == false) {
-                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != "weiss" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != white && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != "weiss" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != white && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != "weiss" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != white && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != "weiss" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != white && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != "weiss" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != white && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != "weiss" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != white && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != "weiss" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != white && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID + 9] == false) {
@@ -772,81 +785,81 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 36] == false) {
                             if (occupancy[activeFieldID + 45] == false) {
                                 if (occupancy[activeFieldID + 54] == false) {
-                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != "weiss" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != white && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != "weiss" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != white && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != "weiss" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != white && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != "weiss" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != white && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != "weiss" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != white && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != "weiss" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != white && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != "weiss" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != white && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID - 9] == false) {
@@ -855,166 +868,166 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID - 36] == false) {
                             if (occupancy[activeFieldID - 45] == false) {
                                 if (occupancy[activeFieldID - 54] == false) {
-                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != "weiss" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != white && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != "weiss" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != white && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != "weiss" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != white && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != "weiss" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != white && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != "weiss" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != white && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != "weiss" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != white && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != "weiss" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != white && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
         }
 
-        if (activeType == "K&ouml;nigin weiss") {
+        if (activeType == "<img src='Icons/white_queen.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
                         if (occupancy[activeFieldID - 32] == false) {
                             if (occupancy[activeFieldID - 40] == false) {
                                 if (occupancy[activeFieldID - 48] == false) {
-                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != "weiss") {
+                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != white) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != "weiss") {
+                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != white) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != "weiss") {
+                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != white) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != "weiss") {
+                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != white) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != "weiss") {
+                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != white) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != "weiss") {
+                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != white) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "weiss") {
+            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != white) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID + 8] == false) {
@@ -1023,81 +1036,81 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 32] == false) {
                             if (occupancy[activeFieldID + 40] == false) {
                                 if (occupancy[activeFieldID + 48] == false) {
-                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != "weiss") {
+                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != white) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != "weiss") {
+                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != white) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != "weiss") {
+                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != white) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != "weiss") {
+                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != white) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != "weiss") {
+                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != white) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != "weiss") {
+                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != white) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != "weiss") {
+            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != white) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
@@ -1107,81 +1120,80 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID + 4] == false) {
                                 if (occupancy[activeFieldID + 5] == false) {
                                     if (occupancy[activeFieldID + 6] == false) {
-                                        if (color[activeFieldID + 7] != "weiss" && finalPosition == activeFieldID + 7) {
+                                        if (color[activeFieldID + 7] != white && finalPosition == activeFieldID + 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "weiss"
-                                            whiteTurn = false
-                                            blackTurn = true
+                                            color[finalPosition] = white
+                                            player = black
                                         }
                                     }
-                                    if (color[activeFieldID + 6] != "weiss" && finalPosition == activeFieldID + 6) {
+                                    if (color[activeFieldID + 6] != white && finalPosition == activeFieldID + 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (color[activeFieldID + 5] != "weiss" && finalPosition == activeFieldID + 5) {
+                                if (color[activeFieldID + 5] != white && finalPosition == activeFieldID + 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (color[activeFieldID + 4] != "weiss" && finalPosition == activeFieldID + 4) {
+                            if (color[activeFieldID + 4] != white && finalPosition == activeFieldID + 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (color[activeFieldID + 3] != "weiss" && finalPosition == activeFieldID + 3) {
+                        if (color[activeFieldID + 3] != white && finalPosition == activeFieldID + 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (color[activeFieldID + 2] != "weiss" && finalPosition == activeFieldID + 2) {
+                    if (color[activeFieldID + 2] != white && finalPosition == activeFieldID + 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (color[activeFieldID + 1] != "weiss" && finalPosition == activeFieldID + 1) {
+                if (color[activeFieldID + 1] != white && finalPosition == activeFieldID + 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
 
                 if (occupancy[activeFieldID - 1] == false) {
@@ -1190,81 +1202,80 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID - 4] == false) {
                                 if (occupancy[activeFieldID - 5] == false) {
                                     if (occupancy[activeFieldID - 6] == false) {
-                                        if (color[activeFieldID - 7] != "weiss" && finalPosition == activeFieldID - 7) {
+                                        if (color[activeFieldID - 7] != white && finalPosition == activeFieldID - 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "weiss"
-                                            whiteTurn = false
-                                            blackTurn = true
+                                            color[finalPosition] = white
+                                            player = black
                                         }
                                     }
-                                    if (color[activeFieldID - 6] != "weiss" && finalPosition == activeFieldID - 6) {
+                                    if (color[activeFieldID - 6] != white && finalPosition == activeFieldID - 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (color[activeFieldID - 5] != "weiss" && finalPosition == activeFieldID - 5) {
+                                if (color[activeFieldID - 5] != white && finalPosition == activeFieldID - 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (color[activeFieldID - 4] != "weiss" && finalPosition == activeFieldID - 4) {
+                            if (color[activeFieldID - 4] != white && finalPosition == activeFieldID - 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (color[activeFieldID - 3] != "weiss" && finalPosition == activeFieldID - 3) {
+                        if (color[activeFieldID - 3] != white && finalPosition == activeFieldID - 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (color[activeFieldID - 2] != "weiss" && finalPosition == activeFieldID - 2) {
+                    if (color[activeFieldID - 2] != white && finalPosition == activeFieldID - 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (color[activeFieldID - 1] != "weiss" && finalPosition == activeFieldID - 1) {
+                if (color[activeFieldID - 1] != white && finalPosition == activeFieldID - 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
 
@@ -1274,81 +1285,81 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID - 28] == false) {
                             if (occupancy[activeFieldID - 35] == false) {
                                 if (occupancy[activeFieldID - 42] == false) {
-                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != "weiss" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != white && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != "weiss" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != white && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != "weiss" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != white && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != "weiss" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != white && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != "weiss" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != white && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != "weiss" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != white && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != "weiss" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != white && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID + 7] == false) {
@@ -1357,81 +1368,81 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 28] == false) {
                             if (occupancy[activeFieldID + 35] == false) {
                                 if (occupancy[activeFieldID + 42] == false) {
-                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != "weiss" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != white && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != "weiss" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != white && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != "weiss" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != white && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != "weiss" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != white && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != "weiss" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != white && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != "weiss" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != white && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != "weiss" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != white && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID + 9] == false) {
@@ -1440,81 +1451,81 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 36] == false) {
                             if (occupancy[activeFieldID + 45] == false) {
                                 if (occupancy[activeFieldID + 54] == false) {
-                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != "weiss" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != white && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != "weiss" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != white && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != "weiss" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != white && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != "weiss" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != white && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != "weiss" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != white && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != "weiss" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != white && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != "weiss" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != white && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
 
             if (occupancy[activeFieldID - 9] == false) {
@@ -1523,265 +1534,315 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID - 36] == false) {
                             if (occupancy[activeFieldID - 45] == false) {
                                 if (occupancy[activeFieldID - 54] == false) {
-                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != "weiss" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != white && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "weiss"
-                                        whiteTurn = false
-                                        blackTurn = true
+                                        color[finalPosition] = white
+                                        player = black
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != "weiss" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != white && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "weiss"
-                                    whiteTurn = false
-                                    blackTurn = true
+                                    color[finalPosition] = white
+                                    player = black
                                 }
                             }
-                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != "weiss" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != white && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "weiss"
-                                whiteTurn = false
-                                blackTurn = true
+                                color[finalPosition] = white
+                                player = black
                             }
                         }
-                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != "weiss" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != white && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "weiss"
-                            whiteTurn = false
-                            blackTurn = true
+                            color[finalPosition] = white
+                            player = black
                         }
                     }
-                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != "weiss" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != white && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "weiss"
-                        whiteTurn = false
-                        blackTurn = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != "weiss" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != white && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "weiss"
-                    whiteTurn = false
-                    blackTurn = true
+                    color[finalPosition] = white
+                    player = black
                 }
             }
-            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != "weiss" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != white && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
         }
 
-        if (activeType == "K&ouml;nig weiss") {
-            if (color[activeFieldID - 1] != "weiss" && finalPosition == activeFieldID - 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+        if (activeType == "<img src='Icons/white_king.png'>") {
+            if (color[activeFieldID - 1] != white && finalPosition == activeFieldID - 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
-            } else if (color[activeFieldID + 1] != "weiss" && finalPosition == activeFieldID + 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                color[finalPosition] = white
+                player = black
+            } else if (color[activeFieldID + 1] != white && finalPosition == activeFieldID + 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
             }
-            if (color[activeFieldID - 8] != "weiss" && finalPosition == activeFieldID - 8 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (color[activeFieldID - 8] != white && finalPosition == activeFieldID - 8 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
-            } else if (color[activeFieldID + 8] != "weiss" && finalPosition == activeFieldID + 8 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                color[finalPosition] = white
+                player = black
+            } else if (color[activeFieldID + 8] != white && finalPosition == activeFieldID + 8 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "weiss"
-                whiteTurn = false
-                blackTurn = true
+                color[finalPosition] = white
+                player = black
+            }
+
+            if (color[activeFieldID + 7] != white && finalPosition == activeFieldID + 7 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+            } else if (color[activeFieldID + 9] != white && finalPosition == activeFieldID + 9 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+            }
+
+            if (color[activeFieldID - 7] != white && finalPosition == activeFieldID - 7 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+            } else if (color[activeFieldID - 9] != white && finalPosition == activeFieldID - 9 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
             }
         }
-    }
 
-    if (blackTurn == true) {
-        if (activeType == "Bauer schwarz") {
+    } else if (player == black) {
+        if (activeType == "<img src='Icons/black_pawn.png'>") {
             if (finalPosition == activeFieldID + 9) {
-                if (color[finalPosition] == "weiss") {
+                if (color[finalPosition] == white) {
                     if (occupancy[finalPosition] == true) {
                         if (Math.floor((activeFieldID + 8) / 8) == Math.floor((activeFieldID + 9) / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
                 }
             } else if (finalPosition == activeFieldID + 7) {
-                if (color[finalPosition] == "weiss") {
+                if (color[finalPosition] == white) {
                     if (occupancy[finalPosition] == true) {
                         if (Math.floor((activeFieldID + 8) / 8) == Math.floor((activeFieldID + 7) / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
                 }
             } else if (finalPosition == activeFieldID + 8) {
                 if (occupancy[activeFieldID + 8] != true) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             } else if (activeFieldID < 16 && finalPosition == activeFieldID + 16) {
                 if (occupancy[activeFieldID + 16] != true) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
         }
 
-        if (activeType == "Turm schwarz") {
+        if (activeType == "<img src='Icons/black_rook.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
                         if (occupancy[activeFieldID - 32] == false) {
                             if (occupancy[activeFieldID - 40] == false) {
                                 if (occupancy[activeFieldID - 48] == false) {
-                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != "schwarz") {
+                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != black) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != "schwarz") {
+                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != black) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != "schwarz") {
+                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != black) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != "schwarz") {
+                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != black) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != "schwarz") {
+                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != black) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != "schwarz") {
+                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != black) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "schwarz") {
+            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != black) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID + 8] == false) {
@@ -1790,81 +1851,88 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 32] == false) {
                             if (occupancy[activeFieldID + 40] == false) {
                                 if (occupancy[activeFieldID + 48] == false) {
-                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != "schwarz") {
+                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != black) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != "schwarz") {
+                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != black) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != "schwarz") {
+                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != black) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != "schwarz") {
+                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != black) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != "schwarz") {
+                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != black) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != "schwarz") {
+                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != black) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != "schwarz") {
+            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != black) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
@@ -1874,81 +1942,87 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID + 4] == false) {
                                 if (occupancy[activeFieldID + 5] == false) {
                                     if (occupancy[activeFieldID + 6] == false) {
-                                        if (color[activeFieldID + 7] != "schwarz" && finalPosition == activeFieldID + 7) {
+                                        if (color[activeFieldID + 7] != black && finalPosition == activeFieldID + 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "schwarz"
-                                            whiteTurn = true
-                                            blackTurn = false
+                                            color[finalPosition] = black
+                                            player = white
+
                                         }
                                     }
-                                    if (color[activeFieldID + 6] != "schwarz" && finalPosition == activeFieldID + 6) {
+                                    if (color[activeFieldID + 6] != black && finalPosition == activeFieldID + 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (color[activeFieldID + 5] != "schwarz" && finalPosition == activeFieldID + 5) {
+                                if (color[activeFieldID + 5] != black && finalPosition == activeFieldID + 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (color[activeFieldID + 4] != "schwarz" && finalPosition == activeFieldID + 4) {
+                            if (color[activeFieldID + 4] != black && finalPosition == activeFieldID + 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (color[activeFieldID + 3] != "schwarz" && finalPosition == activeFieldID + 3) {
+                        if (color[activeFieldID + 3] != black && finalPosition == activeFieldID + 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (color[activeFieldID + 2] != "schwarz" && finalPosition == activeFieldID + 2) {
+                    if (color[activeFieldID + 2] != black && finalPosition == activeFieldID + 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (color[activeFieldID + 1] != "schwarz" && finalPosition == activeFieldID + 1) {
+                if (color[activeFieldID + 1] != black && finalPosition == activeFieldID + 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
 
                 if (occupancy[activeFieldID - 1] == false) {
@@ -1957,212 +2031,229 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID - 4] == false) {
                                 if (occupancy[activeFieldID - 5] == false) {
                                     if (occupancy[activeFieldID - 6] == false) {
-                                        if (color[activeFieldID - 7] != "schwarz" && finalPosition == activeFieldID - 7) {
+                                        if (color[activeFieldID - 7] != black && finalPosition == activeFieldID - 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "schwarz"
-                                            whiteTurn = true
-                                            blackTurn = false
+                                            color[finalPosition] = black
+                                            player = white
+
                                         }
                                     }
-                                    if (color[activeFieldID - 6] != "schwarz" && finalPosition == activeFieldID - 6) {
+                                    if (color[activeFieldID - 6] != black && finalPosition == activeFieldID - 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (color[activeFieldID - 5] != "schwarz" && finalPosition == activeFieldID - 5) {
+                                if (color[activeFieldID - 5] != black && finalPosition == activeFieldID - 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (color[activeFieldID - 4] != "schwarz" && finalPosition == activeFieldID - 4) {
+                            if (color[activeFieldID - 4] != black && finalPosition == activeFieldID - 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (color[activeFieldID - 3] != "schwarz" && finalPosition == activeFieldID - 3) {
+                        if (color[activeFieldID - 3] != black && finalPosition == activeFieldID - 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (color[activeFieldID - 2] != "schwarz" && finalPosition == activeFieldID - 2) {
+                    if (color[activeFieldID - 2] != black && finalPosition == activeFieldID - 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (color[activeFieldID - 1] != "schwarz" && finalPosition == activeFieldID - 1) {
+                if (color[activeFieldID - 1] != black && finalPosition == activeFieldID - 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
         }
 
-        if (activeType == "Pferd schwarz") {
-            if (color[finalPosition] != "schwarz") {
+        if (activeType == "<img src='Icons/black_knight.png'>") {
+            if (color[finalPosition] != black) {
                 if ((finalPosition == activeFieldID - 15 || finalPosition == activeFieldID - 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 2)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
                 if ((finalPosition == activeFieldID - 6 || finalPosition == activeFieldID - 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 1)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
                 if ((finalPosition == activeFieldID + 15 || finalPosition == activeFieldID + 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 2)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
                 if ((finalPosition == activeFieldID + 6 || finalPosition == activeFieldID + 10) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 + 1)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
         }
 
-        if (activeType == "L&auml;ufer schwarz") {
+        if (activeType == "<img src='Icons/black_bishop.png'>") {
             if (occupancy[activeFieldID - 7] == false) {
                 if (occupancy[activeFieldID - 14] == false) {
                     if (occupancy[activeFieldID - 21] == false) {
                         if (occupancy[activeFieldID - 28] == false) {
                             if (occupancy[activeFieldID - 35] == false) {
                                 if (occupancy[activeFieldID - 42] == false) {
-                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != "schwarz" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != black && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != "schwarz" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != black && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != "schwarz" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != black && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != "schwarz" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != black && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != "schwarz" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != black && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != "schwarz" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != black && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != "schwarz" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != black && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID + 7] == false) {
@@ -2171,81 +2262,88 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 28] == false) {
                             if (occupancy[activeFieldID + 35] == false) {
                                 if (occupancy[activeFieldID + 42] == false) {
-                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != "schwarz" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != black && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != "schwarz" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != black && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != "schwarz" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != black && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != "schwarz" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != black && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != "schwarz" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != black && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != "schwarz" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != black && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != "schwarz" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != black && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID + 9] == false) {
@@ -2254,81 +2352,88 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 36] == false) {
                             if (occupancy[activeFieldID + 45] == false) {
                                 if (occupancy[activeFieldID + 54] == false) {
-                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != "schwarz" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != black && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != "schwarz" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != black && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != "schwarz" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != black && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != "schwarz" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != black && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != "schwarz" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != black && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != "schwarz" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != black && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != "schwarz" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != black && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID - 9] == false) {
@@ -2337,166 +2442,180 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID - 36] == false) {
                             if (occupancy[activeFieldID - 45] == false) {
                                 if (occupancy[activeFieldID - 54] == false) {
-                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != "schwarz" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != black && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != "schwarz" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != black && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != "schwarz" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != black && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != "schwarz" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != black && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != "schwarz" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != black && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != "schwarz" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != black && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != "schwarz" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != black && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
         }
 
-        if (activeType == "K&ouml;nigin schwarz") {
+        if (activeType == "<img src='Icons/black_queen.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
                         if (occupancy[activeFieldID - 32] == false) {
                             if (occupancy[activeFieldID - 40] == false) {
                                 if (occupancy[activeFieldID - 48] == false) {
-                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != "schwarz") {
+                                    if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != black) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != "schwarz") {
+                                if (finalPosition == activeFieldID - 48 && color[activeFieldID - 48] != black) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != "schwarz") {
+                            if (finalPosition == activeFieldID - 40 && color[activeFieldID - 40] != black) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != "schwarz") {
+                        if (finalPosition == activeFieldID - 32 && color[activeFieldID - 32] != black) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != "schwarz") {
+                    if (finalPosition == activeFieldID - 24 && color[activeFieldID - 24] != black) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != "schwarz") {
+                if (finalPosition == activeFieldID - 16 && color[activeFieldID - 16] != black) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != "schwarz") {
+            if (finalPosition == activeFieldID - 8 && color[activeFieldID - 8] != black) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID + 8] == false) {
@@ -2505,81 +2624,88 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 32] == false) {
                             if (occupancy[activeFieldID + 40] == false) {
                                 if (occupancy[activeFieldID + 48] == false) {
-                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != "schwarz") {
+                                    if (finalPosition == activeFieldID + 56 && color[activeFieldID + 56] != black) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != "schwarz") {
+                                if (finalPosition == activeFieldID + 48 && color[activeFieldID + 48] != black) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != "schwarz") {
+                            if (finalPosition == activeFieldID + 40 && color[activeFieldID + 40] != black) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != "schwarz") {
+                        if (finalPosition == activeFieldID + 32 && color[activeFieldID + 32] != black) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != "schwarz") {
+                    if (finalPosition == activeFieldID + 24 && color[activeFieldID + 24] != black) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != "schwarz") {
+                if (finalPosition == activeFieldID + 16 && color[activeFieldID + 16] != black) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != "schwarz") {
+            if (finalPosition == activeFieldID + 8 && color[activeFieldID + 8] != black) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
@@ -2589,81 +2715,87 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID + 4] == false) {
                                 if (occupancy[activeFieldID + 5] == false) {
                                     if (occupancy[activeFieldID + 6] == false) {
-                                        if (color[activeFieldID + 7] != "schwarz" && finalPosition == activeFieldID + 7) {
+                                        if (color[activeFieldID + 7] != black && finalPosition == activeFieldID + 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "schwarz"
-                                            whiteTurn = true
-                                            blackTurn = false
+                                            color[finalPosition] = black
+                                            player = white
+
                                         }
                                     }
-                                    if (color[activeFieldID + 6] != "schwarz" && finalPosition == activeFieldID + 6) {
+                                    if (color[activeFieldID + 6] != black && finalPosition == activeFieldID + 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (color[activeFieldID + 5] != "schwarz" && finalPosition == activeFieldID + 5) {
+                                if (color[activeFieldID + 5] != black && finalPosition == activeFieldID + 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (color[activeFieldID + 4] != "schwarz" && finalPosition == activeFieldID + 4) {
+                            if (color[activeFieldID + 4] != black && finalPosition == activeFieldID + 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (color[activeFieldID + 3] != "schwarz" && finalPosition == activeFieldID + 3) {
+                        if (color[activeFieldID + 3] != black && finalPosition == activeFieldID + 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (color[activeFieldID + 2] != "schwarz" && finalPosition == activeFieldID + 2) {
+                    if (color[activeFieldID + 2] != black && finalPosition == activeFieldID + 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (color[activeFieldID + 1] != "schwarz" && finalPosition == activeFieldID + 1) {
+                if (color[activeFieldID + 1] != black && finalPosition == activeFieldID + 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
 
                 if (occupancy[activeFieldID - 1] == false) {
@@ -2672,81 +2804,87 @@ function toHere(finalPosition) {
                             if (occupancy[activeFieldID - 4] == false) {
                                 if (occupancy[activeFieldID - 5] == false) {
                                     if (occupancy[activeFieldID - 6] == false) {
-                                        if (color[activeFieldID - 7] != "schwarz" && finalPosition == activeFieldID - 7) {
+                                        if (color[activeFieldID - 7] != black && finalPosition == activeFieldID - 7) {
                                             pieces[activeFieldID] = ""
                                             color[activeFieldID] = ""
                                             occupancy[activeFieldID] = false
                                             pieces[finalPosition] = activeType
                                             occupancy[finalPosition] = true
-                                            color[finalPosition] = "schwarz"
-                                            whiteTurn = true
-                                            blackTurn = false
+                                            color[finalPosition] = black
+                                            player = white
+
                                         }
                                     }
-                                    if (color[activeFieldID - 6] != "schwarz" && finalPosition == activeFieldID - 6) {
+                                    if (color[activeFieldID - 6] != black && finalPosition == activeFieldID - 6) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (color[activeFieldID - 5] != "schwarz" && finalPosition == activeFieldID - 5) {
+                                if (color[activeFieldID - 5] != black && finalPosition == activeFieldID - 5) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (color[activeFieldID - 4] != "schwarz" && finalPosition == activeFieldID - 4) {
+                            if (color[activeFieldID - 4] != black && finalPosition == activeFieldID - 4) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (color[activeFieldID - 3] != "schwarz" && finalPosition == activeFieldID - 3) {
+                        if (color[activeFieldID - 3] != black && finalPosition == activeFieldID - 3) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (color[activeFieldID - 2] != "schwarz" && finalPosition == activeFieldID - 2) {
+                    if (color[activeFieldID - 2] != black && finalPosition == activeFieldID - 2) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (color[activeFieldID - 1] != "schwarz" && finalPosition == activeFieldID - 1) {
+                if (color[activeFieldID - 1] != black && finalPosition == activeFieldID - 1) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
 
@@ -2756,81 +2894,88 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID - 28] == false) {
                             if (occupancy[activeFieldID - 35] == false) {
                                 if (occupancy[activeFieldID - 42] == false) {
-                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != "schwarz" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 49 && color[activeFieldID - 49] != black && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != "schwarz" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 42 && color[activeFieldID - 42] != black && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != "schwarz" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 35 && color[activeFieldID - 35] != black && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != "schwarz" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 28 && color[activeFieldID - 28] != black && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != "schwarz" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 21 && color[activeFieldID - 21] != black && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != "schwarz" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 14 && color[activeFieldID - 14] != black && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != "schwarz" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 7 && color[activeFieldID - 7] != black && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID + 7] == false) {
@@ -2839,81 +2984,88 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 28] == false) {
                             if (occupancy[activeFieldID + 35] == false) {
                                 if (occupancy[activeFieldID + 42] == false) {
-                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != "schwarz" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 49 && color[activeFieldID + 49] != black && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != "schwarz" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 42 && color[activeFieldID + 42] != black && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != "schwarz" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 35 && color[activeFieldID + 35] != black && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != "schwarz" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 28 && color[activeFieldID + 28] != black && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != "schwarz" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 21 && color[activeFieldID + 21] != black && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != "schwarz" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 14 && color[activeFieldID + 14] != black && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != "schwarz" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 7 && color[activeFieldID + 7] != black && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID + 9] == false) {
@@ -2922,81 +3074,88 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID + 36] == false) {
                             if (occupancy[activeFieldID + 45] == false) {
                                 if (occupancy[activeFieldID + 54] == false) {
-                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != "schwarz" && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID + 63 && color[activeFieldID + 63] != black && Math.floor(activeFieldID / 8 + 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != "schwarz" && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID + 54 && color[activeFieldID + 54] != black && Math.floor(activeFieldID / 8 + 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != "schwarz" && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID + 45 && color[activeFieldID + 45] != black && Math.floor(activeFieldID / 8 + 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != "schwarz" && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID + 36 && color[activeFieldID + 36] != black && Math.floor(activeFieldID / 8 + 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != "schwarz" && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID + 27 && color[activeFieldID + 27] != black && Math.floor(activeFieldID / 8 + 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != "schwarz" && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID + 18 && color[activeFieldID + 18] != black && Math.floor(activeFieldID / 8 + 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != "schwarz" && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID + 9 && color[activeFieldID + 9] != black && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
 
             if (occupancy[activeFieldID - 9] == false) {
@@ -3005,128 +3164,181 @@ function toHere(finalPosition) {
                         if (occupancy[activeFieldID - 36] == false) {
                             if (occupancy[activeFieldID - 45] == false) {
                                 if (occupancy[activeFieldID - 54] == false) {
-                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != "schwarz" && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                    if (finalPosition == activeFieldID - 63 && color[activeFieldID - 63] != black && Math.floor(activeFieldID / 8 - 7) == Math.floor(finalPosition / 8)) {
+                                        opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
                                         color[activeFieldID] = ""
                                         occupancy[activeFieldID] = false
                                         pieces[finalPosition] = activeType
                                         occupancy[finalPosition] = true
-                                        color[finalPosition] = "schwarz"
-                                        whiteTurn = true
-                                        blackTurn = false
+                                        color[finalPosition] = black
+                                        player = white
+
                                     }
                                 }
-                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != "schwarz" && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                if (finalPosition == activeFieldID - 54 && color[activeFieldID - 54] != black && Math.floor(activeFieldID / 8 - 6) == Math.floor(finalPosition / 8)) {
+                                    opponent = pieces[finalPosition];
                                     pieces[activeFieldID] = ""
                                     color[activeFieldID] = ""
                                     occupancy[activeFieldID] = false
                                     pieces[finalPosition] = activeType
                                     occupancy[finalPosition] = true
-                                    color[finalPosition] = "schwarz"
-                                    whiteTurn = true
-                                    blackTurn = false
+                                    color[finalPosition] = black
+                                    player = white
+
                                 }
                             }
-                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != "schwarz" && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                            if (finalPosition == activeFieldID - 45 && color[activeFieldID - 45] != black && Math.floor(activeFieldID / 8 - 5) == Math.floor(finalPosition / 8)) {
+                                opponent = pieces[finalPosition];
                                 pieces[activeFieldID] = ""
                                 color[activeFieldID] = ""
                                 occupancy[activeFieldID] = false
                                 pieces[finalPosition] = activeType
                                 occupancy[finalPosition] = true
-                                color[finalPosition] = "schwarz"
-                                whiteTurn = true
-                                blackTurn = false
+                                color[finalPosition] = black
+                                player = white
+
                             }
                         }
-                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != "schwarz" && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                        if (finalPosition == activeFieldID - 36 && color[activeFieldID - 36] != black && Math.floor(activeFieldID / 8 - 4) == Math.floor(finalPosition / 8)) {
+                            opponent = pieces[finalPosition];
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
                             pieces[finalPosition] = activeType
                             occupancy[finalPosition] = true
-                            color[finalPosition] = "schwarz"
-                            whiteTurn = true
-                            blackTurn = false
+                            color[finalPosition] = black
+                            player = white
+
                         }
                     }
-                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != "schwarz" && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                    if (finalPosition == activeFieldID - 27 && color[activeFieldID - 27] != black && Math.floor(activeFieldID / 8 - 3) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
                         pieces[activeFieldID] = ""
                         color[activeFieldID] = ""
                         occupancy[activeFieldID] = false
                         pieces[finalPosition] = activeType
                         occupancy[finalPosition] = true
-                        color[finalPosition] = "schwarz"
-                        whiteTurn = true
-                        blackTurn = false
+                        color[finalPosition] = black
+                        player = white
+
                     }
                 }
-                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != "schwarz" && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                if (finalPosition == activeFieldID - 18 && color[activeFieldID - 18] != black && Math.floor(activeFieldID / 8 - 2) == Math.floor(finalPosition / 8)) {
+                    opponent = pieces[finalPosition];
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
                     occupancy[activeFieldID] = false
                     pieces[finalPosition] = activeType
                     occupancy[finalPosition] = true
-                    color[finalPosition] = "schwarz"
-                    whiteTurn = true
-                    blackTurn = false
+                    color[finalPosition] = black
+                    player = white
+
                 }
             }
-            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != "schwarz" && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+            if (finalPosition == activeFieldID - 9 && color[activeFieldID - 9] != black && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+
             }
         }
 
-        if (activeType == "K&ouml;nig schwarz") {
-            if (color[activeFieldID - 1] != "schwarz" && finalPosition == activeFieldID - 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+        if (activeType == "<img src='Icons/black_king.png'>") {
+            if (color[activeFieldID - 1] != black && finalPosition == activeFieldID - 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
-            } else if (color[activeFieldID + 1] != "schwarz" && finalPosition == activeFieldID + 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                color[finalPosition] = black
+                player = white
+            } else if (color[activeFieldID + 1] != black && finalPosition == activeFieldID + 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
             }
-            if (color[activeFieldID - 8] != "schwarz" && finalPosition == activeFieldID - 8 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+
+            if (color[activeFieldID - 8] != black && finalPosition == activeFieldID - 8 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
-            } else if (color[activeFieldID + 8] != "schwarz" && finalPosition == activeFieldID + 8 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                color[finalPosition] = black
+                player = white
+            } else if (color[activeFieldID + 8] != black && finalPosition == activeFieldID + 8 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
                 color[activeFieldID] = ""
                 occupancy[activeFieldID] = false
                 pieces[finalPosition] = activeType
                 occupancy[finalPosition] = true
-                color[finalPosition] = "schwarz"
-                whiteTurn = true
-                blackTurn = false
+                color[finalPosition] = black
+                player = white
+            }
+
+
+            if (color[activeFieldID + 7] != black && finalPosition == activeFieldID + 7 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+            } else if (color[activeFieldID + 9] != black && finalPosition == activeFieldID + 9 && Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+            }
+
+            if (color[activeFieldID - 7] != black && finalPosition == activeFieldID - 7 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+            } else if (color[activeFieldID - 9] != black && finalPosition == activeFieldID - 9 && Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                opponent = pieces[finalPosition];
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
             }
         }
     }
 
-    row = 0;
-    col = 0;
+    if (activeFieldID == finalPosition) {
+        opponent = ""
+    }
+
+    row = 0
+    col = 0
     boardContent = "<table  class='chessboard' id='chessboard'>"
 
     activeFieldID = 0
@@ -3155,23 +3367,81 @@ function toHere(finalPosition) {
 
     if (opponent != "") {
         switch (opponent) {
-            case "Bauer schwarz":
-                deadBlack[rowWhite] = "Bauer schwarz"
+            case "<img src='Icons/black_pawn.png'>":
+                deadBlack[rowWhite] = "<img src='Icons/black_pawn.png'>"
                 id = rowWhite + "white"
                 document.getElementById(id).innerHTML = deadBlack[rowWhite++]
+                break;
+            case "<img src='Icons/black_rook.png'>":
+                deadBlack[rowWhite] = "<img src='Icons/black_rook.png'>"
+                id = rowWhite + "white"
+                document.getElementById(id).innerHTML = deadBlack[rowWhite++]
+                break;
+            case "<img src='Icons/black_knight.png'>":
+                deadBlack[rowWhite] = "<img src='Icons/black_knight.png'>"
+                id = rowWhite + "white"
+                document.getElementById(id).innerHTML = deadBlack[rowWhite++]
+                break;
+            case "<img src='Icons/black_bishop.png'>":
+                deadBlack[rowWhite] = "<img src='Icons/black_bishop.png'>"
+                id = rowWhite + "white"
+                document.getElementById(id).innerHTML = deadBlack[rowWhite++]
+                break;
+            case "<img src='Icons/black_queen.png'>":
+                deadBlack[rowWhite] = "<img src='Icons/black_queen.png'>"
+                id = rowWhite + "white"
+                document.getElementById(id).innerHTML = deadBlack[rowWhite++]
+                break;
+            case "<img src='Icons/black_king.png'>":
+                deadBlack[rowWhite] = "<img src='Icons/black_king.png'>"
+                id = rowWhite + "white"
+                document.getElementById(id).innerHTML = deadBlack[rowWhite++]
+                break;
+            case "<img src='Icons/white_pawn.png'>":
+                deadWhite[rowBlack] = "<img src='Icons/white_pawn.png'>"
+                id = rowBlack + "black"
+                document.getElementById(id).innerHTML = deadWhite[rowBlack++]
+                break;
+            case "<img src='Icons/white_rook.png'>":
+                deadWhite[rowBlack] = "<img src='Icons/white_rook.png'>"
+                id = rowBlack + "black"
+                document.getElementById(id).innerHTML = deadWhite[rowBlack++]
+                break;
+            case "<img src='Icons/white_knight.png'>":
+                deadWhite[rowBlack] = "<img src='Icons/white_knight.png'>"
+                id = rowBlack + "black"
+                document.getElementById(id).innerHTML = deadWhite[rowBlack++]
+                break;
+            case "<img src='Icons/white_bishop.png'>":
+                deadWhite[rowBlack] = "<img src='Icons/white_bishop.png'>"
+                id = rowBlack + "black"
+                document.getElementById(id).innerHTML = deadWhite[rowBlack++]
+                break;
+            case "<img src='Icons/white_king.png'>":
+                deadWhite[rowBlack] = "<img src='Icons/white_king.png'>"
+                id = rowBlack + "black"
+                document.getElementById(id).innerHTML = deadWhite[rowBlack++]
+                break;
+            case "<img src='Icons/white_queen.png'>":
+                deadWhite[rowBlack] = "<img src='Icons/white_queen.png'>"
+                id = rowBlack + "black"
+                document.getElementById(id).innerHTML = deadWhite[rowBlack++]
+                break;
         }
 
     }
 
-    if (opponent == "K&ouml;nig schwarz") {
+    if (opponent == "<img src='Icons/black_king.png'>") {
         alert("Weiss hat gewonnen!")
         CreateChessboard()
     }
 
-    if (opponent == "K&ouml;nig weiss") {
+    if (opponent == "<img src='Icons/white_king.png'>") {
         alert("Schwarz hat gewonnen!")
         CreateChessboard()
     }
+
+    document.getElementById("player").innerHTML = player + " ist am Zug."
 
 }
 
