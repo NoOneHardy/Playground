@@ -7,6 +7,7 @@ body {
 	min-height: 100%;
 	text-align: center;
 	background-repeat: no-repeat;
+	justify-content: space-around;
 }
 
 html {
@@ -80,7 +81,7 @@ li.navi-bar a:hover {
 	font-family: Source code pro, courier, courier new;
 	margin: 0.5cm;
 	padding: 0.5cm;
-	font-size: 15px;
+	font-size: 20px;
 	overflow-wrap: break-word;
 }
 
