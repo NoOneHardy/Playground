@@ -231,9 +231,7 @@ function toHere(finalPosition) {
                     player = black
                 }
             }
-        }
-
-        if (activeType == "<img src='Icons/white_rook.png'>") {
+        } else if (activeType == "<img src='Icons/white_rook.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
@@ -565,9 +563,7 @@ function toHere(finalPosition) {
                     player = black
                 }
             }
-        }
-
-        if (activeType == "<img src='Icons/white_knight.png'>") {
+        } else if (activeType == "<img src='Icons/white_knight.png'>") {
             if (color[finalPosition] != white) {
                 if ((finalPosition == activeFieldID - 15 || finalPosition == activeFieldID - 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 2)) {
                     opponent = pieces[finalPosition];
@@ -610,9 +606,7 @@ function toHere(finalPosition) {
                     player = black
                 }
             }
-        }
-
-        if (activeType == "<img src='Icons/white_bishop.png'>") {
+        } else if (activeType == "<img src='Icons/white_bishop.png'>") {
             if (occupancy[activeFieldID - 7] == false) {
                 if (occupancy[activeFieldID - 14] == false) {
                     if (occupancy[activeFieldID - 21] == false) {
@@ -944,9 +938,7 @@ function toHere(finalPosition) {
                 color[finalPosition] = white
                 player = black
             }
-        }
-
-        if (activeType == "<img src='Icons/white_queen.png'>") {
+        } else if (activeType == "<img src='Icons/white_queen.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
@@ -1610,9 +1602,7 @@ function toHere(finalPosition) {
                 color[finalPosition] = white
                 player = black
             }
-        }
-
-        if (activeType == "<img src='Icons/white_king.png'>") {
+        } else if (activeType == "<img src='Icons/white_king.png'>") {
             if (color[activeFieldID - 1] != white && finalPosition == activeFieldID - 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
                 opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
@@ -1752,9 +1742,7 @@ function toHere(finalPosition) {
 
                 }
             }
-        }
-
-        if (activeType == "<img src='Icons/black_rook.png'>") {
+        } else if (activeType == "<img src='Icons/black_rook.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
@@ -2114,9 +2102,7 @@ function toHere(finalPosition) {
 
                 }
             }
-        }
-
-        if (activeType == "<img src='Icons/black_knight.png'>") {
+        } else if (activeType == "<img src='Icons/black_knight.png'>") {
             if (color[finalPosition] != black) {
                 if ((finalPosition == activeFieldID - 15 || finalPosition == activeFieldID - 17) && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 2)) {
                     opponent = pieces[finalPosition];
@@ -2163,9 +2149,7 @@ function toHere(finalPosition) {
 
                 }
             }
-        }
-
-        if (activeType == "<img src='Icons/black_bishop.png'>") {
+        } else if (activeType == "<img src='Icons/black_bishop.png'>") {
             if (occupancy[activeFieldID - 7] == false) {
                 if (occupancy[activeFieldID - 14] == false) {
                     if (occupancy[activeFieldID - 21] == false) {
@@ -2525,9 +2509,7 @@ function toHere(finalPosition) {
                 player = white
 
             }
-        }
-
-        if (activeType == "<img src='Icons/black_queen.png'>") {
+        } else if (activeType == "<img src='Icons/black_queen.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
                 if (occupancy[activeFieldID - 16] == false) {
                     if (occupancy[activeFieldID - 24] == false) {
@@ -3247,9 +3229,7 @@ function toHere(finalPosition) {
                 player = white
 
             }
-        }
-
-        if (activeType == "<img src='Icons/black_king.png'>") {
+        } else if (activeType == "<img src='Icons/black_king.png'>") {
             if (color[activeFieldID - 1] != black && finalPosition == activeFieldID - 1 && Math.floor(activeFieldID / 8) == Math.floor(finalPosition / 8)) {
                 opponent = pieces[finalPosition];
                 pieces[activeFieldID] = ""
