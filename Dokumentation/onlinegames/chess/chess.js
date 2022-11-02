@@ -7,6 +7,7 @@ var boardContent = "<table  class='chessboard'>"
 var activeFieldID = 0
 var player = "Weiss";
 var activePieceactiveType = ""
+var opponent = ""
 
 //Important constants
 const chessboard = document.getElementById("chessboard")
@@ -20,6 +21,7 @@ const black = "Schwarz"
 
 //Create the chessboard
 function CreateChessboard() {
+    //Reset variables
     activeFieldID = 0
     boardContent = "<table  class='chessboard'>"
     row = 0
@@ -27,18 +29,16 @@ function CreateChessboard() {
     player = white
     let id = ""
 
+    //Reset Deathlist
     for (let x = 1; x <= 16;) {
         id = x + "white"
         document.getElementById(id).innerHTML = ""
-        x++
-    }
-
-    for (let x = 1; x <= 16;) {
         id = x + "black"
         document.getElementById(id).innerHTML = ""
         x++
     }
 
+    //Add pieces
     for (let x = 0; x < 64;) {
         pieces[x++] = ""
     }
@@ -79,6 +79,8 @@ function CreateChessboard() {
         "<img src='Icons/white_knight.png'>",
         "<img src='Icons/white_rook.png'>")
 
+
+    //Add Colorlist
     for (let x = 0; x < 64;) {
         color[x++] = ""
     }
@@ -119,15 +121,18 @@ function CreateChessboard() {
         white,
         white)
 
+    //Create Table
     while (row < 8) {
         boardContent += "<tr>"
         while (col < 8) {
+            //Set the occupancy
             if (pieces[activeFieldID] == "") {
                 occupancy[activeFieldID] = false
             }
             else {
                 occupancy[activeFieldID] = true
             }
+            //Adding a function to select which piece should move, the fieldID and the piece
             boardContent += "<td class='piece' onclick='move(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
             col++
         }
@@ -139,97 +144,97 @@ function CreateChessboard() {
     chessboard.innerHTML = boardContent
 }
 
+//Choose which piece should move
 function move(startPosition) {
+    //Checking if there is a piece
     if (occupancy[startPosition] == false) {
         alert("Hier steht keine Figur.")
-        return
-    }
-    boardContent = "<table  class='chessboard' id='chessboard'>"
-    row = 0
-    col = 0
-    activeFieldID = 0
+    } else {
 
-    while (row < 8) {
-        boardContent += "<tr>"
-        while (col < 8) {
-            if (pieces[activeFieldID] == "") {
-                occupancy[activeFieldID] = false
-            }
-            else {
-                occupancy[activeFieldID] = true
-            }
-            boardContent += "<td class='piece' onclick='toHere(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
-            col++
-        }
-        boardContent += "</tr>"
-        row++
+        //Reset Variables
+        boardContent = "<table  class='chessboard' id='chessboard'>"
+        row = 0
         col = 0
+        activeFieldID = 0
+
+        //Create a new Table
+        while (row < 8) {
+            boardContent += "<tr>"
+            while (col < 8) {
+                //Adding a function to select where the active piece should move to, the fieldID and the piece
+                boardContent += "<td class='piece' onclick='toHere(" + activeFieldID + ")' id='" + activeFieldID + "'>" + pieces[activeFieldID++] + "</td>"
+                col++
+            }
+            boardContent += "</tr>"
+            row++
+            col = 0
+        }
+        boardContent += "</table>"
+        chessboard.innerHTML = boardContent
+        //Modify the border of the chessboard
+        chessboard.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+        activeFieldID = startPosition
     }
-    boardContent += "</table>"
-    chessboard.innerHTML = boardContent
-    chessboard.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
-    activeFieldID = startPosition
 }
 
-var opponent = ""
-
+//Choose where the function should move to
 function toHere(finalPosition) {
+    //Reset the opponent
     opponent = ""
-    var activeType = pieces[activeFieldID];
+    //Set the activeType
+    var activeType = pieces[activeFieldID]
+
+    //Check if it's white's turn
     if (player == white) {
+        //Check if the active piece is a white pawn
         if (activeType == "<img src='Icons/white_pawn.png'>") {
-            if (finalPosition == activeFieldID - 9) {
-                if (color[finalPosition] == black) {
-                    if (occupancy[finalPosition] == true) {
-                        if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 9) / 8)) {
-                            opponent = pieces[finalPosition];
-                            pieces[activeFieldID] = ""
-                            color[activeFieldID] = ""
-                            occupancy[activeFieldID] = false
-                            pieces[finalPosition] = activeType
-                            occupancy[finalPosition] = true
-                            color[finalPosition] = white
-                            player = black
-                        }
+            //Check if there is a black piece 
+            if (color[finalPosition] == black) {
+                //Check if the target field is diagonal left
+                if (finalPosition == activeFieldID - 9) {
+                    //Check if the target field is one row further
+                    if (Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = white
+                        player = black
+                    }
+                } else if (finalPosition == activeFieldID - 7) {
+                    if (Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-            } else if (finalPosition == activeFieldID - 7) {
-                if (color[finalPosition] == black) {
-                    if (occupancy[finalPosition] == true) {
-                        if (Math.floor((activeFieldID - 8) / 8) == Math.floor((activeFieldID - 7) / 8)) {
-                            opponent = pieces[finalPosition];
-                            pieces[activeFieldID] = ""
-                            color[activeFieldID] = ""
-                            occupancy[activeFieldID] = false
-                            pieces[finalPosition] = activeType
-                            occupancy[finalPosition] = true
-                            color[finalPosition] = white
-                            player = black
-                        }
+            } else if (finalPosition == activeFieldID - 16) {
+                if (activeFieldID > 47) {
+                    if (color[activeFieldID - 16] != white && color[activeFieldID - 8] != white) {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = white
+                        player = black
                     }
                 }
-            } else if (finalPosition == activeFieldID - 8) {
-                if (occupancy[activeFieldID - 8] != true) {
-                    opponent = pieces[finalPosition];
-                    pieces[activeFieldID] = ""
-                    color[activeFieldID] = ""
-                    occupancy[activeFieldID] = false
-                    pieces[finalPosition] = activeType
-                    occupancy[finalPosition] = true
-                    color[finalPosition] = white
-                    player = black
-                }
-            } else if (activeFieldID > 47 && finalPosition == activeFieldID - 16) {
-                if (occupancy[activeFieldID - 16] != true) {
-                    opponent = pieces[finalPosition];
-                    pieces[activeFieldID] = ""
-                    color[activeFieldID] = ""
-                    occupancy[activeFieldID] = false
-                    pieces[finalPosition] = activeType
-                    occupancy[finalPosition] = true
-                    color[finalPosition] = white
-                    player = black
-                }
+            } else if (color[activeFieldID - 8] != white && finalPosition == activeFieldID - 8) {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
             }
         } else if (activeType == "<img src='Icons/white_rook.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
@@ -1682,65 +1687,52 @@ function toHere(finalPosition) {
                 player = black
             }
         }
-
     } else if (player == black) {
         if (activeType == "<img src='Icons/black_pawn.png'>") {
-            if (finalPosition == activeFieldID + 9) {
-                if (color[finalPosition] == white) {
-                    if (occupancy[finalPosition] == true) {
-                        if (Math.floor((activeFieldID + 8) / 8) == Math.floor((activeFieldID + 9) / 8)) {
-                            opponent = pieces[finalPosition];
-                            pieces[activeFieldID] = ""
-                            color[activeFieldID] = ""
-                            occupancy[activeFieldID] = false
-                            pieces[finalPosition] = activeType
-                            occupancy[finalPosition] = true
-                            color[finalPosition] = black
-                            player = white
-
-                        }
+            if (color[finalPosition] == white) {
+                if (finalPosition == activeFieldID + 9) {
+                    if (Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = black
+                        player = white
+                    }
+                } else if (finalPosition == activeFieldID + 7) {
+                    if (Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
+                        opponent = pieces[finalPosition];
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = black
+                        player = white
                     }
                 }
-            } else if (finalPosition == activeFieldID + 7) {
-                if (color[finalPosition] == white) {
-                    if (occupancy[finalPosition] == true) {
-                        if (Math.floor((activeFieldID + 8) / 8) == Math.floor((activeFieldID + 7) / 8)) {
-                            opponent = pieces[finalPosition];
-                            pieces[activeFieldID] = ""
-                            color[activeFieldID] = ""
-                            occupancy[activeFieldID] = false
-                            pieces[finalPosition] = activeType
-                            occupancy[finalPosition] = true
-                            color[finalPosition] = black
-                            player = white
-
-                        }
+            } else if (finalPosition == activeFieldID + 16) {
+                if (activeFieldID < 16) {
+                    if (color[activeFieldID + 16] != black && color[activeFieldID + 8] != black) {
+                        pieces[activeFieldID] = ""
+                        color[activeFieldID] = ""
+                        occupancy[activeFieldID] = false
+                        pieces[finalPosition] = activeType
+                        occupancy[finalPosition] = true
+                        color[finalPosition] = black
+                        player = white
                     }
                 }
-            } else if (finalPosition == activeFieldID + 8) {
-                if (occupancy[activeFieldID + 8] != true) {
-                    opponent = pieces[finalPosition];
-                    pieces[activeFieldID] = ""
-                    color[activeFieldID] = ""
-                    occupancy[activeFieldID] = false
-                    pieces[finalPosition] = activeType
-                    occupancy[finalPosition] = true
-                    color[finalPosition] = black
-                    player = white
-
-                }
-            } else if (activeFieldID < 16 && finalPosition == activeFieldID + 16) {
-                if (occupancy[activeFieldID + 16] != true) {
-                    opponent = pieces[finalPosition];
-                    pieces[activeFieldID] = ""
-                    color[activeFieldID] = ""
-                    occupancy[activeFieldID] = false
-                    pieces[finalPosition] = activeType
-                    occupancy[finalPosition] = true
-                    color[finalPosition] = black
-                    player = white
-
-                }
+            } else if (color[activeFieldID + 8] != black && finalPosition == activeFieldID + 8) {
+                pieces[activeFieldID] = ""
+                color[activeFieldID] = ""
+                occupancy[activeFieldID] = false
+                pieces[finalPosition] = activeType
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
             }
         } else if (activeType == "<img src='Icons/black_rook.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
