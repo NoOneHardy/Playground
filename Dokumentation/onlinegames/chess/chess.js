@@ -5,9 +5,12 @@ var rowWhite = 1
 var rowBlack = 1
 var boardContent = "<table  class='chessboard'>"
 var activeFieldID = 0
+var finalPosition = 0
+var thisPiece = ""
 var player = "Weiss";
 var activePieceactiveType = ""
 var opponent = ""
+var id = ""
 
 //Important constants
 const chessboard = document.getElementById("chessboard")
@@ -16,6 +19,8 @@ const color = []
 const pieces = []
 const deadWhite = []
 const deadBlack = []
+const deadWhitePawns = []
+const deadBlackPawns = []
 const white = "Weiss"
 const black = "Schwarz"
 
@@ -31,10 +36,14 @@ function CreateChessboard() {
 
     //Reset Deathlist
     for (let x = 1; x <= 16;) {
-        id = x + "white"
+        id = "white" + x
         document.getElementById(id).innerHTML = ""
-        id = x + "black"
+        deadWhite[x] = ""
+        deadWhitePawns[x] = ""
+        id = "black" + x
         document.getElementById(id).innerHTML = ""
+        deadBlack[x] = ""
+        deadBlackPawns[x] = ""
         x++
     }
 
@@ -178,8 +187,9 @@ function move(startPosition) {
 }
 
 //Choose where the function should move to
-function toHere(finalPosition) {
+function toHere(target) {
     //Reset the opponent
+    finalPosition = target
     opponent = ""
     //Set the activeType
     var activeType = pieces[activeFieldID]
@@ -228,13 +238,41 @@ function toHere(finalPosition) {
                     }
                 }
             } else if (color[activeFieldID - 8] != white && finalPosition == activeFieldID - 8) {
-                pieces[activeFieldID] = ""
-                color[activeFieldID] = ""
-                occupancy[activeFieldID] = false
-                pieces[finalPosition] = activeType
-                occupancy[finalPosition] = true
-                color[finalPosition] = white
-                player = black
+                if (finalPosition < 8 && deadWhite != []) {
+                    player = "Niemand"
+                    row = 0
+                    col = 0
+                    let indexWhite = 1
+                    let thatPiece
+
+                    while (row < 8) {
+                        col = 0
+                        while (col < 2) {
+                            id = "black" + indexWhite
+                            thatPiece = document.getElementById(id).innerHTML
+                            document.getElementById(id).innerHTML = "<button onclick='revive(" + id + ", " + indexWhite + ", white)'>" + thatPiece + "</button>"
+                            indexWhite++
+                            col++
+                        }
+                        row++
+                    }
+                    document.getElementById("blackDeathList").style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = white
+                } else {
+                    pieces[activeFieldID] = ""
+                    color[activeFieldID] = ""
+                    occupancy[activeFieldID] = false
+                    pieces[finalPosition] = activeType
+                    occupancy[finalPosition] = true
+                    color[finalPosition] = white
+                    player = black
+                }
             }
         } else if (activeType == "<img src='Icons/white_rook.png'>") {
             if (occupancy[activeFieldID - 8] == false) {
@@ -3335,68 +3373,66 @@ function toHere(finalPosition) {
 
     chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
 
-    let id = ""
-
     if (opponent != "") {
         switch (opponent) {
             case "<img src='Icons/black_pawn.png'>":
-                deadBlack[rowWhite] = "<img src='Icons/black_pawn.png'>"
-                id = rowWhite + "white"
-                document.getElementById(id).innerHTML = deadBlack[rowWhite++]
+                deadBlackPawns[rowWhite] = "<img src='Icons/black_pawn.png'>"
+                id = "white" + rowWhite
+                document.getElementById(id).innerHTML = deadBlackPawns[rowWhite++]
                 break;
             case "<img src='Icons/black_rook.png'>":
                 deadBlack[rowWhite] = "<img src='Icons/black_rook.png'>"
-                id = rowWhite + "white"
+                id = "white" + rowWhite
                 document.getElementById(id).innerHTML = deadBlack[rowWhite++]
                 break;
             case "<img src='Icons/black_knight.png'>":
                 deadBlack[rowWhite] = "<img src='Icons/black_knight.png'>"
-                id = rowWhite + "white"
+                id = "white" + rowWhite
                 document.getElementById(id).innerHTML = deadBlack[rowWhite++]
                 break;
             case "<img src='Icons/black_bishop.png'>":
                 deadBlack[rowWhite] = "<img src='Icons/black_bishop.png'>"
-                id = rowWhite + "white"
+                id = "white" + rowWhite
                 document.getElementById(id).innerHTML = deadBlack[rowWhite++]
                 break;
             case "<img src='Icons/black_queen.png'>":
                 deadBlack[rowWhite] = "<img src='Icons/black_queen.png'>"
-                id = rowWhite + "white"
+                id = "white" + rowWhite
                 document.getElementById(id).innerHTML = deadBlack[rowWhite++]
                 break;
             case "<img src='Icons/black_king.png'>":
                 deadBlack[rowWhite] = "<img src='Icons/black_king.png'>"
-                id = rowWhite + "white"
+                id = "white" + rowWhite
                 document.getElementById(id).innerHTML = deadBlack[rowWhite++]
                 break;
             case "<img src='Icons/white_pawn.png'>":
-                deadWhite[rowBlack] = "<img src='Icons/white_pawn.png'>"
-                id = rowBlack + "black"
-                document.getElementById(id).innerHTML = deadWhite[rowBlack++]
+                deadWhitePawns[rowBlack] = "<img src='Icons/white_pawn.png'>"
+                id = "black" + rowBlack
+                document.getElementById(id).innerHTML = deadWhitePawns[rowBlack++]
                 break;
             case "<img src='Icons/white_rook.png'>":
                 deadWhite[rowBlack] = "<img src='Icons/white_rook.png'>"
-                id = rowBlack + "black"
+                id = "black" + rowBlack
                 document.getElementById(id).innerHTML = deadWhite[rowBlack++]
                 break;
             case "<img src='Icons/white_knight.png'>":
                 deadWhite[rowBlack] = "<img src='Icons/white_knight.png'>"
-                id = rowBlack + "black"
+                id = "black" + rowBlack
                 document.getElementById(id).innerHTML = deadWhite[rowBlack++]
                 break;
             case "<img src='Icons/white_bishop.png'>":
                 deadWhite[rowBlack] = "<img src='Icons/white_bishop.png'>"
-                id = rowBlack + "black"
+                id = "black" + rowBlack
                 document.getElementById(id).innerHTML = deadWhite[rowBlack++]
                 break;
             case "<img src='Icons/white_king.png'>":
                 deadWhite[rowBlack] = "<img src='Icons/white_king.png'>"
-                id = rowBlack + "black"
+                id = "black" + rowBlack
                 document.getElementById(id).innerHTML = deadWhite[rowBlack++]
                 break;
             case "<img src='Icons/white_queen.png'>":
                 deadWhite[rowBlack] = "<img src='Icons/white_queen.png'>"
-                id = rowBlack + "black"
+                id = "black" + rowBlack
                 document.getElementById(id).innerHTML = deadWhite[rowBlack++]
                 break;
         }
@@ -3414,7 +3450,156 @@ function toHere(finalPosition) {
     }
 
     document.getElementById("player").innerHTML = player + " ist am Zug."
+}
 
+function revive(thisId, index, colour) {
+
+    if (colour == "Weiss") {
+        thisPiece = deadWhite[index]
+        switch (thisPiece) {
+            case "<img src='Icons/white_rook.png'>":
+                deadWhite[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+                break;
+            case "<img src='Icons/white_knight.png'>":
+                deadWhite[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+                break;
+            case "<img src='Icons/white_bishop.png'>":
+                deadWhite[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+                break;
+            case "<img src='Icons/white_king.png'>":
+                deadWhite[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+                break;
+            case "<img src='Icons/white_queen.png'>":
+                deadWhite[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = white
+                player = black
+                break;
+        }
+    } else {
+        thisPiece = deadBlack[index]
+
+        switch (thisPiece) {
+            case "<img src='Icons/black_rook.png'>":
+                deadBlack[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+                break;
+            case "<img src='Icons/black_knight.png'>":
+                deadBlack[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+                break;
+            case "<img src='Icons/black_bishop.png'>":
+                deadBlack[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+                break;
+            case "<img src='Icons/black_queen.png'>":
+                deadBlack[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+                break;
+            case "<img src='Icons/black_king.png'>":
+                deadBlack[thisId] = ""
+                pieces[finalPosition] = thisPiece
+                occupancy[finalPosition] = true
+                color[finalPosition] = black
+                player = white
+                break;
+        }
+    }
+
+    document.getElementById("blackDeathList").style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
+    /*
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    WIESOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    */
+    document.getElementById(thisId).innerHTML = ""
+    document.getElementById("whiteDeathList").style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
 }
 
 CreateChessboard()

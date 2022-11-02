@@ -86,6 +86,16 @@
         margin-top: 10mm;
         background-color: #3d3d3d;
     }
+
+    td button {
+        width: 27.5mm;
+        height: 1.7cm;
+        margin: 0;
+    }
+
+    .deadPieces {
+        margin: 0;
+    }
 }
 
 td .piece {
