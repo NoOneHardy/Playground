@@ -10,12 +10,16 @@ var activeFieldID = 0
 var finalPosition = 0
 var thisPiece = ""
 var player = "Weiss";
-var activePieceactiveType = ""
 var opponent = ""
 var id = ""
 
-//Important constants
+
+//DRY
+const blackDeathList = document.getElementById("blackDeathList")
 const chessboard = document.getElementById("chessboard")
+const whiteDeathList = document.getElementById("whiteDeathList")
+
+//Important constants
 const occupancy = []
 const color = []
 const pieces = []
@@ -207,26 +211,32 @@ function toHere(target) {
                 if (finalPosition == activeFieldID - 9) {
                     //Check if the target field is one row further
                     if (Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
-                        if (finalPosition < 8 && deadWhite != "") {
+                        if (finalPosition < 8 && deadWhite != []) {
                             player = "Niemand"
                             row = 0
                             col = 0
-                            let index = 1
-                            let thatPiece
-
+                            indexWhite = 1
+                            let reviveType
+        
                             while (row < 8) {
                                 col = 0
                                 while (col < 2) {
                                     id = "black" + indexWhite
-                                    pieceType = document.getElementById(id).innerHTML
-                                    document.getElementById(id).innerHTML = "<button onclick='revive(" + index + ", white)'>" + pieceType + "</button>"
-                                    indexWhite++
+                                    reviveType = document.getElementById(id).innerHTML
+                                    if (reviveType == '<img src="Icons/white_pawn.png">') {
+                                        document.getElementById(id).innerHTML = '<img src="Icons/white_pawn.png">'
+                                    } else if (reviveType == "") {
+                                        document.getElementById(id).innerHTML = ""
+                                    } else {
+                                        document.getElementById(id).innerHTML = "<button onclick='revive(" + indexWhite + ", white)'>" + reviveType + "</button>"
+                                    }
                                     col++
+                                    indexWhite++
                                 }
                                 row++
                             }
-                            document.getElementById("blackDeathList").style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
-
+                            blackDeathList.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+        
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
@@ -246,26 +256,32 @@ function toHere(target) {
                     }
                 } else if (finalPosition == activeFieldID - 7) {
                     if (Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
-                        if (finalPosition < 8 && deadWhite[1] != "") {
+                        if (finalPosition < 8 && deadWhite != []) {
                             player = "Niemand"
                             row = 0
                             col = 0
-                            let indexWhite = 1
-                            let thatPiece
-
+                            indexWhite = 1
+                            let reviveType
+        
                             while (row < 8) {
                                 col = 0
                                 while (col < 2) {
                                     id = "black" + indexWhite
-                                    thatPiece = document.getElementById(id).innerHTML
-                                    document.getElementById(id).innerHTML = "<button onclick='revive(" + indexWhite + ", white)'>" + thatPiece + "</button>"
-                                    indexWhite++
+                                    reviveType = document.getElementById(id).innerHTML
+                                    if (reviveType == '<img src="Icons/white_pawn.png">') {
+                                        document.getElementById(id).innerHTML = '<img src="Icons/white_pawn.png">'
+                                    } else if (reviveType == "") {
+                                        document.getElementById(id).innerHTML = ""
+                                    } else {
+                                        document.getElementById(id).innerHTML = "<button onclick='revive(" + indexWhite + ", white)'>" + reviveType + "</button>"
+                                    }
                                     col++
+                                    indexWhite++
                                 }
                                 row++
                             }
-                            document.getElementById("blackDeathList").style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
-
+                            blackDeathList.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+        
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
@@ -301,21 +317,27 @@ function toHere(target) {
                     player = "Niemand"
                     row = 0
                     col = 0
-                    let indexWhite = 1
-                    let thatPiece
+                    indexWhite = 1
+                    let reviveType
 
                     while (row < 8) {
                         col = 0
                         while (col < 2) {
                             id = "black" + indexWhite
-                            thatPiece = document.getElementById(id).innerHTML
-                            document.getElementById(id).innerHTML = "<button onclick='revive(" + indexWhite + ", white)'>" + thatPiece + "</button>"
-                            indexWhite++
+                            reviveType = document.getElementById(id).innerHTML
+                            if (reviveType == '<img src="Icons/white_pawn.png">') {
+                                document.getElementById(id).innerHTML = '<img src="Icons/white_pawn.png">'
+                            } else if (reviveType == "") {
+                                document.getElementById(id).innerHTML = ""
+                            } else {
+                                document.getElementById(id).innerHTML = "<button onclick='revive(" + indexWhite + ", white)'>" + reviveType + "</button>"
+                            }
                             col++
+                            indexWhite++
                         }
                         row++
                     }
-                    document.getElementById("blackDeathList").style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+                    blackDeathList.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
 
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
@@ -334,12 +356,12 @@ function toHere(target) {
                 }
             }
         } else if (activeType == "<img src='Icons/white_rook.png'>") {
-            if (occupancy[activeFieldID - 8] == false) {
-                if (occupancy[activeFieldID - 16] == false) {
-                    if (occupancy[activeFieldID - 24] == false) {
-                        if (occupancy[activeFieldID - 32] == false) {
-                            if (occupancy[activeFieldID - 40] == false) {
-                                if (occupancy[activeFieldID - 48] == false) {
+            if (color[activeFieldID - 8] == "") {
+                if (color[activeFieldID - 16] == "") {
+                    if (color[activeFieldID - 24] == "") {
+                        if (color[activeFieldID - 32] == "") {
+                            if (color[activeFieldID - 40] == "") {
+                                if (color[activeFieldID - 48] == "") {
                                     if (finalPosition == activeFieldID - 56 && color[activeFieldID - 56] != white) {
                                         opponent = pieces[finalPosition];
                                         pieces[activeFieldID] = ""
@@ -1789,26 +1811,32 @@ function toHere(target) {
             if (color[finalPosition] == white) {
                 if (finalPosition == activeFieldID + 9) {
                     if (Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
-                        if (finalPosition > 47 && deadBlack[1] != "") {
+                        if (finalPosition > 55 && deadBlack != "") {
                             player = "Niemand"
                             row = 0
                             col = 0
-                            let indexBlack = 1
-                            let thatPiece
-
+                            indexBlack = 1
+                            let reviveType
+        
                             while (row < 8) {
                                 col = 0
                                 while (col < 2) {
                                     id = "white" + indexBlack
-                                    thatPiece = document.getElementById(id).innerHTML
-                                    document.getElementById(id).innerHTML = "<button onclick='revive(" + indexBlack + ", Schwarz)'>" + thatPiece + "</button>"
+                                    reviveType = document.getElementById(id).innerHTML
+                                    if (reviveType == '<img src="Icons/black_pawn.png">') {
+                                        document.getElementById(id).innerHTML = '<img src="Icons/black_pawn.png">'
+                                    } else if (reviveType == "") {
+                                        document.getElementById(id).innerHTML = ""
+                                    } else {
+                                        document.getElementById(id).innerHTML = "<button onclick='revive(" + indexBlack + ", black)'>" + reviveType + "</button>"
+                                    }
                                     indexBlack++
                                     col++
                                 }
                                 row++
                             }
-                            document.getElementById("whiteDeathList").style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
-
+                            whiteDeathList.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+        
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
@@ -1828,26 +1856,32 @@ function toHere(target) {
                     }
                 } else if (finalPosition == activeFieldID + 7) {
                     if (Math.floor(activeFieldID / 8 + 1) == Math.floor(finalPosition / 8)) {
-                        if (finalPosition > 47 && deadBlack[1] != "") {
+                        if (finalPosition > 55 && deadBlack != "") {
                             player = "Niemand"
                             row = 0
                             col = 0
-                            let indexBlack = 1
-                            let thatPiece
-
+                            indexBlack = 1
+                            let reviveType
+        
                             while (row < 8) {
                                 col = 0
                                 while (col < 2) {
                                     id = "white" + indexBlack
-                                    thatPiece = document.getElementById(id).innerHTML
-                                    document.getElementById(id).innerHTML = "<button onclick='revive(" + indexBlack + ", Schwarz)'>" + thatPiece + "</button>"
+                                    reviveType = document.getElementById(id).innerHTML
+                                    if (reviveType == '<img src="Icons/black_pawn.png">') {
+                                        document.getElementById(id).innerHTML = '<img src="Icons/black_pawn.png">'
+                                    } else if (reviveType == "") {
+                                        document.getElementById(id).innerHTML = ""
+                                    } else {
+                                        document.getElementById(id).innerHTML = "<button onclick='revive(" + indexBlack + ", black)'>" + reviveType + "</button>"
+                                    }
                                     indexBlack++
                                     col++
                                 }
                                 row++
                             }
-                            document.getElementById("whiteDeathList").style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
-
+                            whiteDeathList.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+        
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
@@ -1879,25 +1913,31 @@ function toHere(target) {
                     }
                 }
             } else if (color[activeFieldID + 8] != black && finalPosition == activeFieldID + 8) {
-                if (finalPosition > 47 && deadBlack[1] != "") {
+                if (finalPosition > 55 && deadBlack != "") {
                     player = "Niemand"
                     row = 0
                     col = 0
-                    let indexBlack = 1
-                    let thatPiece
+                    indexBlack = 1
+                    let reviveType
 
                     while (row < 8) {
                         col = 0
                         while (col < 2) {
                             id = "white" + indexBlack
-                            thatPiece = document.getElementById(id).innerHTML
-                            document.getElementById(id).innerHTML = "<button onclick='revive(" + indexBlack + ", Schwarz)'>" + thatPiece + "</button>"
+                            reviveType = document.getElementById(id).innerHTML
+                            if (reviveType == '<img src="Icons/black_pawn.png">') {
+                                document.getElementById(id).innerHTML = '<img src="Icons/black_pawn.png">'
+                            } else if (reviveType == "") {
+                                document.getElementById(id).innerHTML = ""
+                            } else {
+                                document.getElementById(id).innerHTML = "<button onclick='revive(" + indexBlack + ", black)'>" + reviveType + "</button>"
+                            }
                             indexBlack++
                             col++
                         }
                         row++
                     }
-                    document.getElementById("whiteDeathList").style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
+                    whiteDeathList.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
 
                     pieces[activeFieldID] = ""
                     color[activeFieldID] = ""
@@ -3567,7 +3607,7 @@ function toHere(target) {
         indexBlack = 1
         indexWhite = 1
 
-        while (indexBlack <= 8) {
+        while (indexBlack <= 16) {
             id = "black" + indexBlack
             switch (deadWhite[indexBlack]) {
                 case "<img src='Icons/white_rook.png'>":
@@ -3591,7 +3631,7 @@ function toHere(target) {
             }
         }
 
-        while (indexWhite <= 8) {
+        while (indexWhite <= 16) {
             id = "white" + indexWhite
             if (deadBlackPawns[indexWhite] == "<img src='Icons/black_pawn.png'>") {
                 document.getElementById(id).innerHTML = deadBlackPawns[indexWhite++]
@@ -3604,16 +3644,16 @@ function toHere(target) {
         indexBlack = 1
         indexWhite = 1
 
-        while (indexBlack <= 8) {
+        while (indexBlack <= 16) {
             id = "black" + indexBlack
-            if (deadWhitePawns[indexBlack] == "<img src='Icons/black_pawn.png'>") {
+            if (deadWhitePawns[indexBlack] == "<img src='Icons/white_pawn.png'>") {
                 document.getElementById(id).innerHTML = deadWhitePawns[indexBlack++]
             } else {
                 indexBlack++
             }
         }
 
-        while (indexWhite <= 8) {
+        while (indexWhite <= 16) {
             id = "white" + indexWhite
             switch (deadBlack[indexWhite]) {
                 case "<img src='Icons/black_rook.png'>":
@@ -3651,89 +3691,24 @@ function toHere(target) {
 }
 
 function revive(index, colour) {
-
-    if (colour == "Weiss") {
-        thisPiece = deadWhite[index]
-        switch (thisPiece) {
-            case "<img src='Icons/white_rook.png'>":
-                deadWhite[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = white
-                player = black
-                break;
-            case "<img src='Icons/white_knight.png'>":
-                deadWhite[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = white
-                player = black
-                break;
-            case "<img src='Icons/white_bishop.png'>":
-                deadWhite[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = white
-                player = black
-                break;
-            case "<img src='Icons/white_king.png'>":
-                deadWhite[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = white
-                player = black
-                break;
-            case "<img src='Icons/white_queen.png'>":
-                deadWhite[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = white
-                player = black
-                break;
-        }
-    } else {
-        thisPiece = deadBlack[index]
-
-        switch (thisPiece) {
-            case "<img src='Icons/black_rook.png'>":
-                deadBlack[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = black
-                player = white
-                break;
-            case "<img src='Icons/black_knight.png'>":
-                deadBlack[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = black
-                player = white
-                break;
-            case "<img src='Icons/black_bishop.png'>":
-                deadBlack[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = black
-                player = white
-                break;
-            case "<img src='Icons/black_queen.png'>":
-                deadBlack[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = black
-                player = white
-                break;
-            case "<img src='Icons/black_king.png'>":
-                deadBlack[index] = ""
-                pieces[finalPosition] = thisPiece
-                occupancy[finalPosition] = true
-                color[finalPosition] = black
-                player = white
-                break;
-        }
+    if (colour == white) {
+        pieces[finalPosition] = deadWhite[index]
+        deadWhitePawns[index] = "<img src='Icons/white_pawn.png'>"
+        deadWhite[index] = ""
+        occupancy[finalPosition] = true
+        color[finalPosition] = white
+        player = black
+    } else if (colour == black) {
+        pieces[finalPosition] = deadBlack[index]
+        deadBlackPawns[index] = "<img src='Icons/black_pawn.png'>"
+        deadBlack[index] = ""
+        occupancy[finalPosition] = true
+        color[finalPosition] = black
+        player = white
     }
-    document.getElementById("blackDeathList").style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
-    document.getElementById("whiteDeathList").style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
+
+    blackDeathList.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
+    whiteDeathList.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
 
     for (let x = 0; x < 16;) {
         x++
@@ -3743,97 +3718,76 @@ function revive(index, colour) {
         document.getElementById(id).innerHTML = ""
     }
 
-    indexWhite = 1
     indexBlack = 1
+    indexWhite = 1
 
-    while (indexBlack <= 8) {
+    while (indexBlack <= 16) {
         id = "black" + indexBlack
         switch (deadWhite[indexBlack]) {
             case "<img src='Icons/white_rook.png'>":
-                document.getElementById(id).innerHTML = deadWhite[indexBlack]
+                document.getElementById(id).innerHTML = deadWhite[indexBlack++]
                 break;
             case "<img src='Icons/white_knight.png'>":
-                deadWhite[rowBlack] = "<img src='Icons/white_knight.png'>"
-                id = "black" + rowBlack
-                document.getElementById(id).innerHTML = deadWhite[rowBlack]
+                document.getElementById(id).innerHTML = deadWhite[indexBlack++]
                 break;
             case "<img src='Icons/white_bishop.png'>":
-                deadWhite[rowBlack] = "<img src='Icons/white_bishop.png'>"
-                id = "black" + rowBlack
-                document.getElementById(id).innerHTML = deadWhite[rowBlack]
+                document.getElementById(id).innerHTML = deadWhite[indexBlack++]
                 break;
             case "<img src='Icons/white_king.png'>":
-                deadWhite[rowBlack] = "<img src='Icons/white_king.png'>"
-                id = "black" + rowBlack
-                document.getElementById(id).innerHTML = deadWhite[rowBlack]
+                document.getElementById(id).innerHTML = deadWhite[indexBlack++]
                 break;
             case "<img src='Icons/white_queen.png'>":
-                deadWhite[rowBlack] = "<img src='Icons/white_queen.png'>"
-                id = "black" + rowBlack
-                document.getElementById(id).innerHTML = deadWhite[rowBlack]
+                document.getElementById(id).innerHTML = deadWhite[indexBlack++]
                 break;
+            default:
+                document.getElementById(id).innerHTML = ""
+                indexBlack++
         }
-        x++
-        rowBlack++
     }
 
-    for (let x = 1; x < deadBlackPawns.length - 1;) {
-        switch (deadBlackPawns[x]) {
-            case "<img src='Icons/black_pawn.png'>":
-                deadBlackPawns[rowWhite] = "<img src='Icons/black_pawn.png'>"
-                id = "white" + rowWhite
-                document.getElementById(id).innerHTML = deadBlackPawns[rowWhite]
-                break;
+    while (indexWhite <= 16) {
+        id = "white" + indexWhite
+        if (deadBlackPawns[indexWhite] == "<img src='Icons/black_pawn.png'>") {
+            document.getElementById(id).innerHTML = deadBlackPawns[indexWhite++]
+        } else {
+            document.getElementById(id).innerHTML = ""
+            indexWhite++
         }
-        x++
-        rowWhite++
     }
 
-    rowWhite = 1
-    rowBlack = 1
+    indexBlack = 1
+    indexWhite = 1
 
-    for (let x = 1; x < deadWhitePawns.length - 1;) {
-        switch (deadWhitePawns[x]) {
-            case "<img src='Icons/white_pawn.png'>":
-                deadWhitePawns[rowBlack] = "<img src='Icons/white_pawn.png'>"
-                id = "black" + rowBlack
-                document.getElementById(id).innerHTML = deadWhitePawns[rowBlack]
-                break;
+    while (indexBlack <= 16) {
+        id = "black" + indexBlack
+        if (deadWhitePawns[indexBlack] == "<img src='Icons/white_pawn.png'>") {
+            document.getElementById(id).innerHTML = deadWhitePawns[indexBlack++]
+        } else {
+            indexBlack++
         }
-        x++
-        rowBlack++
     }
 
-    for (let x = 1; x < deadBlack.length - 1;) {
-        switch (deadBlack[x]) {
+    while (indexWhite <= 16) {
+        id = "white" + indexWhite
+        switch (deadBlack[indexWhite]) {
             case "<img src='Icons/black_rook.png'>":
-                deadBlack[rowWhite] = "<img src='Icons/black_rook.png'>"
-                id = "white" + rowWhite
-                document.getElementById(id).innerHTML = deadBlack[rowWhite]
+                document.getElementById(id).innerHTML = deadBlack[indexWhite++]
                 break;
             case "<img src='Icons/black_knight.png'>":
-                deadBlack[rowWhite] = "<img src='Icons/black_knight.png'>"
-                id = "white" + rowWhite
-                document.getElementById(id).innerHTML = deadBlack[rowWhite]
+                document.getElementById(id).innerHTML = deadBlack[indexWhite++]
                 break;
             case "<img src='Icons/black_bishop.png'>":
-                deadBlack[rowWhite] = "<img src='Icons/black_bishop.png'>"
-                id = "white" + rowWhite
-                document.getElementById(id).innerHTML = deadBlack[rowWhite]
+                document.getElementById(id).innerHTML = deadBlack[indexWhite++]
                 break;
             case "<img src='Icons/black_queen.png'>":
-                deadBlack[rowWhite] = "<img src='Icons/black_queen.png'>"
-                id = "white" + rowWhite
-                document.getElementById(id).innerHTML = deadBlack[rowWhite]
+                document.getElementById(id).innerHTML = deadBlack[indexWhite++]
                 break;
             case "<img src='Icons/black_king.png'>":
-                deadBlack[rowWhite] = "<img src='Icons/black_king.png'>"
-                id = "white" + rowWhite
-                document.getElementById(id).innerHTML = deadBlack[rowWhite]
+                document.getElementById(id).innerHTML = deadBlack[indexWhite++]
                 break;
+            default:
+                indexWhite++
         }
-        x++
-        rowWhite++
     }
 
     row = 0
@@ -3863,7 +3817,6 @@ function revive(index, colour) {
     chessboard.innerHTML = boardContent
     document.getElementById("player").innerHTML = player + " ist am Zug."
 }
-
 
 CreateChessboard()
 chessboard.style = "border-right: outset 5px #000000; border-left: outset 5px #2d2d2d; border-bottom: outset 5px #000000; border-top: outset 5px #2d2d2d"
