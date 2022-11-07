@@ -41,7 +41,7 @@ function CreateChessboard() {
     let id = ""
 
     //Reset Deathlist
-    for (let x = 1; x <= 8;) {
+    for (let x = 1; x <= 16;) {
         id = "white" + x
         document.getElementById(id).innerHTML = ""
         deadWhite[x] = ""
