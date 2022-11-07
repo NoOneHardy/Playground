@@ -1300,13 +1300,13 @@ function move(startPosition) {
 //Choose where the function should move to
 function toHere(target) {
     //Reset the opponent
-    finalPosition = target
     opponent = ""
     //Set the activeType
     var activeType = pieces[activeFieldID]
 
     //Check if it's white's turn
     if (player == white) {
+        finalPosition = target
         indexWhite = 1
         //Check if the active piece is a white pawn
         if (activeType == "<img src='Icons/white_pawn.png'>") {
@@ -2927,6 +2927,7 @@ function toHere(target) {
             }
         }
     } else if (player == black) {
+        finalPosition = target
         if (activeType == "<img src='Icons/black_pawn.png'>") {
             if (color[finalPosition] == white) {
                 if (finalPosition == activeFieldID + 9) {
