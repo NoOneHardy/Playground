@@ -95,7 +95,7 @@ function CreateChessboard() {
         "<img src='Icons/white_rook.png'>")
 
 
-    //Add Colorlist
+    //Add colors
     for (let x = 0; x < 64;) {
         color[x++] = ""
     }
@@ -136,7 +136,7 @@ function CreateChessboard() {
         white,
         white)
 
-    //Create Table
+    //Create table
     while (row < 8) {
         boardContent += "<tr>"
         while (col < 8) {
@@ -156,6 +156,7 @@ function CreateChessboard() {
         col = 0
     }
     boardContent += "</table>"
+    //Visualize the table
     chessboard.innerHTML = boardContent
 }
 
@@ -185,6 +186,7 @@ function move(startPosition) {
             col = 0
         }
         boardContent += "</table>"
+        //Visualize the new table
         chessboard.innerHTML = boardContent
         //Modify the border of the chessboard
         chessboard.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
@@ -211,23 +213,32 @@ function toHere(target) {
                 if (finalPosition == activeFieldID - 9) {
                     //Check if the target field is one row further
                     if (Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
+                        //Check if the target field is in the last row
                         if (finalPosition < 8 && deadWhite != []) {
+                            //Reset variables
                             player = "Niemand"
                             row = 0
                             col = 0
                             indexWhite = 1
                             let reviveType
-        
+                            //Modify the deathlists
                             while (row < 8) {
                                 col = 0
                                 while (col < 2) {
+                                    //Set a ID
                                     id = "black" + indexWhite
+                                    //Save the type
                                     reviveType = document.getElementById(id).innerHTML
-                                    if (reviveType == '<img src="Icons/white_pawn.png">') {
+                                    //Check if the type is a pawn
+                                    if (reviveType == '<img src="cons/white_pawn.png">') {
+                                        //Do nothing
                                         document.getElementById(id).innerHTML = '<img src="Icons/white_pawn.png">'
+                                    //Check if the field is empty
                                     } else if (reviveType == "") {
+                                        //Do nothing
                                         document.getElementById(id).innerHTML = ""
                                     } else {
+                                        //Make a button with the revive function and the index of the field and the color as parameter and the type as content
                                         document.getElementById(id).innerHTML = "<button onclick='revive(" + indexWhite + ", white)'>" + reviveType + "</button>"
                                     }
                                     col++
@@ -235,8 +246,14 @@ function toHere(target) {
                                 }
                                 row++
                             }
+                            //Modify the border of the black Deathlist
                             blackDeathList.style = "border-right: outset 5px #2d2dd4; border-left: outset 5px #4f4ff6; border-bottom: outset 5px #2d2dd4; border-top: outset 5px #4f4ff6"
-        
+                            //Set the piece to nothing
+                            //Set the color to nothing
+                            //Set the occupancy to not occupied
+                            //Set the piece of the new position to the active type
+                            //Set the occupancy of the new position to occupied
+                            //Set the color of the new position to white
                             pieces[activeFieldID] = ""
                             color[activeFieldID] = ""
                             occupancy[activeFieldID] = false
