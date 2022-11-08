@@ -149,5 +149,6 @@ body {
 }
 
 .piecepossible {
-    border:solid 2px red
+    border: solid 4px red;
+    cursor: pointer;
 }
