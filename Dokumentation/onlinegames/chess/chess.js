@@ -18,6 +18,10 @@ const blackDeathList = document.getElementById("blackDeathList")
 const chessboard = document.getElementById("chessboard")
 const whiteDeathList = document.getElementById("whiteDeathList")
 
+//Pieces
+const whitePawn = '<img src="Icons/white_pawn.png">'
+const whiteRook = '<img src="Icons/white_rook.png">'
+
 //Important constants
 const occupancy = []
 const color = []
@@ -76,22 +80,22 @@ function CreateChessboard() {
         "<img src='Icons/black_pawn.png'>",)
 
     pieces.splice(48, 16,
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_pawn.png'>",
-        "<img src='Icons/white_rook.png'>",
+        whitePawn,
+        whitePawn,
+        whitePawn,
+        whitePawn,
+        whitePawn,
+        whitePawn,
+        whitePawn,
+        whitePawn,
+        whiteRook,
         "<img src='Icons/white_knight.png'>",
         "<img src='Icons/white_bishop.png'>",
         "<img src='Icons/white_queen.png'>",
         "<img src='Icons/white_king.png'>",
         "<img src='Icons/white_bishop.png'>",
         "<img src='Icons/white_knight.png'>",
-        "<img src='Icons/white_rook.png'>")
+        whiteRook)
 
 
     //Add colors
@@ -193,7 +197,7 @@ function move(startPosition) {
     let activeType = pieces[startPosition]
     //Check if the active piece is a white pawn
     if (player == white) {
-        if (activeType == "<img src='Icons/white_pawn.png'>") {
+        if (activeType == whitePawn) {
             //Check if there is a black piece
             finalPosition = startPosition - 9
             if (color[finalPosition] == black && document.getElementById(finalPosition)) {
@@ -218,7 +222,7 @@ function move(startPosition) {
             if (color[finalPosition] == "" && document.getElementById(finalPosition)) {
                 document.getElementById(finalPosition).classList += "possible"
             }
-        } else if (activeType == "<img src='Icons/white_rook.png'>") {
+        } else if (activeType == whiteRook) {
             if (color[startPosition - 8] == "" && document.getElementById(startPosition - 8)) {
                 if (color[startPosition - 16] == "" && document.getElementById(startPosition - 16)) {
                     if (color[startPosition - 24] == "" && document.getElementById(startPosition - 24)) {
@@ -453,13 +457,13 @@ function move(startPosition) {
                 document.getElementById(finalPosition).classList += "possible"
             }
         } else if (activeType == "<img src='Icons/white_bishop.png'>") {
-            if (color[startPosition - 7] == "" && document.getElementById(startPosition - 7) && Math.floor(startPosition / 8 - 1) == Math.floor(startPosition - 7 / 8)) {
-                if (color[startPosition - 14] == "" && document.getElementById(startPosition - 14) && Math.floor(startPosition / 8 - 2) == Math.floor(startPosition - 14 / 8)) {
-                    if (color[startPosition - 21] == "" && document.getElementById(startPosition - 21) && Math.floor(startPosition / 8 - 3) == Math.floor(startPosition - 21 / 8)) {
-                        if (color[startPosition - 28] == "" && document.getElementById(startPosition - 28) && Math.floor(startPosition / 8 - 4) == Math.floor(startPosition - 28 / 8)) {
-                            if (color[startPosition - 35] == "" && document.getElementById(startPosition - 35) && Math.floor(startPosition / 8 - 5) == Math.floor(startPosition - 35 / 8)) {
-                                if (color[startPosition - 42] == "" && document.getElementById(startPosition - 42) && Math.floor(startPosition / 8 - 6) == Math.floor(startPosition - 42 / 8)) {
-                                    if (color[startPosition - 49] == "" && document.getElementById(startPosition - 49) && Math.floor(startPosition / 8 - 7) == Math.floor(startPosition - 49 / 8)) {
+            if (color[startPosition - 7] == "" && document.getElementById(startPosition - 7) && Math.floor(startPosition / 8 - 1) == Math.floor((startPosition - 7) / 8)) {
+                if (color[startPosition - 14] == "" && document.getElementById(startPosition - 14) && Math.floor(startPosition / 8 - 2) == Math.floor((startPosition - 14) / 8)) {
+                    if (color[startPosition - 21] == "" && document.getElementById(startPosition - 21) && Math.floor(startPosition / 8 - 3) == Math.floor((startPosition - 21) / 8)) {
+                        if (color[startPosition - 28] == "" && document.getElementById(startPosition - 28) && Math.floor(startPosition / 8 - 4) == Math.floor((startPosition - 28) / 8)) {
+                            if (color[startPosition - 35] == "" && document.getElementById(startPosition - 35) && Math.floor(startPosition / 8 - 5) == Math.floor((startPosition - 35) / 8)) {
+                                if (color[startPosition - 42] == "" && document.getElementById(startPosition - 42) && Math.floor(startPosition / 8 - 6) == Math.floor((startPosition - 42) / 8)) {
+                                    if (color[startPosition - 49] == "" && document.getElementById(startPosition - 49) && Math.floor(startPosition / 8 - 7) == Math.floor((startPosition - 49) / 8)) {
                                         finalPosition = startPosition - 49
                                         document.getElementById(finalPosition).classList += "possible"
                                     } else if (color[startPosition - 49] == black && document.getElementById(startPosition - 49)){
@@ -503,13 +507,13 @@ function move(startPosition) {
                 document.getElementById(finalPosition).classList += "possible"
             }
 
-            if (color[startPosition + 7] == "" && document.getElementById(startPosition + 7) && Math.floor(startPosition / 8 + 1) == Math.floor(startPosition + 7 / 8)) {
-                if (color[startPosition + 14] == "" && document.getElementById(startPosition + 14) && Math.floor(startPosition / 8 + 2) == Math.floor(startPosition + 14 / 8)) {
-                    if (color[startPosition + 21] == "" && document.getElementById(startPosition + 21) && Math.floor(startPosition / 8 + 3) == Math.floor(startPosition + 21 / 8)) {
-                        if (color[startPosition + 28] == "" && document.getElementById(startPosition + 28) && Math.floor(startPosition / 8 + 4) == Math.floor(startPosition + 28 / 8)) {
-                            if (color[startPosition + 35] == "" && document.getElementById(startPosition + 35) && Math.floor(startPosition / 8 + 5) == Math.floor(startPosition + 35 / 8)) {
-                                if (color[startPosition + 42] == "" && document.getElementById(startPosition + 42) && Math.floor(startPosition / 8 + 6) == Math.floor(startPosition + 42 / 8)) {
-                                    if (color[startPosition + 49] == "" && document.getElementById(startPosition + 49) && Math.floor(startPosition / 8 + 7) == Math.floor(startPosition + 49 / 8)) {
+            if (color[startPosition + 7] == "" && document.getElementById(startPosition + 7) && Math.floor(startPosition / 8 + 1) == Math.floor((startPosition + 7 )/ 8)) {
+                if (color[startPosition + 14] == "" && document.getElementById(startPosition + 14) && Math.floor(startPosition / 8 + 2) == Math.floor((startPosition + 14) / 8)) {
+                    if (color[startPosition + 21] == "" && document.getElementById(startPosition + 21) && Math.floor(startPosition / 8 + 3) == Math.floor((startPosition + 21) / 8)) {
+                        if (color[startPosition + 28] == "" && document.getElementById(startPosition + 28) && Math.floor(startPosition / 8 + 4) == Math.floor((startPosition + 28) / 8)) {
+                            if (color[startPosition + 35] == "" && document.getElementById(startPosition + 35) && Math.floor(startPosition / 8 + 5) == Math.floor((startPosition + 35) / 8)) {
+                                if (color[startPosition + 42] == "" && document.getElementById(startPosition + 42) && Math.floor(startPosition / 8 + 6) == Math.floor((startPosition + 42) / 8)) {
+                                    if (color[startPosition + 49] == "" && document.getElementById(startPosition + 49) && Math.floor(startPosition / 8 + 7) == Math.floor((startPosition + 49) / 8)) {
                                         finalPosition = startPosition + 49
                                         document.getElementById(finalPosition).classList += "possible"
                                     } else if (color[startPosition + 49] == black && document.getElementById(startPosition + 49)){
@@ -553,82 +557,103 @@ function move(startPosition) {
                 document.getElementById(finalPosition).classList += "possible"
             }
             
-            if (color[startPosition - 9] == "" && Math.floor(startPosition / 8 - 1) == Math.floor(startPosition - 9 / 8) && document.getElementById(startPosition - 9)) {
-                if (color[startPosition - 18] == "" && Math.floor(startPosition / 8 - 2) == Math.floor(startPosition - 18 / 8) && document.getElementById(startPosition - 18)) {
-                    if (color[startPosition - 27] == "" && Math.floor(startPosition / 8 - 3) == Math.floor(startPosition - 27 / 8) && document.getElementById(startPosition - 27)) {
-                        if (color[startPosition - 36] == "" && Math.floor(startPosition / 8 - 4) == Math.floor(startPosition - 36 / 8) && document.getElementById(startPosition - 36)) {
-                            if (color[startPosition - 45] == "" && Math.floor(startPosition / 8 - 5) == Math.floor(startPosition - 45 / 8) && document.getElementById(startPosition - 45)) {
-                                if (color[startPosition - 54] == "" && Math.floor(startPosition / 8 - 6) == Math.floor(startPosition - 54 / 8) && document.getElementById(startPosition - 54)) {
-                                    if (color[startPosition - 63] == "" && Math.floor(startPosition / 8 - 7) == Math.floor(startPosition - 63 / 8) && document.getElementById(startPosition - 63)) {
+            if (color[startPosition - 9] == "" && document.getElementById(startPosition - 9)  && Math.floor(startPosition / 8 - 1) == Math.floor((startPosition - 9) / 8)) {
+                if (color[startPosition - 18] == "" && document.getElementById(startPosition - 18)  && Math.floor(startPosition / 8 - 2) == Math.floor((startPosition - 18) / 8)) {
+                    if (color[startPosition - 27] == "" && document.getElementById(startPosition - 27)  && Math.floor(startPosition / 8 - 3) == Math.floor((startPosition - 27) / 8)) {
+                        if (color[startPosition - 36] == "" && document.getElementById(startPosition - 36)  && Math.floor(startPosition / 8 - 4) == Math.floor((startPosition - 36) / 8)) {
+                            if (color[startPosition - 45] == "" && document.getElementById(startPosition - 45)  && Math.floor(startPosition / 8 - 5) == Math.floor((startPosition - 45) / 8)) {
+                                if (color[startPosition - 54] == "" && document.getElementById(startPosition - 54)  && Math.floor(startPosition / 8 - 6) == Math.floor((startPosition - 54) / 8)) {
+                                    if (color[startPosition - 63] == "" && document.getElementById(startPosition - 63)  && Math.floor(startPosition / 8 - 7) == Math.floor((startPosition - 63) / 8)) {
                                         finalPosition = startPosition - 63
                                         document.getElementById(finalPosition).classList += "possible"
                                     } else if (color[startPosition - 63] == black && document.getElementById(startPosition - 63)) {
                                         finalPosition = startPosition - 63
-                                        document.getElementById(finalPosition).classList += "possible" 
+                                        document.getElementById(finalPosition).classList += "possible"
                                     }
                                     finalPosition = startPosition - 54
                                     document.getElementById(finalPosition).classList += "possible"
                                 } else if (color[startPosition - 54] == black && document.getElementById(startPosition - 54)) {
                                     finalPosition = startPosition - 54
-                                    document.getElementById(finalPosition).classList += "possible" 
+                                    document.getElementById(finalPosition).classList += "possible"
                                 }
                                 finalPosition = startPosition - 45
                                 document.getElementById(finalPosition).classList += "possible"
                             } else if (color[startPosition - 45] == black && document.getElementById(startPosition - 45)) {
                                 finalPosition = startPosition - 45
-                                document.getElementById(finalPosition).classList += "possible" 
+                                document.getElementById(finalPosition).classList += "possible"
                             }
                             finalPosition = startPosition - 36
                             document.getElementById(finalPosition).classList += "possible"
                         } else if (color[startPosition - 36] == black && document.getElementById(startPosition - 36)) {
                             finalPosition = startPosition - 36
-                            document.getElementById(finalPosition).classList += "possible" 
+                            document.getElementById(finalPosition).classList += "possible"
                         }
                         finalPosition = startPosition - 27
                         document.getElementById(finalPosition).classList += "possible"
                     } else if (color[startPosition - 27] == black && document.getElementById(startPosition - 27)) {
                         finalPosition = startPosition - 27
-                        document.getElementById(finalPosition).classList += "possible" 
+                        document.getElementById(finalPosition).classList += "possible"
                     }
                     finalPosition = startPosition - 18
                     document.getElementById(finalPosition).classList += "possible"
                 } else if (color[startPosition - 18] == black && document.getElementById(startPosition - 18)) {
                     finalPosition = startPosition - 18
-                    document.getElementById(finalPosition).classList += "possible" 
+                    document.getElementById(finalPosition).classList += "possible"
                 }
                 finalPosition = startPosition - 9
                 document.getElementById(finalPosition).classList += "possible"
             } else if (color[startPosition - 9] == black && document.getElementById(startPosition - 9)) {
                 finalPosition = startPosition - 9
-                document.getElementById(finalPosition).classList += "possible" 
+                document.getElementById(finalPosition).classList += "possible"
             }
 
-            if (color[startPosition + 9] != white && Math.floor(startPosition / 8 + 1) == Math.floor(startPosition + 9 / 8)) {
-                if (color[startPosition + 18] != white && Math.floor(startPosition / 8 + 2) == Math.floor(startPosition + 18 / 8)) {
-                    if (color[startPosition + 27] != white && Math.floor(startPosition / 8 + 3) == Math.floor(startPosition + 27 / 8)) {
-                        if (color[startPosition + 36] != white && Math.floor(startPosition / 8 + 4) == Math.floor(startPosition + 36 / 8)) {
-                            if (color[startPosition + 45] != white && Math.floor(startPosition / 8 + 5) == Math.floor(startPosition + 45 / 8)) {
-                                if (color[startPosition + 54] != white && Math.floor(startPosition / 8 + 6) == Math.floor(startPosition + 54 / 8)) {
-                                    if (color[startPosition + 63] != white && Math.floor(startPosition / 8 + 7) == Math.floor(startPosition + 63 / 8)) {
-                                        finalPosition = startPosition - 63
+            if (color[startPosition + 9] == "" && document.getElementById(startPosition + 9) && Math.floor(startPosition / 8 + 1) == Math.floor((startPosition + 9) / 8)) {
+                if (color[startPosition + 18] == "" && document.getElementById(startPosition + 9) && Math.floor(startPosition / 8 + 2) == Math.floor((startPosition + 18) / 8)) {
+                    if (color[startPosition + 27] == "" && document.getElementById(startPosition + 9) && Math.floor(startPosition / 8 + 3) == Math.floor((startPosition + 27) / 8)) {
+                        if (color[startPosition + 36] == "" && document.getElementById(startPosition + 9) && Math.floor(startPosition / 8 + 4) == Math.floor((startPosition + 36) / 8)) {
+                            if (color[startPosition + 45] == "" && document.getElementById(startPosition + 9) && Math.floor(startPosition / 8 + 5) == Math.floor((startPosition + 45) / 8)) {
+                                if (color[startPosition + 54] == "" && document.getElementById(startPosition + 9) && Math.floor(startPosition / 8 + 6) == Math.floor((startPosition + 54) / 8)) {
+                                    if (color[startPosition + 63] == "" && document.getElementById(startPosition + 9) && Math.floor(startPosition / 8 + 7) == Math.floor((startPosition + 63) / 8)) {
+                                        finalPosition = startPosition + 63
+                                        document.getElementById(finalPosition).classList += "possible"
+                                    } else if (color[startPosition + 63] == black && document.getElementById(startPosition + 63)) {
+                                        finalPosition = startPosition + 63
                                         document.getElementById(finalPosition).classList += "possible"
                                     }
-                                    finalPosition = startPosition - 54
+                                    finalPosition = startPosition + 54
+                                    document.getElementById(finalPosition).classList += "possible"
+                                } else if (color[startPosition + 54] == black && document.getElementById(startPosition + 54)) {
+                                    finalPosition = startPosition + 54
                                     document.getElementById(finalPosition).classList += "possible"
                                 }
-                                finalPosition = startPosition - 45
+                                finalPosition = startPosition + 45
+                                document.getElementById(finalPosition).classList += "possible"
+                            } else if (color[startPosition + 45] == black && document.getElementById(startPosition + 45)) {
+                                finalPosition = startPosition + 45
                                 document.getElementById(finalPosition).classList += "possible"
                             }
-                            finalPosition = startPosition - 36
+                            finalPosition = startPosition + 36
+                            document.getElementById(finalPosition).classList += "possible"
+                        } else if (color[startPosition + 36] == black && document.getElementById(startPosition + 36)) {
+                            finalPosition = startPosition + 36
                             document.getElementById(finalPosition).classList += "possible"
                         }
-                        finalPosition = startPosition - 27
+                        finalPosition = startPosition + 27
+                        document.getElementById(finalPosition).classList += "possible"
+                    } else if (color[startPosition + 27] == black && document.getElementById(startPosition + 27)) {
+                        finalPosition = startPosition + 27
                         document.getElementById(finalPosition).classList += "possible"
                     }
-                    finalPosition = startPosition - 18
+                    finalPosition = startPosition + 18
+                    document.getElementById(finalPosition).classList += "possible"
+                } else if (color[startPosition + 18] == black && document.getElementById(startPosition + 18)) {
+                    finalPosition = startPosition + 18
                     document.getElementById(finalPosition).classList += "possible"
                 }
-                finalPosition = startPosition - 9
+                finalPosition = startPosition + 9
+                document.getElementById(finalPosition).classList += "possible"
+            } else if (color[startPosition + 9] == black && document.getElementById(startPosition + 9)) {
+                finalPosition = startPosition + 9
                 document.getElementById(finalPosition).classList += "possible"
             }
         } else if (activeType == "<img src='Icons/white_queen.png'>") {
@@ -1459,7 +1484,7 @@ function toHere(target) {
         finalPosition = target
         indexWhite = 1
         //Check if the active piece is a white pawn
-        if (activeType == "<img src='Icons/white_pawn.png'>") {
+        if (activeType == whitePawn) {
             //Check if there is a black piece 
             if (color[finalPosition] == black) {
                 //Check if the target field is diagonal left
@@ -1467,7 +1492,7 @@ function toHere(target) {
                     //Check if the target field is one row further
                     if (Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
                         //Check if the target field is in the last row
-                        if (finalPosition < 8 && (deadWhite.includes("<img src='Icons/white_rook.png'>") || deadWhite.includes("<img src='Icons/white_knight.png'>") || deadWhite.includes("<img src='Icons/white_bishop.png'>") || deadWhite.includes("<img src='Icons/white_queen.png'>"))) {
+                        if (finalPosition < 8 && (deadWhite.includes(whiteRook) || deadWhite.includes("<img src='Icons/white_knight.png'>") || deadWhite.includes("<img src='Icons/white_bishop.png'>") || deadWhite.includes("<img src='Icons/white_queen.png'>"))) {
                             //Reset variables
                             player = "Niemand"
                             row = 0
@@ -1483,9 +1508,9 @@ function toHere(target) {
                                     //Save the type
                                     reviveType = document.getElementById(id).innerHTML
                                     //Check if the type is a pawn
-                                    if (reviveType == '<img src="cons/white_pawn.png">') {
+                                    if (reviveType == whitePawn) {
                                         //Do nothing
-                                        document.getElementById(id).innerHTML = '<img src="Icons/white_pawn.png">'
+                                        document.getElementById(id).innerHTML = whitePawn
                                         //Check if the field is empty
                                     } else if (reviveType == "") {
                                         //Do nothing
@@ -1526,7 +1551,7 @@ function toHere(target) {
                     }
                 } else if (finalPosition == activeFieldID - 7) {
                     if (Math.floor(activeFieldID / 8 - 1) == Math.floor(finalPosition / 8)) {
-                        if (finalPosition < 8 && (deadWhite.includes("<img src='Icons/white_rook.png'>") || deadWhite.includes("<img src='Icons/white_knight.png'>") || deadWhite.includes("<img src='Icons/white_bishop.png'>") || deadWhite.includes("<img src='Icons/white_queen.png'>"))) {
+                        if (finalPosition < 8 && (deadWhite.includes(whiteRook) || deadWhite.includes("<img src='Icons/white_knight.png'>") || deadWhite.includes("<img src='Icons/white_bishop.png'>") || deadWhite.includes("<img src='Icons/white_queen.png'>"))) {
                             player = "Niemand"
                             row = 0
                             col = 0
@@ -1538,8 +1563,8 @@ function toHere(target) {
                                 while (col < 2) {
                                     id = "black" + indexWhite
                                     reviveType = document.getElementById(id).innerHTML
-                                    if (reviveType == '<img src="Icons/white_pawn.png">') {
-                                        document.getElementById(id).innerHTML = '<img src="Icons/white_pawn.png">'
+                                    if (reviveType == whitePawn) {
+                                        document.getElementById(id).innerHTML = whitePawn
                                     } else if (reviveType == "") {
                                         document.getElementById(id).innerHTML = ""
                                     } else {
@@ -1583,7 +1608,7 @@ function toHere(target) {
                     }
                 }
             } else if (color[activeFieldID - 8] != white && finalPosition == activeFieldID - 8) {
-                if (finalPosition < 8 && (deadWhite.includes("<img src='Icons/white_rook.png'>") || deadWhite.includes("<img src='Icons/white_knight.png'>") || deadWhite.includes("<img src='Icons/white_bishop.png'>") || deadWhite.includes("<img src='Icons/white_queen.png'>"))) {
+                if (finalPosition < 8 && (deadWhite.includes(whiteRook) || deadWhite.includes("<img src='Icons/white_knight.png'>") || deadWhite.includes("<img src='Icons/white_bishop.png'>") || deadWhite.includes("<img src='Icons/white_queen.png'>"))) {
                     player = "Niemand"
                     row = 0
                     col = 0
@@ -1595,8 +1620,8 @@ function toHere(target) {
                         while (col < 2) {
                             id = "black" + indexWhite
                             reviveType = document.getElementById(id).innerHTML
-                            if (reviveType == '<img src="Icons/white_pawn.png">') {
-                                document.getElementById(id).innerHTML = '<img src="Icons/white_pawn.png">'
+                            if (reviveType == whitePawn) {
+                                document.getElementById(id).innerHTML = whitePawn
                             } else if (reviveType == "") {
                                 document.getElementById(id).innerHTML = ""
                             } else {
@@ -1625,7 +1650,7 @@ function toHere(target) {
                     player = black
                 }
             }
-        } else if (activeType == "<img src='Icons/white_rook.png'>") {
+        } else if (activeType == whiteRook) {
             if (color[activeFieldID - 8] == "") {
                 if (color[activeFieldID - 16] == "") {
                     if (color[activeFieldID - 24] == "") {
@@ -4847,11 +4872,11 @@ function toHere(target) {
             case "<img src='Icons/black_king.png'>":
                 deadBlack[rowWhite++] = "<img src='Icons/black_king.png'>"
                 break;
-            case "<img src='Icons/white_pawn.png'>":
-                deadWhitePawns[rowBlack++] = "<img src='Icons/white_pawn.png'>"
+            case whitePawn:
+                deadWhitePawns[rowBlack++] = whitePawn
                 break;
-            case "<img src='Icons/white_rook.png'>":
-                deadWhite[rowBlack++] = "<img src='Icons/white_rook.png'>"
+            case whiteRook:
+                deadWhite[rowBlack++] = whiteRook
                 break;
             case "<img src='Icons/white_knight.png'>":
                 deadWhite[rowBlack++] = "<img src='Icons/white_knight.png'>"
@@ -4881,7 +4906,7 @@ function toHere(target) {
         while (indexBlack <= 16) {
             id = "black" + indexBlack
             switch (deadWhite[indexBlack]) {
-                case "<img src='Icons/white_rook.png'>":
+                case whiteRook:
                     document.getElementById(id).innerHTML = deadWhite[indexBlack++]
                     break;
                 case "<img src='Icons/white_knight.png'>":
@@ -4917,7 +4942,7 @@ function toHere(target) {
 
         while (indexBlack <= 16) {
             id = "black" + indexBlack
-            if (deadWhitePawns[indexBlack] == "<img src='Icons/white_pawn.png'>") {
+            if (deadWhitePawns[indexBlack] == whitePawn) {
                 document.getElementById(id).innerHTML = deadWhitePawns[indexBlack++]
             } else {
                 indexBlack++
@@ -4964,7 +4989,7 @@ function toHere(target) {
 function revive(index, colour) {
     if (colour == white) {
         pieces[finalPosition] = deadWhite[index]
-        deadWhitePawns[index] = "<img src='Icons/white_pawn.png'>"
+        deadWhitePawns[index] = whitePawn
         deadWhite[index] = ""
         occupancy[finalPosition] = true
         color[finalPosition] = white
@@ -4995,7 +5020,7 @@ function revive(index, colour) {
     while (indexBlack <= 16) {
         id = "black" + indexBlack
         switch (deadWhite[indexBlack]) {
-            case "<img src='Icons/white_rook.png'>":
+            case whiteRook:
                 document.getElementById(id).innerHTML = deadWhite[indexBlack++]
                 break;
             case "<img src='Icons/white_knight.png'>":
@@ -5031,7 +5056,7 @@ function revive(index, colour) {
 
     while (indexBlack <= 16) {
         id = "black" + indexBlack
-        if (deadWhitePawns[indexBlack] == "<img src='Icons/white_pawn.png'>") {
+        if (deadWhitePawns[indexBlack] == whitePawn) {
             document.getElementById(id).innerHTML = deadWhitePawns[indexBlack++]
         } else {
             indexBlack++
