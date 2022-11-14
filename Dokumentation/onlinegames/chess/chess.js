@@ -1343,7 +1343,7 @@ function move(startPosition) {
                 document.getElementById(finalPosition).classList += "possible"
             }
             finalPosition = startPosition - 10
-            if (color[finalPosition] != white && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 1) && document.getElementById(finalPosition)) {
+            if (color[finalPosition] != black && Math.floor(finalPosition / 8) == Math.floor(activeFieldID / 8 - 1) && document.getElementById(finalPosition)) {
                 document.getElementById(finalPosition).classList += "possible"
             }
             finalPosition = startPosition + 15
