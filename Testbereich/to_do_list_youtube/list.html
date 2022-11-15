@@ -3,30 +3,68 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Task List 2021</title>
-
+    <title>Task List 2022</title>
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-    <header>
-        <h1>Task List 2021</h1>
-        <form id="new-task-form">
-            <input type="text" id="new-task-input" placeholder="What do you have planned?">
-            <input type="submit" id="new-task-submit" value="Add task">
-        </form>
-    </header>
+    <main class="app">
+        <section class="greeting">
+            <h2 class="title"><span id="greeting"></span>, <input type="text" id="name" placeholder="Name here"></h2>
+        </section>
 
-    <main>
+        <section class="create-todo">
+            <form id="new-todo-form">
+                <h4>What's on your todo list?</h4>
+                <input type="text" name="content" id="content" placeholder="e.g. make a video">
 
-        <section class="task-list">
-            <h2>Tasks</h2>
+                <h4>Pick a category</h4>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="category" id="category1" value="business">
+                        <span class="bubble business"></span>
+                        <div>Business</div>
+                    </label>
 
-            <div id="tasks">
-                <!--<div class="task">
-                    <div class="content">
-                        <input type="text" class="text" value="My shiny task" readonly>
+                    <label>
+                        <input type="radio" name="category" id="category2" value="personal">
+                        <span class="bubble personal"></span>
+                        <div>Personal</div>
+                    </label>
+                </div>
+
+                <input type="submit" value="Add todo">
+            </form>
+        </section>
+
+        <section class="todo-list">
+            <div class="list" id="todo-list">
+                <!--<div class="todo-item">
+                    <label>
+                        <input type="checkbox">
+                        <span class="bubble business"></span>
+                    </label>
+
+                    <div class="todo-content">
+                        <input type="text" value="Make a video" readonly>
                     </div>
+
+                    <div class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </div>
+                </div>
+
+                <div class="todo-item">
+                    <label>
+                        <input type="checkbox">
+                        <span class="bubble personal"></span>
+                    </label>
+
+                    <div class="todo-content">
+                        <input type="text" value="Get milk" readonly>
+                    </div>
+
                     <div class="actions">
                         <button class="edit">Edit</button>
                         <button class="delete">Delete</button>
