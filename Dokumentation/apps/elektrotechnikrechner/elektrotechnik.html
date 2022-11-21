@@ -66,42 +66,45 @@
 
     <h1>Rechner für Elektrotechnik</h1>
 
-    <form>
-        <input type="number" name="wert1" class="wert" placeholder="Wert 1">
-        <select name="einheit1" class="einheit">
-            <option value="ohm" selected>Ohm</option>
-            <option value="ampère">Ampère</option>
-            <option value="volt">Volt</option>
-        </select>
-        <select name="vorsatz1" class="vorsatz">
-            <option value="nano">Nano</option>
-            <option value="mikro">Mikro</option>
-            <option value="milli">Milli</option>
-            <option value="basis" selected>Basis</option>
-            <option value="kilo">Kilo</option>
-            <option value="mega">Mega</option>
-            <option value="giga">Giga</option>
-            <option value="tera">Tera</option>
-        </select>
-        <input type="number" name="wert2" class="wert" placeholder="Wert 2">
-        <select name="einheit2" class="einheit">
-            <option value="ohm" selected>Ohm</option>
-            <option value="ampère" selected>Ampère</option>
-            <option value="volt">Volt</option>
-        </select>
-        <select name="vorsatz2" class="vorsatz">
-            <option value="nano">Nano</option>
-            <option value="mikro">Mikro</option>
-            <option value="milli">Milli</option>
-            <option value="basis" selected>Basis</option>
-            <option value="kilo">Kilo</option>
-            <option value="mega">Mega</option>
-            <option value="giga">Giga</option>
-            <option value="tera">Tera</option>
-        </select>
-    </form>
+    <div class="calc">
+        <form>
+            <input type="number" name="wert1" class="wert" placeholder="Wert 1">
+            <select name="einheit1" class="einheit">
+                <option value="ohm" selected>Ohm</option>
+                <option value="ampère">Ampère</option>
+                <option value="volt">Volt</option>
+            </select>
+            <select name="vorsatz1" class="vorsatz">
+                <option value="nano">Nano</option>
+                <option value="mikro">Mikro</option>
+                <option value="milli">Milli</option>
+                <option value="basis" selected>Basis</option>
+                <option value="kilo">Kilo</option>
+                <option value="mega">Mega</option>
+                <option value="giga">Giga</option>
+                <option value="tera">Tera</option>
+            </select>
+            <input type="number" name="wert2" class="wert" placeholder="Wert 2">
+            <select name="einheit2" class="einheit">
+                <option value="ohm" selected>Ohm</option>
+                <option value="ampère" selected>Ampère</option>
+                <option value="volt">Volt</option>
+            </select>
+            <select name="vorsatz2" class="vorsatz">
+                <option value="nano">Nano</option>
+                <option value="mikro">Mikro</option>
+                <option value="milli">Milli</option>
+                <option value="basis" selected>Basis</option>
+                <option value="kilo">Kilo</option>
+                <option value="mega">Mega</option>
+                <option value="giga">Giga</option>
+                <option value="tera">Tera</option>
+            </select>
+            <input type="submit" name="finish" value="Berechnen" class="finish">
+        </form>
 
-    <h2 id="result">Die Spannung beträgt 5V</h2>
+        <h2 class="result">Die Spannung beträgt <span id="result">5V</span></h2>
+    </div>
 
     <script src="elektrotechnik.js"></script>
 </body>
