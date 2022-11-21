@@ -6,7 +6,7 @@ select {
     text-align: center;
 }
 
-form {
+.form {
     margin: 25px auto;
     display: grid;
     grid-template-columns: 50% 15% 15%;
@@ -21,11 +21,11 @@ form {
     padding: 20px;
 }
 
-.finish {
+.submit {
     grid-area: 3 / 1 / 4 / 4;
 }
 
-input, select {
+button, input, select {
     background: #141414;
     color: #ccc;
     border: 0;
@@ -35,7 +35,7 @@ input, select {
     transition: 0.4s;
 }
 
-input::placeholder {
+button, input::placeholder {
     color: #888;
 }
 
@@ -43,11 +43,11 @@ input:focus, select:focus {
     outline: 0;
 }
 
-input:hover, select:hover {
+button:hover, input:hover, select:hover {
     background-color: #202020;
 }
 
-input:active, select:active {
+button:active, input:active, select:active {
     background-color: #2d2d2d;
 }
 
@@ -64,4 +64,10 @@ h2.result {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 5px 5px 10px black;
+    margin-top: 3cm;
+}
+
+h1 {
+    color: #ccc;
+    margin-top: 20px;
 }
