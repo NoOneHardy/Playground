@@ -3,6 +3,10 @@
     justify-content: space-around;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
 .grid-item {
     text-align: center;
     border-style: dashed none;
