@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="calc">
+        <h1>Bilanzrechner 2022</h1>
+        <div class="actions">
+            <button type="button" onclick="addRow()" id="addRow" class="modify">Reihe hinzufügen</button>
+            <button type="button" onclick="calculate()" id="bilanz1" class="action">Schlussbilanz I berechnen</button>
+            <button type="button" id="eigenkapital" class="invisible">In der Firma lassen</button>
+            <button type="button" id="kasse" class="invisible">Auszahlen</button>
+        </div>
+        <table class="input">
+            <tr class="heading">
+                <th>Aktiven</th>
+                <th>CHF</th>
+                <th>Passiven</th>
+                <th>CHF</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="active0" id="active0" class="active" placeholder="z.B. Kasse"></td>
+                <td><input type="number" name="active0" id="activeValue0" class="activeValue" placeholder="0"></td>
+                <td><input type="text" name="passive0" id="passive0" class="passive" placeholder="z.B. Darlehen">
+                </td>
+                <td><input type="number" name="passive0" id="passiveValue0" class="passiveValue" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="active1" id="active1" class="active" placeholder="z.B. Kasse"></td>
+                <td><input type="number" name="active1" id="activeValue1" class="activeValue" placeholder="0"></td>
+                <td><input type="text" name="passive1" id="passive1" class="passive" placeholder="z.B. Darlehen">
+                </td>
+                <td><input type="number" name="passive1" id="passiveValue1" class="passiveValue" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="active2" id="active2" class="active" placeholder="z.B. Kasse"></td>
+                <td><input type="number" name="active2" id="activeValue2" class="activeValue" placeholder="0"></td>
+                <td><input type="text" name="passive2" id="passive2" class="passive" placeholder="z.B. Darlehen">
+                </td>
+                <td><input type="number" name="passive2" id="passiveValue2" class="passiveValue" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="active3" id="active3" class="active" placeholder="z.B. Kasse"></td>
+                <td><input type="number" name="active3" id="activeValue3" class="activeValue" placeholder="0"></td>
+                <td><input type="text" name="passive3" id="passive3" class="passive" placeholder="z.B. Darlehen">
+                </td>
+                <td><input type="number" name="passive3" id="passiveValue3" class="passiveValue" placeholder="0"></td>
+            </tr>
+        </table>
+        <table class="output">
+            <tr>
+                <td id="activeSumDisplay"></td>
+                <td id="passiveSumDisplay"></td>
+            </tr>
+            <tr>
+                <td id="activeDifDisplay"></td>
+                <td id="passiveDifDisplay"></td>
+            </tr>
+            <tr>
+                <td id="activeEnd"></td>
+                <td id="passiveEnd"></td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
