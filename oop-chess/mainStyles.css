@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --backGradient: radial-gradient(#666666, #111111);
+}
+
+@media screen and (min-width: 1280px) {
+    html {
+        min-height: 100%;
+    }
+
+    body {
+        min-height: 100%;
+        background: var(--backGradient);
+    }
+}
