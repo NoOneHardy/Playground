@@ -3,17 +3,47 @@
     padding: 0;
 }
 
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100%;
+    background: var(--darkGradient);
+}
+
 :root {
-    --backGradient: radial-gradient(#666666, #111111);
+    --darkGradient: radial-gradient(#666666, #111111);
+    --blackGradient: radial-gradient(#353535, #111);
+    --whiteGradient: radial-gradient(#dedede, #aaa);
 }
 
 @media screen and (min-width: 1280px) {
-    html {
-        min-height: 100%;
+    .board {
+        width: 480px;
+        height: 480px;
+        border-collapse: collapse;
+        margin: 75px auto 50px;
     }
 
-    body {
-        min-height: 100%;
-        background: var(--backGradient);
+    tr:nth-child(even) td:nth-child(even) {
+        background: var(--blackGradient);
+    }
+
+    tr:nth-child(even) td:nth-child(odd) {
+        background: var(--whiteGradient);
+    }
+
+    tr:nth-child(odd) td:nth-child(even) {
+        background: var(--whiteGradient)
+    }
+
+    tr:nth-child(odd) td:nth-child(odd) {
+        background: var(--blackGradient)
+    }
+
+    td {
+        width: 12.5%;
+        height: 12.5%;
     }
 }
