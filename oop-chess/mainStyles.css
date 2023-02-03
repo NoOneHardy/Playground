@@ -14,8 +14,8 @@ body {
 
 :root {
     --darkGradient: radial-gradient(#666666, #111111);
-    --blackGradient: radial-gradient(#353535, #111);
-    --whiteGradient: radial-gradient(#dedede, #aaa);
+    --blackGradient: radial-gradient(#353535b8, #111111b8);
+    --whiteGradient: radial-gradient(#dededeb8, #aaaaaab8);
 }
 
 @media screen and (min-width: 1280px) {
