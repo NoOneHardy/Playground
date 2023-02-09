@@ -29,19 +29,8 @@ class Knight {
         this.position = position
         this.moved = false
         this.dead = false
-        if (color == black) {
-            this.image = "<img src='icons/black/knight.png'>"
-        } else {
-            this.image = "<img src='icons/white/knight.png'>"
-        }
+        this.image = "<img src='icons/" + color + "/knight.png'>"
     }
-    /*
-    move(field) {
-        if (color = "black") {
-            
-        }
-    }
-    */
 }
 
 class Bishop {
@@ -50,19 +39,8 @@ class Bishop {
         this.position = position
         this.moved = false
         this.dead = false
-        if (color == black) {
-            this.image = "<img src='icons/black/bishop.png'>"
-        } else {
-            this.image = "<img src='icons/white/bishop.png'>"
-        }
+        this.image = "<img src='icons/" + color + "/bishop.png'>"
     }
-    /*
-    move(field) {
-        if (color = "black") {
-            
-        }
-    }
-    */
 }
 
 class Queen {
@@ -71,19 +49,8 @@ class Queen {
         this.position = position
         this.moved = false
         this.dead = false
-        if (color == black) {
-            this.image = "<img src='icons/black/queen.png'>"
-        } else {
-            this.image = "<img src='icons/white/queen.png'>"
-        }
+        this.image = "<img src='icons/" + color + "/queen.png'>"
     }
-    /*
-    move(field) {
-        if (color = "black") {
-            
-        }
-    }
-    */
 }
 
 class King {
@@ -92,19 +59,8 @@ class King {
         this.position = position
         this.moved = false
         this.dead = false
-        if (color == black) {
-            this.image = "<img src='icons/black/king.png'>"
-        } else {
-            this.image = "<img src='icons/white/king.png'>"
-        }
+        this.image = "<img src='icons/" + color + "/king.png'>"
     }
-    /*
-    move(field) {
-        if (color = "black") {
-            
-        }
-    }
-    */
 }
 
 class Field {
@@ -136,7 +92,7 @@ function createPieces(fields) {
         whitePawns[pawn - 1] = new Pawn(white, 7 + pawn.toString())
         fields[whitePawns[pawn - 1].position].piece = whitePawns[pawn - 1]
     }
-    
+
     blackRooks.push(new Rook(black, 11))
     fields[blackRooks[0].position].piece = blackRooks[0]
     blackRooks.push(new Rook(black, 18))
@@ -147,19 +103,45 @@ function createPieces(fields) {
     whiteRooks.push(new Rook(white, 88))
     fields[whiteRooks[1].position].piece = whiteRooks[1]
 
+    blackKnights.push(new Knight(black, 12))
+    fields[blackKnights[0].position].piece = blackKnights[0]
+    blackKnights.push(new Knight(black, 17))
+    fields[blackKnights[1].position].piece = blackKnights[1]
+
+    whiteKnights.push(new Knight(white, 82))
+    fields[whiteKnights[0].position].piece = whiteKnights[0]
+    whiteKnights.push(new Knight(white, 87))
+    fields[whiteKnights[1].position].piece = whiteKnights[1]
+
+    blackBishops.push(new Bishop(black, 13))
+    fields[blackBishops[0].position].piece = blackBishops[0]
+    blackBishops.push(new Bishop(black, 16))
+    fields[blackBishops[1].position].piece = blackBishops[1]
+
+    whiteBishops.push(new Bishop(white, 83))
+    fields[whiteBishops[0].position].piece = whiteBishops[0]
+    whiteBishops.push(new Bishop(white, 86))
+    fields[whiteBishops[1].position].piece = whiteBishops[1]
+
+    fields[blackKing.position].piece = blackKing
+    fields[whiteKing.position].piece = whiteKing
+    fields[blackQueen.position].piece = blackQueen
+    fields[whiteQueen.position].piece = whiteQueen
+
     pieces.push(blackPawns)
     pieces.push(whitePawns)
     pieces.push(blackRooks)
-    var whiteRooks = []
-    var blackKnights = []
-    var whiteKnights = []
-    var blackBishops = []
-    var whiteBishops = []
+    
+    pieces.push(whiteRooks)
+    pieces.push(blackKnights)
+    pieces.push(whiteKnights)
+    pieces.push(blackBishops)
+    pieces.push(whiteBishops)
 
-    var blackKing = new King(black, 14)
-    var whiteKing = new King(white, 84)
-    var blackQueen = new Queen(black, 15)
-    var whiteQueen = new Queen(white, 85)
+    pieces.push(blackKing)
+    pieces.push(whiteKing)
+    pieces.push(blackQueen)
+    pieces.push(whiteQueen)
 
     return pieces
 }
