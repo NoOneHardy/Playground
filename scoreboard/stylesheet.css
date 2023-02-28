@@ -1,0 +1,149 @@
+body {
+	font-family: Fredoka One, audiowide, courier, courier new;
+	color: rgba(255, 255, 255, 0.875);
+	background-repeat: no-repeat;
+	background-image: linear-gradient(to bottom, #44AA55, #227733);
+	margin: 0;
+	min-height: 101%;
+	text-align: center;
+	background-repeat: no-repeat;
+	justify-content: space-around;
+	margin-bottom: 2cm;
+}
+
+html {
+	min-height: 101%;
+}
+
+ul.navi-bar {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+li.navi-bar, li.dropdown {
+	float: left;
+}
+
+.dropbtn, li.navi-bar {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	border-radius: 0;
+	text-decoration: none;
+	background-image: none;
+	margin: 0;
+	border: none;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: #227733;
+}
+
+li.navi-bar:hover {
+	background-color: #227733;
+}
+
+.dropdown-content {
+	display: none;
+	position: fixed;
+	background-color: black;
+	width: 140px;
+	z-index: 1;
+	font-size: 15px;
+	text-align: center;
+}
+
+.dropdown-content a {
+	display: inline-block;
+	color: white;
+	padding: 14px 16px;
+	background-color: black;
+	min-width: 140px;
+	text-decoration: none;
+	border: none;
+	text-align: left;
+	margin: 0;
+}
+
+.dropdown-content a:hover {
+	background-color: #115522;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.example {
+	text-align: left;
+	font-family: Source code pro, courier, courier new;
+	margin: 0.5cm;
+	padding: 0.5cm;
+	font-size: 20px;
+	overflow-wrap: break-word;
+}
+
+.flex-container {
+	display:flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.flex-item {
+	text-align: center;
+	padding: 0.5cm;
+	color: black;
+	margin: 0.5cm;
+	font-size: 130%;
+	flex-basis: 33%;
+	min-width: 200px;
+	max-width: 800px;
+}
+
+h1 {
+	color: white;
+	text-align: center;
+	font-size: 300%;
+	margin-top: 3cm;
+}
+ 
+a {
+	color: black;
+}
+
+address div {
+	text-align:center;
+	border-style: solid none;
+	border-color: white;
+	border-width: 1px;
+}
+
+address {
+	margin: 2cm;
+}
+
+pre {
+	font-family: Source Code Pro;
+}
+
+h2 {
+	font-size: 35px;
+	padding: 0;
+	margin: 0.25cm;
+	color: #1d1d1d;
+}
+
+h3 {
+	color: powderblue;
+	text-shadow: none;
+}
+
+p {
+	font-size: 20px;
+}

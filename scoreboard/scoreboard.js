@@ -40,3 +40,25 @@ function finish() {
     player1Points.innerHTML = 0
     player2Points.innerHTML = 0
 }
+
+function save() {
+    let game = {
+        "total1": total1.innerHTML,
+        "total2": total2.innerHTML,
+        "pointsPlayer1": player1Points.innerHTML,
+        "pointsPlayer2": player2Points.innerHTML
+    }
+
+    let saveGame = JSON.stringify(game)
+    localStorage.setItem("scoreBoard", saveGame)
+}
+
+function load() {
+    let saveGame = localStorage.getItem("scoreBoard")
+    let game = JSON.parse(saveGame)
+
+    player1Points.innerHTML = game.pointsPlayer1
+    player2Points.innerHTML = game.pointsPlayer2
+    total1.innerHTML = game.total1
+    total2.innerHTML = game.total2
+}
