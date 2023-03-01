@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <title id="title">New Game</title>
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="stylesheet" href="scoreboard.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
@@ -14,18 +15,16 @@
     <ul class="navi-bar">
         <li class="navi-bar">New Game</li>
 
-        <!--HTML-->
-        <li class="navi-bar">Save Game</li>
+        <li class="navi-bar" id="save">Save Game</li>
         
-        <!--JavaScript-->
         <li class="dropdown">
             <span href="" class="dropbtn">Load Game</span>
             <div class="dropdown-content">
                 <span>Save1</span>
             </div>
         </li>
-        <li class="navi-bar">
-            <input type="text"id="saveName">
+        <li class="navi-bar" style="padding: 10px 16px;">
+            <input type="text" id="saveName" value="Game">
         </li>
     </ul>
 

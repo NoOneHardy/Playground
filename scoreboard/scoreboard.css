@@ -11,6 +11,17 @@
     padding: 10px;
 }
 
+#saveName {
+    background: radial-gradient(#4d4d4d, #343434);
+    border: none;
+    color: white;
+    margin: 0px;
+    font-size: 15px;
+    height: 25px;
+    padding-left: 7.5px;
+    border-radius: 15px;
+}
+
 h2 {
     background: linear-gradient(to bottom right, #44AA55, #227733);
     -webkit-background-clip: text;
