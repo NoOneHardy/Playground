@@ -28,11 +28,11 @@ ul.navi-bar {
 	right: 0;
 }
 
-li.navi-bar, li.dropdown {
+li.navi-bar, li.dropdown, .navi-bar-input{
 	float: left;
 }
 
-.dropbtn, li.navi-bar {
+.dropbtn, li.navi-bar, .navi-bar-input {
 	display: inline-block;
 	color: white;
 	text-align: center;
@@ -42,6 +42,7 @@ li.navi-bar, li.dropdown {
 	background-image: none;
 	margin: 0;
 	border: none;
+	cursor: pointer;
 }
 
 .dropdown:hover .dropbtn {
@@ -60,6 +61,7 @@ li.navi-bar:hover {
 	z-index: 1;
 	font-size: 15px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .dropdown-content span {
@@ -86,7 +88,7 @@ h1 {
 	color: white;
 	text-align: center;
 	font-size: 300%;
-	margin-top: 3cm;
+	margin-top: 2cm;
 }
 
 

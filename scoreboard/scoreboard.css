@@ -12,20 +12,19 @@
 }
 
 #saveName {
+    font-family: Fredoka One, audiowide, courier, courier new;
     background: radial-gradient(#4d4d4d, #343434);
     border: none;
     color: white;
     margin: 0px;
     font-size: 15px;
     height: 25px;
-    padding-left: 7.5px;
+    padding-left: 12.5px;
     border-radius: 15px;
 }
 
-h2 {
-    background: linear-gradient(to bottom right, #44AA55, #227733);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+#saveName:focus {
+    outline: none;
 }
 
 .player1 {
@@ -57,15 +56,33 @@ h2 {
     margin: 0;
 }
 
-.player2 h2 {
+.player {
+    font-family: Fredoka One, audiowide, courier, courier new;
     height: 100%;
     max-height: 50px;
+    background: linear-gradient(to bottom right, #44AA55, #227733);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 35px;
+	padding: 0;
+	margin: 0.25cm;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    border: none;
+    border-radius: 15px;
 }
 
-.player1 h2 {
-    height: 100%;
-    max-height: 50px;
-    margin-bottom: 0;
+.player:focus {
+    background: transparent;
+    text-decoration: white;
+    text-underline-offset: 5px;
+    color: white;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: initial;
+    outline: none;
 }
 
 button {
@@ -75,9 +92,11 @@ button {
     font-size: 300%;
     padding: 0;
     background: linear-gradient(to bottom right, #dbdb55, #db8c00);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     border: none;
+    cursor: pointer;
 }
 
 .finish {
@@ -88,6 +107,7 @@ button {
 
 .total h2 {
     background: linear-gradient(to bottom right, #dbdb55, #db8c00);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
