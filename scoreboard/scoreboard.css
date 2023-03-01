@@ -72,6 +72,7 @@
     text-align: center;
     border: none;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .player:focus {
