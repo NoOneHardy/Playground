@@ -51,44 +51,60 @@ function finish() {
 
 save.addEventListener('click', () => {
     if (saveName.value === "") {
-        
-    }
-    let game = {
-        "total1": total1.innerHTML,
-        "total2": total2.innerHTML,
-        "pointsPlayer1": player1Points.innerHTML,
-        "pointsPlayer2": player2Points.innerHTML,
-        "player1": playerName1.value,
-        "player2": playerName2.value
-    }
+        alert('Ungültiger Spielname.')
+    } else {
+        let game = {
+            "total1": total1.innerHTML,
+            "total2": total2.innerHTML,
+            "pointsPlayer1": player1Points.innerHTML,
+            "pointsPlayer2": player2Points.innerHTML,
+            "player1": playerName1.value,
+            "player2": playerName2.value
+        }
 
-    game = JSON.stringify(game)
-    let name = saveName.value
-    let saves = {}
-    if (localStorage.getItem('saves') !== null) {
-        saves = localStorage.getItem('saves')
-        saves = JSON.parse(saves)
-    }
-    saves[name] = game
-    saves = JSON.stringify(saves)
-    localStorage.setItem('saves', saves)
+        game = JSON.stringify(game)
+        let name = saveName.value
+        let saves = {}
+        if (localStorage.getItem('saves') !== null) {
+            saves = localStorage.getItem('saves')
+            saves = JSON.parse(saves)
+        }
+        saves[name] = game
+        saves = JSON.stringify(saves)
+        localStorage.setItem('saves', saves)
 
-    renderSavedGames()
+        renderSavedGames()
+    }
 })
 
 function load(name) {
     let saves = localStorage.getItem('saves')
     saves = JSON.parse(saves)
-    game = JSON.parse(saves[name])
-    
-    total1.innerHTML = game.total1
-    total2.innerHTML = game.total2
-    player1Points.innerHTML = game.pointsPlayer1
-    player2Points.innerHTML = game.pointsPlayer2
-    playerName1.value = game.player1
-    playerName2.value = game.player2
+    if (JSON.parse(saves[name]) !== null) {
+        game = JSON.parse(saves[name])
 
-    saveName.value = name
+        total1.innerHTML = game.total1
+        total2.innerHTML = game.total2
+        player1Points.innerHTML = game.pointsPlayer1
+        player2Points.innerHTML = game.pointsPlayer2
+        playerName1.value = game.player1
+        playerName2.value = game.player2
+
+        saveName.value = name
+        title.innerHTML = saveName.value
+    }
+}
+
+function newGame() {
+    total1.innerHTML = 0
+    total2.innerHTML = 0
+    player1Points.innerHTML = 0
+    player2Points.innerHTML = 0
+    playerName1.value = 'Player 1'
+    playerName2.value = 'Player 2'
+
+    saveName.value = ''
+    title.innerHTML = 'New Game'
 }
 
 function renderSavedGames() {
@@ -96,13 +112,9 @@ function renderSavedGames() {
     saves = JSON.parse(saves)
     let savedGamesContent = ""
     for (let game in saves) {
-        savedGamesContent += '<span class=\'savedGame\' onclick=\'load("' + game + '")\'>' + game + '</span>'
+        savedGamesContent += '<span class=\'savedGame\' onclick=\'load("' + game + '")\'>' + game + '<span class=\'delete\' onclick=\'deleteSave("' + game + '")\'>x</span></span>'
     }
     savedGames.innerHTML = savedGamesContent
-}
-
-function onLoad() {
-    title.innerHTML = saveName.value
 }
 
 saveName.addEventListener('input', () => {
@@ -112,5 +124,18 @@ saveName.addEventListener('input', () => {
         title.innerHTML = saveName.value
     }
 })
+
+function deleteSave(name) {
+    let saves = localStorage.getItem('saves')
+    saves = JSON.parse(saves)
+    console.log(saves)
+    delete saves[name]
+    console.log(saves)
+    saves = JSON.stringify(saves)
+    localStorage.setItem('saves', saves)
+
+    newGame()
+    renderSavedGames()
+}
 
 renderSavedGames()
