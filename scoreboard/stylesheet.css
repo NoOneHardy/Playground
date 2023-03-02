@@ -108,7 +108,14 @@ h2 {
 	font-size: 35px;
 	padding: 0;
 	margin: 0.25cm;
-	color: #1d1d1d;
+    background: linear-gradient(to bottom right, #dbdb55, #db8c00);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.titleForLogs {
+	margin-bottom: 0.75cm;
 }
 
 p {

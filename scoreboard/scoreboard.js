@@ -10,6 +10,15 @@ const savedGames = document.querySelector('#savedGames')
 const savedGame = document.querySelector('.savedGame')
 const playerName1 = document.querySelector('#playerName1')
 const playerName2 = document.querySelector('#playerName2')
+const logs = document.querySelector('#logs')
+
+playerName1.addEventListener('input', () => {
+    document.querySelector('#logPoints1Title').innerHTML = playerName1.value
+})
+
+playerName2.addEventListener('input', () => {
+    document.querySelector('#logPoints2Title').innerHTML = playerName2.value
+})
 
 function addPoints(player) {
     let player1 = player1Points.innerHTML
@@ -45,6 +54,13 @@ function finish() {
         total2.innerHTML++
     }
 
+    let date = new Date()
+    let time = new Date()
+    date = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
+    time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
+
+    logs.innerHTML += '<div class="log"><div class="dateTime">' + date + ' - ' + time + '</div><div class="logPoints" id="logPoints1">' + player1 + '</div><div class="separator">:</div><div class="logPoints" id="logPoints2">' + player2 + '</div></div>'
+
     player1Points.innerHTML = 0
     player2Points.innerHTML = 0
 }
@@ -59,7 +75,8 @@ save.addEventListener('click', () => {
             "pointsPlayer1": player1Points.innerHTML,
             "pointsPlayer2": player2Points.innerHTML,
             "player1": playerName1.value,
-            "player2": playerName2.value
+            "player2": playerName2.value,
+            "logs": logs.innerHTML
         }
 
         game = JSON.stringify(game)
@@ -89,6 +106,7 @@ function load(name) {
         player2Points.innerHTML = game.pointsPlayer2
         playerName1.value = game.player1
         playerName2.value = game.player2
+        logs.innerHTML = game.logs
 
         saveName.value = name
         title.innerHTML = saveName.value
@@ -103,6 +121,7 @@ function newGame() {
     playerName1.value = 'Player 1'
     playerName2.value = 'Player 2'
 
+    logs.innerHTML ='<h2 class="titleForLogs">Logs</h2><div class="logTitle"><div class="dateTime">Datum</div><div class="logPointsTitle" id="logPoints1Title">Player 1</div><div></div><div class="logPointsTitle" id="logPoints2Title">Player 2</div></div>'
     saveName.value = ''
     title.innerHTML = 'New Game'
 }
