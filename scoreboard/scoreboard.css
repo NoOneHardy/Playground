@@ -127,6 +127,7 @@ button {
     grid-template-columns: 200px 125px 50px 125px;
     margin: 0;
     padding-left: 60px;
+    margin-bottom: 5px;
 }
 
 .logTitle {
@@ -136,4 +137,11 @@ button {
 
 .dateTime {
     text-align: left;
+}
+
+.last {
+    background: linear-gradient(to bottom right, #FF2222, #aa2222);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

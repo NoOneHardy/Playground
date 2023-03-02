@@ -26,9 +26,13 @@ function addPoints(player) {
     if (player === 'player1') {
         player1++
         player1Points.innerHTML = player1
+        player1Points.classList = 'last'
+        player2Points.classList = ''
     } else if (player === 'player2') {
         player2++
         player2Points.innerHTML = player2
+        player2Points.classList = 'last'
+        player1Points.classList = ''
     }
 }
 
@@ -64,6 +68,8 @@ function finish() {
 
     player1Points.innerHTML = 0
     player2Points.innerHTML = 0
+    player1Points.classList = ''
+    player2Points.classList = ''
 }
 
 save.addEventListener('click', () => {
@@ -77,7 +83,9 @@ save.addEventListener('click', () => {
             "pointsPlayer2": player2Points.innerHTML,
             "player1": playerName1.value,
             "player2": playerName2.value,
-            "logs": logs.innerHTML
+            "logs": logs.innerHTML,
+            "PointClass1": player1Points.classList,
+            "PointClass2": player2Points.classList
         }
 
         game = JSON.stringify(game)
@@ -105,6 +113,8 @@ function load(name) {
         total2.innerHTML = game.total2
         player1Points.innerHTML = game.pointsPlayer1
         player2Points.innerHTML = game.pointsPlayer2
+        player1Points.classList = game.PointClass1[0]
+        player2Points.classList = game.PointClass2[0]
         playerName1.value = game.player1
         playerName2.value = game.player2
         logs.innerHTML = game.logs
@@ -125,6 +135,8 @@ function newGame() {
     logs.innerHTML ='<h2 class="titleForLogs">Logs</h2><div class="logTitle"><div class="dateTime">Datum</div><div class="logPointsTitle" id="logPoints1Title">Player 1</div><div></div><div class="logPointsTitle" id="logPoints2Title">Player 2</div></div>'
     saveName.value = ''
     title.innerHTML = 'New Game'
+    player1Points.classList = ''
+    player2Points.classList = ''
 }
 
 function renderSavedGames() {
