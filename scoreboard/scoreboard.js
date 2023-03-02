@@ -56,7 +56,8 @@ function finish() {
 
     let date = new Date()
     let time = new Date()
-    date = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
+    
+    date = date.getDate() + '.' + (date.getMonth() + 1)+ '.' + date.getFullYear()
     time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
 
     logs.innerHTML += '<div class="log"><div class="dateTime">' + date + ' - ' + time + '</div><div class="logPoints" id="logPoints1">' + player1 + '</div><div class="separator">:</div><div class="logPoints" id="logPoints2">' + player2 + '</div></div>'
