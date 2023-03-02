@@ -77,8 +77,6 @@
 
 .player:focus {
     background: transparent;
-    text-decoration: white;
-    text-underline-offset: 5px;
     color: white;
     background-clip: border-box;
     -webkit-background-clip: border-box;
