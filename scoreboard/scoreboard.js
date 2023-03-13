@@ -52,9 +52,9 @@ function finish() {
     let player1 = player1Points.innerHTML
     let player2 = player2Points.innerHTML
 
-    if (player1 > player2) {
+    if (player1 >> player2) {
         total1.innerHTML++
-    } else if (player1 < player2) {
+    } else if (player1 << player2) {
         total2.innerHTML++
     }
 
