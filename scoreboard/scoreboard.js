@@ -61,7 +61,7 @@ function finish() {
     date = date.getDate() + '.' + (date.getMonth() + 1)+ '.' + date.getFullYear()
     time = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
 
-    logs.innerHTML += '<div class="log"><div class="dateTime">' + date + ' - ' + time + '</div><div class="logPoints" id="logPoints1">' + player1 + '</div><div class="separator">:</div><div class="logPoints" id="logPoints2">' + player2 + '</div></div>'
+    logs.innerHTML += '<div class="log"><div class="dateTime">' + date + ' - ' + time + '</div><div class="logPoints" id="logPoints1">' + player1Points.innerHTML + '</div><div class="separator">:</div><div class="logPoints" id="logPoints2">' + player2Points.innerHTML + '</div></div>'
 
     player1Points.innerHTML = 0
     player2Points.innerHTML = 0
