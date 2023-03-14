@@ -49,12 +49,9 @@ function removePoints(player) {
 }
 
 function finish() {
-    let player1 = player1Points.innerHTML
-    let player2 = player2Points.innerHTML
-
-    if (player1 >> player2) {
+    if (Number(player1Points.innerHTML) > Number(player2Points.innerHTML)) {
         total1.innerHTML++
-    } else if (player1 << player2) {
+    } else if (Number(player1Points.innerHTML) < Number(player2Points.innerHTML)) {
         total2.innerHTML++
     }
 
