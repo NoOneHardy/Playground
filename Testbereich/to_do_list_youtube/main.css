@@ -124,7 +124,7 @@ input[type="radio"], input[type="checkbox"] {
 .bubble::after {
     content: "";
     display: block;
-    opacity. 0;
+    opacity: 0;
     width: 0px;
     height: 0px;
     background-color: var(--business);
@@ -141,7 +141,7 @@ input[type="radio"], input[type="checkbox"] {
 input:checked ~ .bubble::after {
     width: 10px;
     height: 10px;
-    opacity. 1;
+    opacity: 1;
 }
 
 .create-todo .options label div {
@@ -155,7 +155,7 @@ input:checked ~ .bubble::after {
     width: 100%;
     font-size: 1.75rem;
     font-weight: 700;
-    padding: 1rem 1.15rem
+    padding: 1rem 1.15rem;
     color: #fff;
     background-image: var(--primary);
     -webkit-background-clip: text;
@@ -195,6 +195,7 @@ input:checked ~ .bubble::after {
 .todo-item .todo-content input {
     color: var(--grey);
     font-size: 1.125rem;
+    width: 500px;
 }
 
 .todo-item .actions {
