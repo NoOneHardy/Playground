@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/root.css">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <title>Leistungsrechner</title>
+</head>
+
+<body>
+    <div class="calculator">
+        <div class="inputs">
+            <div class="S">
+                <input type="number" placeholder="Scheinleistung" id="S">
+                <select class="vorsatz" id="S2">
+                    <option value="nano">Nano</option>
+                    <option value="mikro">Mikro</option>
+                    <option value="milli">Milli</option>
+                    <option value="basis" selected>Basis</option>
+                    <option value="kilo">Kilo</option>
+                    <option value="mega">Mega</option>
+                    <option value="giga">Giga</option>
+                    <option value="tera">Tera</option>
+                </select>
+            </div>
+            <div class="Û">
+                <input type="number" placeholder="Spitzenwert Spannung" id="Û">
+                <select class="vorsatz" id="Û2">
+                    <option value="nano">Nano</option>
+                    <option value="mikro">Mikro</option>
+                    <option value="milli">Milli</option>
+                    <option value="basis" selected>Basis</option>
+                    <option value="kilo">Kilo</option>
+                    <option value="mega">Mega</option>
+                    <option value="giga">Giga</option>
+                    <option value="tera">Tera</option>
+                </select>
+            </div>
+            <div class="Î">
+                <input type="number" placeholder="Spitzenwert Strom" id="Î">
+                <select class="vorsatz" id="Î2">
+                    <option value="nano">Nano</option>
+                    <option value="mikro">Mikro</option>
+                    <option value="milli">Milli</option>
+                    <option value="basis" selected>Basis</option>
+                    <option value="kilo">Kilo</option>
+                    <option value="mega">Mega</option>
+                    <option value="giga">Giga</option>
+                    <option value="tera">Tera</option>
+                </select>
+            </div>
+            <div class="P">
+                <input type="number" placeholder="Wirkleistung" id="P">
+                <select class="vorsatz" id="P2">
+                    <option value="nano">Nano</option>
+                    <option value="mikro">Mikro</option>
+                    <option value="milli">Milli</option>
+                    <option value="basis" selected>Basis</option>
+                    <option value="kilo">Kilo</option>
+                    <option value="mega">Mega</option>
+                    <option value="giga">Giga</option>
+                    <option value="tera">Tera</option>
+                </select>
+            </div>
+            <div class="U">
+                <input type="number" placeholder="Spannung" id="U">
+                <select class="vorsatz" id="U2">
+                    <option value="nano">Nano</option>
+                    <option value="mikro">Mikro</option>
+                    <option value="milli">Milli</option>
+                    <option value="basis" selected>Basis</option>
+                    <option value="kilo">Kilo</option>
+                    <option value="mega">Mega</option>
+                    <option value="giga">Giga</option>
+                    <option value="tera">Tera</option>
+                </select>
+            </div>
+            <div class="I">
+                <input type="number" placeholder="Strom" id="I">
+                <select class="vorsatz" id="I2">
+                    <option value="nano">Nano</option>
+                    <option value="mikro">Mikro</option>
+                    <option value="milli">Milli</option>
+                    <option value="basis" selected>Basis</option>
+                    <option value="kilo">Kilo</option>
+                    <option value="mega">Mega</option>
+                    <option value="giga">Giga</option>
+                    <option value="tera">Tera</option>
+                </select>
+            </div>
+            <div class="Q">
+                <input type="number" placeholder="Blindleistung" id="Q">
+                <select class="vorsatz" id="Q2">
+                    <option value="nano">Nano</option>
+                    <option value="mikro">Mikro</option>
+                    <option value="milli">Milli</option>
+                    <option value="basis" selected>Basis</option>
+                    <option value="kilo">Kilo</option>
+                    <option value="mega">Mega</option>
+                    <option value="giga">Giga</option>
+                    <option value="tera">Tera</option>
+                </select>
+            </div>
+            <input type="number" placeholder="Powerfaktor" id="p">
+            <div class="phases">
+                <label class="radio">
+                    <input type="radio" id="phase1" name="phase" checked="checked">
+                    <span class="custom-radio"></span>
+                    1 Phase
+                </label>
+                <label class="radio">
+                    <input type="radio" id="phase3" name="phase">
+                    <span class="custom-radio"></span>
+                    3 Phasen
+                </label>
+            </div>
+            <button onclick="calc()">Berechnen</button>
+        </div>
+        <div class="result">
+            <span class="resultText"></span>
+        </div>
+    </div>
+    <script type="text/javascript" src="scripts/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background: var(--background-gradient);
+    background-repeat: no-repeat;
+    color: var(--color);
+}
+
+.calculator {
+    margin: 20px auto;
+    margin-top: 150px;
+    border-radius: 10px;
+    background: var(--calc-gradient);
+    box-shadow: 2px 2px 5px var(--shadow);
+    height: 400px;
+    padding: 30px;
+    padding-top: 60px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.inputs {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+#p {
+    width: 91%;
+}
+
+button {
+    grid-area: 4 / 1 / 5 / 4;
+    width: 16.67%;
+    margin: 20px auto;
+    padding: 5px;
+    border-radius: 5px;
+    background: var(--background-gradient);
+    box-shadow: 1px 1px 5px var(--shadow);
+    transition: 1s;
+}
+
+button:hover {
+    cursor: pointer;
+    width: 31.22%;
+}
+
+input, select {
+    padding: 7.5px;
+    margin: 10px;
+    border-radius: 5px;
+    background: var(--input-background);
+    color: var(--color);
+}
+
+.resultText {
+    display: none;
+}
+
+input:not([type=radio]) {
+    width: 65%;
+}
+
+select {
+    width: 20%;
+}
+
+.radio {
+    display: block;
+    position: relative;
+    margin: 5px;
+    padding-left: 25px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17.5px;
+    width: 17.5px;
+    background: var(--input-background);
+    border-radius: 50%;
+}
+
+.radio input:checked ~ .custom-radio {
+    background: var(--background-gradient);
+}
+
+.custom-radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio input:checked ~.custom-radio:after {
+    display: block;
+}
+
+.radio .custom-radio:after {
+    top: 26%;
+    left: 26%;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background: var(--input-background);
+}

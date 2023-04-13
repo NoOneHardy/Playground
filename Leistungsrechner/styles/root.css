@@ -1,0 +1,7 @@
+:root {
+    --calc-gradient: radial-gradient(#656565, #121212);
+    --background-gradient: radial-gradient(#ffbb33, #bb4400);
+    --input-background: #181818;
+    --color: #cdcdcd;
+    --shadow: #252525;
+}
