@@ -112,3 +112,22 @@ td button:hover {
 #BwN {
     background-color: #5555ee;
 }
+
+#transition-container {
+    width: 500px;
+    height: 500px;
+}
+
+#transition-delay {
+    width: 100px;
+    height: 100px;
+    background: #6004ff;
+    transition-property: width, height;
+    transition-duration: 3s, 2s;
+    transition-delay: 1s, 2s;
+}
+
+#transition-delay:hover {
+    width: 300px;
+    height: 200px;
+}
