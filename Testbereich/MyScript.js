@@ -56,20 +56,20 @@ function RefreshTable() {
     function CreateArray() {
         for (let x = 0; x <= (height * width);) {
             x++;
-            numbers[x] = x;   
+            numbers[x] = x;
         }
-    }        
-        
+    }
+
     CreateArray()
 
     let table_content = '<div style="overflow-x:auto;"><table>';
-        
+
     while (row <= height) {
         table_content += "<tr>";
         while (col <= width) {
             number++;
             table_content += "<td>" + numbers[number] + "</td>";
-            col++;            
+            col++;
         }
         table_content += "</tr>";
         row++;
@@ -92,20 +92,20 @@ function CreateTable() {
         function CreateArray() {
             for (let x = 0; x <= (height * width);) {
                 x++;
-                numbers[x] = x;   
+                numbers[x] = x;
             }
-        }        
-            
+        }
+
         CreateArray()
 
         let table_content = '<div style="overflow-x:auto;"><table>';
-            
+
         while (row <= height) {
             table_content += "<tr>";
             while (col <= width) {
                 number++;
                 table_content += "<td>" + numbers[number] + "</td>";
-                col++;            
+                col++;
             }
             table_content += "</tr>";
             row++;
@@ -114,27 +114,27 @@ function CreateTable() {
         table_content += "</table></div>"
         document.getElementById("table").innerHTML = table_content;
         document.getElementById("table_btn").innerHTML = "Tabelle ausblenden";
-        document.getElementById("refresh_btn").style="display:block";
+        document.getElementById("refresh_btn").style = "display:block";
         return
     }
 
     if (document.getElementById("table_btn").innerHTML == "Tabelle ausblenden") {
         document.getElementById("table").innerHTML = "";
         document.getElementById("table_btn").innerHTML = "Tabelle einblenden"
-        document.getElementById("refresh_btn").style="display:none";
+        document.getElementById("refresh_btn").style = "display:none";
     }
 }
 
 //Primzahlen filtern ViewModel erstellen
 function CreateViewModel() {
-    
+
     //Variablen deklarieren
     let number = 0;
     let prime = 0;
     let numberOfFilteredNumbers = 0;
 
     //Array mit Standartwert füllen
-    for (let x = 1; x <= height * width-2;) {
+    for (let x = 1; x <= height * width - 2;) {
         numbers[x] = BwN;
         x++;
     }
@@ -149,7 +149,7 @@ function CreateViewModel() {
             numbers[number] = WwN;
             number++;
         }
-        
+
         //Nächste Primzahl finden
         while (numbers[number] != BwN) {
             number++;
@@ -160,7 +160,7 @@ function CreateViewModel() {
         number--;
         numbers[number] = GwN;
         number += prime;
-        
+
         //Vielfache filtern
         while (number <= numbers.length) {
             if (numbers[number] != WwN) {
@@ -186,34 +186,34 @@ function FilterNumbers() {
     let row = 1;
     let col = 1;
     let number = 0;
-    
+
     //ViewModel erstellen
     CreateViewModel();
 
     //Tabelle erstellen
-        while (row <= height) {
-            text += "<tr>";
-            while (col <= width) {
-                if (numbers[number] == WwN) {
-                    text += "<td id='WwN'>" + "</td>";
-                    number++;
+    while (row <= height) {
+        text += "<tr>";
+        while (col <= width) {
+            if (numbers[number] == WwN) {
+                text += "<td id='WwN'>" + "</td>";
+                number++;
+            }
+            else {
+                if (numbers[number] == GwN) {
+                    text += "<td id='GwN'>" + ++number + "</td>";
                 }
                 else {
-                    if (numbers[number] == GwN) {
-                        text += "<td id='GwN'>" + ++number + "</td>";
-                    }
-                    else {
-                        if (numbers[number] == BwN) {
-                            text += "<td id='BwN'>" + ++number + "</td>";
-                        }
+                    if (numbers[number] == BwN) {
+                        text += "<td id='BwN'>" + ++number + "</td>";
                     }
                 }
-                col++;
             }
-            row++;
-            text += "</tr>";
-            col = 1;
+            col++;
         }
+        row++;
+        text += "</tr>";
+        col = 1;
+    }
     text += "</table></div>";
 
     document.getElementById("filterTable").innerHTML = text;
@@ -221,25 +221,25 @@ function FilterNumbers() {
 
 //Heading bewegen
 function Move() {
-    
+
     if (document.getElementById("heading_left")) {
-        document.getElementById("heading_left").style.textAlign="center";
-        document.getElementById("heading_left").innerHTML="horizontally";
-        document.getElementById("heading_left").id="heading_center";
+        document.getElementById("heading_left").style.textAlign = "center";
+        document.getElementById("heading_left").innerHTML = "horizontally";
+        document.getElementById("heading_left").id = "heading_center";
         return
     }
 
     if (document.getElementById("heading_center")) {
-        document.getElementById("heading_center").style.textAlign="right";
-        document.getElementById("heading_center").innerHTML="from side to side.";
-        document.getElementById("heading_center").id="heading_right";
+        document.getElementById("heading_center").style.textAlign = "right";
+        document.getElementById("heading_center").innerHTML = "from side to side.";
+        document.getElementById("heading_center").id = "heading_right";
         return
     }
 
     if (document.getElementById("heading_right")) {
-        document.getElementById("heading_right").style.textAlign="left";
-        document.getElementById("heading_right").innerHTML="I can move";
-        document.getElementById("heading_right").id="heading_left";
+        document.getElementById("heading_right").style.textAlign = "left";
+        document.getElementById("heading_right").innerHTML = "I can move";
+        document.getElementById("heading_right").id = "heading_left";
         return
     }
 }
@@ -247,17 +247,17 @@ function Move() {
 //Theme ändern
 function Paint() {
     if (document.getElementById("default")) {
-        document.getElementById("default").id="body2";
+        document.getElementById("default").id = "body2";
         return
     }
 
     if (document.getElementById("body2")) {
-        document.getElementById("body2").id="body3";
+        document.getElementById("body2").id = "body3";
         return
     }
-    
+
     if (document.getElementById("body3")) {
-        document.getElementById("body3").id="default";
+        document.getElementById("body3").id = "default";
         return
     }
 }
@@ -267,21 +267,21 @@ function Alert() {
     window.alert("Achtung!")
 }
 
-const desktop = {type:"Acer", model:"Predator Orion 3000", color:"light_blue"};
+const desktop = { type: "Acer", model: "Predator Orion 3000", color: "light_blue" };
 
 //Datum einblenden
 function ShowDate() {
     if (document.getElementById("dateHidden")) {
-        document.getElementById("dateHidden").innerHTML=Date();
-        document.getElementById("dateHidden").id='dateShown';
-        document.getElementById("showdate").innerHTML="Datum ausblenden";
+        document.getElementById("dateHidden").innerHTML = Date();
+        document.getElementById("dateHidden").id = 'dateShown';
+        document.getElementById("showdate").innerHTML = "Datum ausblenden";
         return
     }
 
     if (document.getElementById("dateShown")) {
-        document.getElementById("dateShown").innerHTML="";
-        document.getElementById("dateShown").id="dateHidden";
-        document.getElementById("showdate").innerHTML="Datum einblenden";
+        document.getElementById("dateShown").innerHTML = "";
+        document.getElementById("dateShown").id = "dateHidden";
+        document.getElementById("showdate").innerHTML = "Datum einblenden";
         return
     }
 }
@@ -310,7 +310,7 @@ function count() {
         return
     }
 
-    if (col == width -1) {
+    if (col == width - 1) {
         col++;
         row++;
         counter1.innerHTML = col;
@@ -319,7 +319,7 @@ function count() {
         console.log(step);
         return
     }
-    
+
     if (row < height && col == width) {
         col = 1;
         counter1.innerHTML = col;
@@ -343,13 +343,13 @@ function nextStep() {
     count();
 
     console.log(step);
- 
+
     //Array mit Standartwert füllen
     while (x <= step - 1) {
         numbers[x] = BwN;
         x++;
     }
- 
+
     //Main Engine
     numberOfFilteredNumbers = 1;
     while (numberOfFilteredNumbers > 0) {
@@ -360,17 +360,17 @@ function nextStep() {
             numbers[number] = WwN;
             number++;
         }
-        
+
         //Nächste Primzahl finden
         while (numbers[number] != BwN) {
             number++;
         }
-         
+
         //Primzahl und -faktor festlegen
         prime = number + 1;
         numbers[number] = GwN;
         number += prime;
-         
+
         //Vielfache filtern
         while (number <= step - 1) {
             if (numbers[number] != WwN) {
@@ -407,7 +407,7 @@ function nextStep() {
                     }
                 }
                 tableCol++;
-            } 
+            }
             text += "</tr>"
             tableRow++;
             tableCol = 1;
@@ -432,7 +432,7 @@ function nextStep() {
                     }
                 }
                 tableCol++;
-            } 
+            }
             text += "</tr>"
             tableRow++;
             tableCol = 1;
@@ -461,3 +461,18 @@ function nextStep() {
     document.getElementById("stepTable").innerHTML = text;
 
 }
+
+exports = {}
+
+/*function compare3Teams(teams) {
+    teams = teams.sort(function(a, b){
+        if (a.ties !== b.ties) {
+            return a.ties - b.ties;
+        } else if (a.loss !== b.loss) {
+            return a.loss - b.loss;
+        } else if (a.nGoals !== b.nGoals) {
+            return a.nGoals - b.nGoals;
+        }
+    });
+    return teams
+}*/
