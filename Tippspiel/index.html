@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tippspiel Test</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mannschaft</th>
+                    <th>Sp</th>
+                    <th>S</th>
+                    <th>U</th>
+                    <th>N</th>
+                    <th>T</th>
+                    <th>GT</th>
+                    <th>TD</th>
+                    <th>Pkte</th>
+                </tr>
+            </thead>
+            <tbody id="table"></tbody>
+        </table>
+        <div class="form name-form">
+            <div class="input-case">
+                <input type="text" name="name-team-1" id="name-team-1" class="team-name-input" placeholder="Team 1">
+                <span class="input-bottom-line"></span>
+            </div>
+            <div class="input-case">
+                <input type="text" name="name-team-2" id="name-team-2" class="team-name-input" placeholder="Team 2">
+                <span class="input-bottom-line"></span>
+            </div>
+            <div class="input-case">
+                <input type="text" name="name-team-3" id="name-team-3" class="team-name-input" placeholder="Team 3">
+                <span class="input-bottom-line"></span>
+            </div>
+            <div class="input-case">
+                <input type="text" name="name-team-4" id="name-team-4" class="team-name-input" placeholder="Team 4">
+                <span class="input-bottom-line"></span>
+            </div>
+        </div>
+        <div class="form game-form">
+            <div class="game">
+                <div class="team-name">Team 1</div>
+                <div class="input-case-game">
+                    <input type="number" name="game-1-score-1" id="game-1-score-1" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="input-case-game">
+                    <input type="number" name="game-1-score-2" id="game-1-score-2" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="team-name">Team 2</div>
+            </div>
+            <div class="game">
+                <div class="team-name">Team 3</div>
+                <div class="input-case-game">
+                    <input type="number" name="game-2-score-1" id="game-2-score-1" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="input-case-game">
+                    <input type="number" name="game-2-score-2" id="game-2-score-2" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="team-name">Team 4</div>
+            </div>
+            <div class="game">
+                <div class="team-name">Team 1</div>
+                <div class="input-case-game">
+                    <input type="number" name="game-3-score-1" id="game-3-score-1" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="input-case-game">
+                    <input type="number" name="game-3-score-2" id="game-3-score-2" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="team-name">Team 3</div>
+            </div>
+            <div class="game">
+                <div class="team-name">Team 2</div>
+                <div class="input-case-game">
+                    <input type="number" name="game-4-score-1" id="game-4-score-1" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="input-case-game">
+                    <input type="number" name="game-4-score-2" id="game-4-score-2" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="team-name">Team 4</div>
+            </div>
+            <div class="game">
+                <div class="team-name">Team 2</div>
+                <div class="input-case-game">
+                    <input type="number" name="game-5-score-1" id="game-5-score-1" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="input-case-game">
+                    <input type="number" name="game-5-score-2" id="game-5-score-2" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="team-name">Team 3</div>
+            </div>
+            <div class="game">
+                <div class="team-name">Team 1</div>
+                <div class="input-case-game">
+                    <input type="number" name="game-6-score-1" id="game-6-score-1" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="input-case-game">
+                    <input type="number" name="game-6-score-2" id="game-6-score-2" class="game-score" value="0">
+                    <span class="input-bottom-line"></span>
+                </div>
+                <div class="team-name">Team 4</div>
+            </div>
+            <button type="button" id="confirm-games" class="confirm-button">Berechnen</button>
+        </div>
+    </div>
+    <script type="module" src="./js/football.js"></script>
+</body>
+
+</html>
