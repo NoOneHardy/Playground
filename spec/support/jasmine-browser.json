@@ -1,5 +1,5 @@
 {
-  "srcDir": "src",
+  "srcDir": "./Tippspiel/js",
   "srcFiles": [
     "**/*.js"
   ],
@@ -16,6 +16,6 @@
     "random": true
   },
   "browser": {
-    "name": "firefox"
+    "name": "chrome"
   }
 }

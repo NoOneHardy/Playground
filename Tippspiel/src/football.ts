@@ -2,14 +2,14 @@ import { Game } from "./game.js";
 import { Team } from "./team.js";
 
 /* EM-Tabellenregelen
-1. Punkte
+--------------- 1. Punkte 
 
-Wenn zwei Teams dieselbe Anzahl Punkte haben, wird die Tordifferenz der Direktbegegnung der beiden Teams gewertet.
+--------------- Wenn zwei Teams dieselbe Anzahl Punkte haben, wird die Tordifferenz der Direktbegegnung der beiden Teams gewertet.
 
-Wenn zwei Teams in der Direktbegegnung dieselbe Tordifferenz und dieselbe Anzahl Punkte haben,
-werden die Tordifferenzen der beiden Teams in der ganzen Gruppe ausgewertet.
+--------------- Wenn zwei Teams in der Direktbegegnung dieselbe Tordifferenz und dieselbe Anzahl Punkte haben,
+                werden die Tordifferenzen der beiden Teams in der ganzen Gruppe ausgewertet.
 
-Danach die Tore der beiden Teams aus der ganzen Gruppe.
+--------------- Danach die Tore der beiden Teams aus der ganzen Gruppe.
 
 Wenn drei Teams dieselbe Anzahl Punkte haben, wird die Tordifferenz der Direktbegnungen der drei Teams geweretet.
 
@@ -24,83 +24,54 @@ Danach muss manuell verschoben werden.
 */
 
 
-function compareTeams(groupInput: Team[]): Team[] {
-    const teamsWithSameValues: Team[] = [];
+function compareETeams(groupInput: Team[]): Team[] {
+    const teamsWithSamePoints: Team[] = [];
     const group = groupInput.sort(function (teamA, teamB) {
-        if (teamA.points !== teamB.points) {
+        if (teamB.points !== teamA.points) {
             return teamB.points - teamA.points;
-        } else if (teamA.goalDif !== teamB.goalDif) {
-            return teamB.goalDif - teamA.goalDif;
-        } else if (teamA.goals !== teamB.goals) {
-            return teamB.goals - teamA.goals;
         } else {
-            if (!teamsWithSameValues.includes(teamA)) {
-                teamsWithSameValues.push(teamA);
-            }
-            if (!teamsWithSameValues.includes(teamB)) {
-                teamsWithSameValues.push(teamB);
-            }
-            return 0;
+            teamsWithSamePoints.push(teamA, teamB);
         }
+        return 0
     });
 
-    if (teamsWithSameValues.length === 3 || teamsWithSameValues.length === 2) {
-        const newGroup = compare2or3or4Teams(teamsWithSameValues);
+    if (teamsWithSamePoints.length !== 0) {
+        switch (teamsWithSamePoints.length) {
+            case 2:
+                const indexes: number[] = [];
+                teamsWithSamePoints.forEach((team) => {
+                    indexes.push(group.indexOf(team));
+                });
+                const minIndex = indexes.sort((idxTeamA, idxTeamB) => idxTeamA - idxTeamB)[0];
+                teamsWithSamePoints.sort((teamA, teamB) => {
+                    let headToHead: Game = new Game(-1, -1, 0, 0);
+                    teamA.games.map((game) => {
+                        if (game.aTeamId === teamB.id || game.bTeamId === teamB.id) {
+                            headToHead = game;
+                        }
+                    });
 
-        const indexes: number[] = [];
-        newGroup.map((team) => { indexes.push(group.indexOf(team)); });
-        const minIndex = indexes.sort((indexA, indexB) => {
-            return indexA - indexB;
-        })[0];
-
-        group.splice(minIndex, teamsWithSameValues.length);
-        newGroup.forEach((team, idx) => {
-            group.splice(minIndex + idx, 0, team);
-        });
-    } else if (teamsWithSameValues.length === 4) {
-        const sameValues: Team[][] = [[], []];
-        teamsWithSameValues.map((team) => {
-            if (teamsWithSameValues[0].points === team.points) {
-                sameValues[0].push(team);
-            } else if (teamsWithSameValues[0].points !== team.points) {
-                sameValues[1].push(team);
-            }
-        })
-
-        if (sameValues[0].length === 4) {
-            group.splice(0, 4);
-            compare2or3or4Teams(sameValues[0]).map(team => group.push(team));
-        } else {
-            if (group.indexOf(sameValues[0][0]) > 2) {
-                group.splice(0, 4);
-                compare2or3or4Teams(sameValues[1]).map(team => group.push(team));
-                compare2or3or4Teams(sameValues[0]).map(team => group.push(team));
-            } else {
-                group.splice(0, 4);
-                compare2or3or4Teams(sameValues[0]).map(team => group.push(team));
-                compare2or3or4Teams(sameValues[1]).map(team => group.push(team));
-            }
+                    if (headToHead.bTeamGoals !== headToHead.aTeamGoals) {
+                        return headToHead.bTeamGoals - headToHead.aTeamGoals;
+                    }
+                    if (teamB.goalDif !== teamA.goalDif) {
+                        return teamB.goalDif - teamA.goalDif;
+                    }
+                    if (teamB.goals !== teamA.goals) {
+                        return teamB.goals - teamA.goals;
+                    }
+                    
+                    return 0;
+                });
+                group.splice(minIndex, 2, teamsWithSamePoints[0], teamsWithSamePoints[1]);
+            case 3:
+                break;
+            case 4:
+                break;
         }
     }
 
     return group;
-}
-
-function compare2or3or4Teams(teams: Team[]): Team[] {
-    return teams.sort((teamA, teamB) => {
-        let headToHead = new Game(-1, -1, 0, 0);
-        teamA.games.map((game) => {
-            if (game.aTeamId === teamB.id) {
-                headToHead = new Game(teamA.id, teamB.id, game.bTeamGoals, game.aTeamGoals);
-            } else if (game.bTeamId === teamB.id) {
-                headToHead = game;
-            }
-        })
-        if (headToHead.bTeamGoals !== headToHead.aTeamGoals) {
-            return headToHead.bTeamGoals - headToHead.aTeamGoals;
-        }
-        return teamB.manual - teamA.manual;
-    });
 }
 
 function calculatePoints(game: Game): void {
@@ -141,7 +112,7 @@ function refreshTable() {
     if (table) {
         table.innerHTML = '';
         games.map(calculatePoints);
-        compareTeams(groupArray).map((team, idx, teams) => {
+        compareETeams(groupArray).map((team, idx, teams) => {
             const row = document.createElement('tr');
             row.classList.add('table-row');
             const tds: HTMLTableCellElement[] = [];
@@ -189,7 +160,7 @@ nameInputs.forEach((nameInput, idx) => {
         switch (idx) {
             case 0:
                 nameDisplays[0].innerHTML = teamName;
-                nameDisplays[5].innerHTML = teamName;
+                nameDisplays[4].innerHTML = teamName;
                 nameDisplays[9].innerHTML = teamName;
                 break;
             case 1:
@@ -199,7 +170,7 @@ nameInputs.forEach((nameInput, idx) => {
                 break;
             case 2:
                 nameDisplays[2].innerHTML = teamName;
-                nameDisplays[4].innerHTML = teamName;
+                nameDisplays[5].innerHTML = teamName;
                 nameDisplays[11].innerHTML = teamName;
                 break;
             case 3:
@@ -242,7 +213,7 @@ calcButton?.addEventListener('click', () => {
 
     games[0] = new Game(0, 1, Number(gameInputs[0].value), Number(gameInputs[1].value));
     games[1] = new Game(2, 3, Number(gameInputs[2].value), Number(gameInputs[3].value));
-    games[2] = new Game(2, 0, Number(gameInputs[4].value), Number(gameInputs[5].value));
+    games[2] = new Game(0, 2, Number(gameInputs[4].value), Number(gameInputs[5].value));
     games[3] = new Game(1, 3, Number(gameInputs[6].value), Number(gameInputs[7].value));
     games[4] = new Game(3, 0, Number(gameInputs[8].value), Number(gameInputs[9].value));
     games[5] = new Game(1, 2, Number(gameInputs[10].value), Number(gameInputs[11].value));
