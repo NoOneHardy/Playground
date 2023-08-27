@@ -1,5 +1,26 @@
 import { Game } from "./game.js";
 import { Team } from "./team.js";
+/* EM-Tabellenregelen
+1. Punkte
+
+Wenn zwei Teams dieselbe Anzahl Punkte haben, wird die Tordifferenz der Direktbegegnung der beiden Teams gewertet.
+
+Wenn zwei Teams in der Direktbegegnung dieselbe Tordifferenz und dieselbe Anzahl Punkte haben,
+werden die Tordifferenzen der beiden Teams in der ganzen Gruppe ausgewertet.
+
+Danach die Tore der beiden Teams aus der ganzen Gruppe.
+
+Wenn drei Teams dieselbe Anzahl Punkte haben, wird die Tordifferenz der Direktbegnungen der drei Teams geweretet.
+
+Wenn drei Teams dieselbe Anzahl Punkte und dieselbe Tordifferenz in den Direktbegnungen der drei Teams haben,
+werden die Tore der drei Teams in den Direktbegegnungen ausgewertet.
+
+Danach die Tordifferenz der drei aus der ganzen Gruppe.
+
+Danach die Tore der drei aus der gesamten Gruppe.
+
+Danach muss manuell verschoben werden.
+*/
 function compareTeams(groupInput) {
     const teamsWithSameValues = [];
     const group = groupInput.sort(function (teamA, teamB) {
@@ -77,15 +98,7 @@ function compare2or3or4Teams(teams) {
         if (headToHead.bTeamGoals !== headToHead.aTeamGoals) {
             return headToHead.bTeamGoals - headToHead.aTeamGoals;
         }
-        else if (teamA.fairplay) {
-            return -1;
-        }
-        else if (teamB.fairplay) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
+        return teamB.manual - teamA.manual;
     });
 }
 function calculatePoints(game) {

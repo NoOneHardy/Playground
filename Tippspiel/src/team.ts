@@ -11,8 +11,8 @@ export class Team {
     private _goals = 0;
     private _oGoals = 0;
     private _goalDif = 0;
-    private _games = [];
-    private _fairplay = false;
+    private _games: Game[] = [];
+    private _manual = 0;
 
     constructor(id: number, name: string) {
         this.id = id;
@@ -85,11 +85,11 @@ export class Team {
         return this._games;
     }
 
-    public get fairplay() : boolean {
-        return this._fairplay;
+    public get manual(): number {
+        return this._manual;
     }
 
-    public set fairplay(fairplay: boolean) {
-        this._fairplay = fairplay
+    public set manual(rank: number) {
+        this._manual = rank;
     }
 }

@@ -10,7 +10,7 @@ export class Team {
     _oGoals = 0;
     _goalDif = 0;
     _games = [];
-    _fairplay = false;
+    _manual = 0;
     constructor(id, name) {
         this.id = id;
         this.name = name;
@@ -65,10 +65,10 @@ export class Team {
     get games() {
         return this._games;
     }
-    get fairplay() {
-        return this._fairplay;
+    get manual() {
+        return this._manual;
     }
-    set fairplay(fairplay) {
-        this._fairplay = fairplay;
+    set manual(rank) {
+        this._manual = rank;
     }
 }
