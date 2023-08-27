@@ -1,14 +1,14 @@
 import { Game } from "./game.js";
 import { Team } from "./team.js";
 /* EM-Tabellenregelen
---------------- 1. Punkte
+--------------- Punkte
 
 --------------- Wenn zwei Teams dieselbe Anzahl Punkte haben, wird die Tordifferenz der Direktbegegnung der beiden Teams gewertet.
 
 --------------- Wenn zwei Teams in der Direktbegegnung dieselbe Tordifferenz und dieselbe Anzahl Punkte haben,
                 werden die Tordifferenzen der beiden Teams in der ganzen Gruppe ausgewertet.
 
-Danach die Tore der beiden Teams aus der ganzen Gruppe.
+--------------- Danach die Tore der beiden Teams aus der ganzen Gruppe.
 
 Wenn drei Teams dieselbe Anzahl Punkte haben, wird die Tordifferenz der Direktbegnungen der drei Teams geweretet.
 
@@ -27,19 +27,22 @@ function compareETeams(groupInput) {
         if (teamB.points !== teamA.points) {
             return teamB.points - teamA.points;
         }
-        else {
-            teamsWithSamePoints.push(teamA, teamB);
+        if (!teamsWithSamePoints.includes(teamA)) {
+            teamsWithSamePoints.push(teamA);
+        }
+        if (!teamsWithSamePoints.includes(teamB)) {
+            teamsWithSamePoints.push(teamB);
         }
         return 0;
     });
     if (teamsWithSamePoints.length !== 0) {
+        const indexes = [];
+        teamsWithSamePoints.forEach((team) => {
+            indexes.push(group.indexOf(team));
+        });
+        const minIndex = indexes.sort((idxTeamA, idxTeamB) => idxTeamA - idxTeamB)[0];
         switch (teamsWithSamePoints.length) {
             case 2:
-                const indexes = [];
-                teamsWithSamePoints.forEach((team) => {
-                    indexes.push(group.indexOf(team));
-                });
-                const minIndex = indexes.sort((idxTeamA, idxTeamB) => idxTeamA - idxTeamB)[0];
                 teamsWithSamePoints.sort((teamA, teamB) => {
                     let headToHead = new Game(-1, -1, 0, 0);
                     teamA.games.map((game) => {
@@ -59,7 +62,79 @@ function compareETeams(groupInput) {
                     return 0;
                 });
                 group.splice(minIndex, 2, teamsWithSamePoints[0], teamsWithSamePoints[1]);
+                break;
             case 3:
+                const games3Teams = [];
+                const group3Teams = [];
+                teamsWithSamePoints.forEach((team) => {
+                    group3Teams.push(new Team(team.id, team.name));
+                    team.games.forEach((game) => {
+                        if (-1 < teamsWithSamePoints.findIndex((teamB) => teamB.id !== team.id && (teamB.id === game.aTeamId || teamB.id === game.bTeamId)) && !games3Teams.includes(game)) {
+                            games3Teams.push(game);
+                        }
+                    });
+                });
+                games3Teams.forEach((game) => calculatePoints(game, group3Teams));
+                group3Teams.sort((teamA, teamB) => {
+                    if (teamB.goalDif !== teamA.goalDif) {
+                        return teamB.goalDif - teamA.goalDif;
+                    }
+                    if (teamB.goals !== teamA.goals) {
+                        return teamB.goals - teamA.goals;
+                    }
+                    return 0;
+                });
+                teamsWithSamePoints.sort((teamA, teamB) => {
+                    return group3Teams.findIndex((team) => teamA.id === team.id) - group3Teams.findIndex((team) => teamB.id === team.id);
+                });
+                let itemsSorted = 3;
+                const unsortedItems = [];
+                group3Teams.forEach((team) => {
+                    if (group3Teams.findIndex((teamB) => team.id !== teamB.id && teamB.goalDif === team.goalDif && teamB.goals === team.goals) > -1) {
+                        itemsSorted--;
+                        if (!unsortedItems.includes(team)) {
+                            unsortedItems.push(team);
+                        }
+                    }
+                });
+                if (itemsSorted < 1) {
+                    teamsWithSamePoints.sort((teamA, teamB) => {
+                        if (teamB.goalDif !== teamA.goalDif) {
+                            return teamB.goalDif - teamA.goalDif;
+                        }
+                        if (teamB.goals !== teamA.goals) {
+                            return teamB.goals - teamA.goals;
+                        }
+                        return 0;
+                    });
+                }
+                else if (itemsSorted == 1) {
+                    const indexes2 = [];
+                    unsortedItems.forEach((team) => {
+                        indexes2.push(group.indexOf(team));
+                    });
+                    const minIndex2 = indexes2.sort((idxTeamA, idxTeamB) => idxTeamA - idxTeamB)[0];
+                    unsortedItems.sort((teamA, teamB) => {
+                        let headToHead = new Game(-1, -1, 0, 0);
+                        teamA.games.map((game) => {
+                            if (game.aTeamId === teamB.id || game.bTeamId === teamB.id) {
+                                headToHead = game;
+                            }
+                        });
+                        if (headToHead.bTeamGoals !== headToHead.aTeamGoals) {
+                            return headToHead.bTeamGoals - headToHead.aTeamGoals;
+                        }
+                        if (teamB.goalDif !== teamA.goalDif) {
+                            return teamB.goalDif - teamA.goalDif;
+                        }
+                        if (teamB.goals !== teamA.goals) {
+                            return teamB.goals - teamA.goals;
+                        }
+                        return 0;
+                    });
+                    teamsWithSamePoints.splice(minIndex2, 2, teamsWithSamePoints[0], teamsWithSamePoints[1]);
+                }
+                group.splice(minIndex, 3, teamsWithSamePoints[0], teamsWithSamePoints[1], teamsWithSamePoints[2]);
                 break;
             case 4:
                 break;
@@ -67,9 +142,9 @@ function compareETeams(groupInput) {
     }
     return group;
 }
-function calculatePoints(game) {
-    groupArray.forEach((team) => {
-        if (team.gameCount < 3) {
+function calculatePoints(game, group) {
+    group.forEach((team) => {
+        if (team.games.length < group.length - 1) {
             if (team.id === game.aTeamId) {
                 team.games.push(game);
                 team.addGoals(game.aTeamGoals);
@@ -108,7 +183,9 @@ function calculatePoints(game) {
 function refreshTable() {
     if (table) {
         table.innerHTML = '';
-        games.map(calculatePoints);
+        games.map((game) => {
+            calculatePoints(game, groupArray);
+        });
         compareETeams(groupArray).map((team, idx, teams) => {
             const row = document.createElement('tr');
             row.classList.add('table-row');
@@ -173,15 +250,15 @@ nameInputs.forEach((nameInput, idx) => {
         }
     });
 });
-/*
-games.push(new Game(0, 1, 3, 0));
-games.push(new Game(2, 3, 2, 1));
-games.push(new Game(2, 0, 2, 5));
-games.push(new Game(1, 3, 1, 2));
-games.push(new Game(3, 0, 0, 0));
-games.push(new Game(1, 2, 0, 3));
-*/
 const games = [];
+/*
+games.push(new Game(0, 1, 1, 0));
+games.push(new Game(2, 3, 2, 1));
+games.push(new Game(2, 0, 3, 0));
+games.push(new Game(1, 3, 1, 0));
+games.push(new Game(3, 0, 4, 1));
+games.push(new Game(1, 2, 0, 2));
+*/
 gameInputs.forEach((gameInput, idx) => {
     gameInput.addEventListener('blur', () => {
         if (gameInput.value.match('\s') || gameInput.value === '') {
