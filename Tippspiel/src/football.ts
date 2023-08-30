@@ -51,7 +51,7 @@ function compareETeams(groupInput: Team[]): Team[] {
             case 2:
                 teamsWithSamePoints.sort((teamA, teamB) => {
                     let headToHead = new Game(-1, -1, 0, 0);
-                    teamA.games.map((game) => {
+                    teamA.games.forEach((game) => {
                         if (game.aTeamId === teamB.id || game.bTeamId === teamB.id) {
                             headToHead = game;
                         }
@@ -77,7 +77,7 @@ function compareETeams(groupInput: Team[]): Team[] {
                 teamsWithSamePoints.forEach((team) => {
                     group3Teams.push(new Team(team.id, team.name));
                     team.games.forEach((game) => {
-
+                        // Prüfen, ob das Gegnerteam des Spiels im teamsWithSamePoints vorhanden ist und ob das Team noch nicht in der neuen Gruppe vorhanden ist.
                         if (-1 < teamsWithSamePoints.findIndex((teamB) => teamB.id !== team.id && (teamB.id === game.aTeamId || teamB.id === game.bTeamId)) && !games3Teams.includes(game)) {
                             games3Teams.push(game);
                         }
