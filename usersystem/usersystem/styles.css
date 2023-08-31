@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat';
+    text-decoration: none;
+}
+
+body, html {
+    background: #444;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+}
+
+.user-actions, .login-window, #signup-window {
+    margin: 0px auto;
+    width: 100%;
+    max-width: 800px;
+    background: radial-gradient(#454545, #212121);
+    box-shadow: 2px 2px 5px black;
+    border-radius: 15px;
+    text-align: center;
+    color: #d4d4d4;
+    padding: 20px;
+    transition: 0.4s;
+}
+
+.user-actions {
+    height: 100px;
+    width: 400px;
+}
+
+.user-actions:hover {
+    height: 175px;
+}
+
+.user-actions:hover .user-action {
+    opacity: 1;
+    transition: 0.4s;
+    transform: translate(0px, 0px);
+}
+
+h2 {
+    margin: 40px 10px 20px;
+}
+
+.user-action {
+    transform: translate(0px, 20px);
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+    border: none;
+    background: radial-gradient(#3377ff, #3333ff);
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px black;
+    color: #d4d4d4;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+#login:hover, #signup:hover {
+    transform: scale(1.2);
+    box-shadow: 2px 2px 6px black;
+    transition: 0.4s;
+}
+
+.login-form, #signup-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+}
+
+.login-form input, #signup-form input {
+    color: #242424;
+    font-weight: 700;
+    background: radial-gradient(#efefef, #a3a3a3);
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px auto;
+    box-shadow: 1px 1px 5px black;
+    width: 90%;
+    height: 30px;
+}
+
+.login-form input:focus, #signup-form input:focus {
+    outline: none;
+}
+
+.login-form input, #signup-form input, .signup-button {
+    font-size: 20px;
+}
+
+#loginButton, .signup-button {
+    font-weight: 600;
+    margin: 10px auto;
+    width: 150px;
+    padding: 5px 7.5px;
+    border: none;
+    background: radial-gradient(#3377ff, #33f);
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px black;
+    color: #d4d4d4;
+    transition: 0.5s;
+}
+
+#login-button:hover, .signup-button:hover {
+    width: 46.25%;
+    box-shadow: 2px 2px 6px black;
+    cursor: pointer;
+}
+
+#next-inputs, #finish, #email-verification, #verify-button {
+    display: none;
+}
+
+.errorInput::placeholder {
+    color: red;
+}

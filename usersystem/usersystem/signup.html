@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User-System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="signup-window">
+        <h2>Sign Up</h2>
+        <div id="signup-form">
+            <div id="first-inputs">
+                <input type="text" name="username" id="username" placeholder="Username" autocomplete="off" autofocus>
+                <input type="text" name="email" id="email" placeholder="E-Mail" autocomplete="off">
+            </div>
+            <div id="email-verification">
+                <h3>We have sent you a verification code.</h3>
+                <input type="text" name="verify-email" id="verify-email" placeholder="Please enter your code..." autocomplete="off">
+            </div>
+            <div id="next-inputs">
+                <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
+                <input type="password" name="password2" id="password2" placeholder="Confirm Password"
+                    autocomplete="off">
+            </div>
+            <button type="button" class="signup-button" id="next">Next</button>
+            <button type="button" class="signup-button" id="verify-button">Verify</button>
+            <button type="button" class="signup-button" id="finish">Sign Up</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="signup.js"></script>
+</body>
+
+</html>
