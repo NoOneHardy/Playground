@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+html {
+    min-height: 100vh;
+}
+
+section {
+    height: 100vh;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+section#A {
+    background-color: #c55df6;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+section#B {
+    position: absolute;
+    margin-top: 100vh;
+    background-color: #131313;
+    color: white;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 96px;
+}
