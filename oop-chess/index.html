@@ -1,12 +1,107 @@
 <!DOCTYPE html>
 <html lang="en-US">
-    <head>
-        <title>Chess</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="mainStyles.css">
-    </head>
-    <body>
-        <div id="boardArea" class="board-area"></div>
-        <script type="text/javascript" src="app.js"></script>
-    </body>
+
+<head>
+    <title>Chess</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/var.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/chessboard.css">
+    <link rel="stylesheet" href="./css/piece.css">
+    <script type="module" src="./js/main.js" defer></script>
+</head>
+
+<body>
+    <div id="board-area" class="board-area">
+        <table>
+            <tr id="row-0" class="row">
+                <td class="col" id="col-0-0"></td>
+                <td class="col" id="col-0-1"></td>
+                <td class="col" id="col-0-2"></td>
+                <td class="col" id="col-0-3"></td>
+                <td class="col" id="col-0-4"></td>
+                <td class="col" id="col-0-5"></td>
+                <td class="col" id="col-0-6"></td>
+                <td class="col" id="col-0-7"></td>
+            </tr>
+            <tr id="row-1" class="row">
+                <td class="col" id="col-1-0"></td>
+                <td class="col" id="col-1-1"></td>
+                <td class="col" id="col-1-2"></td>
+                <td class="col" id="col-1-3"></td>
+                <td class="col" id="col-1-4"></td>
+                <td class="col" id="col-1-5"></td>
+                <td class="col" id="col-1-6"></td>
+                <td class="col" id="col-1-7"></td>
+            </tr>
+            <tr id="row-2" class="row">
+                <td class="col" id="col-2-0"></td>
+                <td class="col" id="col-2-1"></td>
+                <td class="col" id="col-2-2"></td>
+                <td class="col" id="col-2-3"></td>
+                <td class="col" id="col-2-4"></td>
+                <td class="col" id="col-2-5"></td>
+                <td class="col" id="col-2-6"></td>
+                <td class="col" id="col-2-7"></td>
+            </tr>
+            <tr id="row-3" class="row">
+                <td class="col" id="col-3-0"></td>
+                <td class="col" id="col-3-1"></td>
+                <td class="col" id="col-3-2"></td>
+                <td class="col" id="col-3-3"></td>
+                <td class="col" id="col-3-4"></td>
+                <td class="col" id="col-3-5"></td>
+                <td class="col" id="col-3-6"></td>
+                <td class="col" id="col-3-7"></td>
+            </tr>
+            <tr id="row-4" class="row">
+                <td class="col" id="col-4-0"></td>
+                <td class="col" id="col-4-1"></td>
+                <td class="col" id="col-4-2"></td>
+                <td class="col" id="col-4-3"></td>
+                <td class="col" id="col-4-4"></td>
+                <td class="col" id="col-4-5"></td>
+                <td class="col" id="col-4-6"></td>
+                <td class="col" id="col-4-7"></td>
+            </tr>
+            <tr id="row-5" class="row">
+                <td class="col" id="col-5-0"></td>
+                <td class="col" id="col-5-1"></td>
+                <td class="col" id="col-5-2"></td>
+                <td class="col" id="col-5-3"></td>
+                <td class="col" id="col-5-4"></td>
+                <td class="col" id="col-5-5"></td>
+                <td class="col" id="col-5-6"></td>
+                <td class="col" id="col-5-7"></td>
+            </tr>
+            <tr id="row-6" class="row">
+                <td class="col" id="col-6-0"></td>
+                <td class="col" id="col-6-1"></td>
+                <td class="col" id="col-6-2"></td>
+                <td class="col" id="col-6-3"></td>
+                <td class="col" id="col-6-4"></td>
+                <td class="col" id="col-6-5"></td>
+                <td class="col" id="col-6-6"></td>
+                <td class="col" id="col-6-7"></td>
+            </tr>
+            <tr id="row-7" class="row">
+                <td class="col" id="col-7-0"></td>
+                <td class="col" id="col-7-1"></td>
+                <td class="col" id="col-7-2"></td>
+                <td class="col" id="col-7-3"></td>
+                <td class="col" id="col-7-4"></td>
+                <td class="col" id="col-7-5"></td>
+                <td class="col" id="col-7-6"></td>
+                <td class="col" id="col-7-7"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+
 </html>

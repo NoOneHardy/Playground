@@ -1,2 +1,4 @@
-/.vscode/*
-/node_modules/
+.vscode/*
+!.vscode/lab.code-snippets
+node_modules/
+
