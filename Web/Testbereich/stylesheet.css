@@ -1,104 +1,318 @@
-#default {
-    background-image: linear-gradient(to bottom right, #e4f585, #009e01);
-    color: black;
+@import url(https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Public Sans', sans-serif;
 }
 
-#body2 {
-    background-image: linear-gradient(to bottom, #121212, #242424, #353535, #464646, #575757);
-    color: white;
-}
+:root {
+    --electric-purple: #B429F9ff;
+    --electric-purple-2: #A04AF5ff;
+    --medium-slate-blue: #8C6CF0ff;
+    --cornflower-blue: #788EECff;
+    --argentinian-blue: #64AFE7ff;
+    --robin-egg-blue: #50D1E3ff;
+    --turquoise: #3CF2DEff;
 
-#body3 {
-    background-image: linear-gradient(to bottom,#ff1b1c, #ec1534, #d80e4c, #c50764, #b1007c);
-}
+    --green-yellow: #A9FF68ff;
+    --mindaro: #B7EB6Eff;
+    --mindaro-2: #C6D873ff;
+    --citron: #D4C479ff;
+    --buff: #E2B07Eff;
+    --atomic-tangerine: #F19D84ff;
+    --light-red: #FF8989ff;
 
-#body2 form {
-    background-color: #181818;
-}
+    --black: #000000ff;
+    --dark-purple: #160926ff;
+    --russian-violet: #2C134Cff;
+    --persian-indigo: #421C72ff;
+    --tekhelet: #572597ff;
+    --grape: #6D2FBDff;
+    --blue-violet: #8338E3ff;
 
-#body3 form {
-    background-color: #beb7a4
-}
+    --office-green: #298219ff;
+    --forest-green: #35942Bff;
+    --pigment-green: #40A63Eff;
+    --dark-pastel-green: #4CB850ff;
+    --mantis: #57CA62ff;
+    --malachite: #63DC75ff;
+    --light-green: #6EEE87ff;
 
-#body3 tr:nth-child(even) {
-    background-color: #fffffc;
-}
-
-#body2 td {
-    color: black;
+    --black-2: #030303ff;
+    --rich-black: #030D10ff;
+    --rich-black-2: #02181Cff;
+    --gunmetal: #022329ff;
+    --gunmetal-2: #012D36ff;
+    --midnight-green: #013842ff;
+    --midnight-green-2: #00424Fff;
 }
 
 body {
-    font-family: Fredoka One;
-    font-size: 130%;
-}
+    min-height: 100vh;
+    color: #000;
 
-button {
-    color: white;
-    background-color: #060606;
-    border-radius: 3px;
-    font-size: 150%;
-    margin: 10px;
-    border: none;
-}
+    &.body-1 {
+        background-image: linear-gradient(to right, var(--electric-purple), var(--electric-purple-2),
+        var(--medium-slate-blue), var(--cornflower-blue), var(--argentinian-blue),
+        var(--robin-egg-blue), var(--turquoise));
+    }
 
-table {
-    border: solid 2px black;
-    margin: 10px;
-    border-collapse: collapse;
-    text-align: center;
-    overflow-wrap:break-word;
-    font-family: Roboto;
-}
+    &.body-2 {
+        background-image: linear-gradient(to left, var(--green-yellow), var(--mindaro), var(--mindaro-2),
+        var(--citron), var(--buff), var(--atomic-tangerine), var(--light-red));
+    }
 
-td, td button {
-    height: 40px;
-    min-width: 80px;
-    border-radius: 0;
-    border: none;
-    color: black;
-    font-size: 25px;
-}
+    &.body-3 {
+        background-image: linear-gradient(to right, var(--black-2), var(--rich-black), var(--rich-black-2),
+        var(--gunmetal), var(--gunmetal-2), var(--midnight-green), var(--midnight-green-2));
+        color: #fff;
 
-td button {
-    margin: 0px;
-}
+        button, .button {
+            color: #fff;
+        }
+    }
 
-th {
-    color: black;
-    font-size: 120%;
-    height: 40px;
-    min-width: 80px;
-    padding: 10px;
-}
+    button, .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 7px;
+        margin: 2px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #fff2;
+        box-shadow: 0 0 5px black;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        text-decoration: none;
+        gap: 5px;
 
-tr:nth-child(even), tr:nth-child(even) button {
-    background-color: #f2f2f2;
-}
+        &:hover {
+            box-shadow: 0 0 10px black;
+            background-color: #fff4;
+        }
 
-tr {
-    background-color: white
-}
+        span.material-icons {
+            font-size: 1.1rem;
+        }
+    }
 
-form {
-    border: solid 2px black;
-    padding: 10px;
-    width: max-content;
-    background-color: #f2f2f2;
-    margin: 1cm;
-    color: black;
-}
+    table {
+        border: none;
+        background-color: #fff2;
+        box-shadow: 0 0 5px black;
+        padding: 7px;
+        border-collapse: collapse;
+        border-radius: 5px;
+        transition: box-shadow 0.3s ease-in-out;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        overflow: hidden;
 
-tr:nth-child(odd) button {
-    background-color: white;
-}
+        &:hover {
+            box-shadow: 0 0 10px black;
+        }
 
-td button:hover {
-    color: red;
+        tr {
+            width: 100%;
+            transition: background-color 0.3s ease-in-out;
+
+            &:has(th) {
+                height: 30px;
+                background-color: #fff6;
+            }
+
+            &:nth-child(odd):not(:has(th)) {
+                background-color: #fff3;
+
+                &:hover {
+                    background-color: #fff7;
+                }
+            }
+
+            &:nth-child(even) {
+                background-color: #fff2;
+
+                &:hover {
+                    background-color: #fff7;
+                }
+            }
+
+            td {
+                text-align: center;
+                transition: background-color 0.3s ease-in-out;
+                padding: 10px;
+
+                &:has(button) {
+                    padding: 0;
+                }
+
+                button.table-btn {
+                    width: 100%;
+                    height: 100%;
+                    box-shadow: none;
+                    border-radius: 0;
+                    margin: 0;
+                    background-color: transparent;
+
+                    &:hover {
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+
+    form {
+        padding: 7px;
+        width: 300px;
+        background-color: #fff2;
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 10px;
+        box-shadow: 0 0 5px black;
+
+        .form-field-text {
+            position: relative;
+            display: block;
+            height: 2.575rem;
+            top: 0;
+            margin-bottom: .8rem;
+
+            label {
+                position: absolute;
+                font-size: 1rem;
+                line-height: 1rem;
+                transition: top 0.3s ease-in-out, left 0.3s ease-in-out, font-size 0.3s ease-in-out;
+                top: 1.225rem;
+                left: .75rem;
+            }
+
+            input[type="text"] {
+                position: absolute;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                box-shadow: 0 0 15px #000a inset;
+                font-size: 1rem;
+                line-height: 1.2rem;
+                padding: .25rem .75rem;
+                border-radius: 1.7rem;
+                width: 100%;
+                transition: box-shadow 0.3s ease-in-out;
+                bottom: 0;
+                left: 0;
+
+                &:focus {
+                    box-shadow: 0 0 5px #000a inset;
+
+                    + label {
+                        top: 0;
+                        left: .5rem;
+                        font-size: .8rem;
+                    }
+                }
+
+                &.dirty + label {
+                    top: 0;
+                    left: .5rem;
+                    font-size: .8rem;
+                }
+            }
+        }
+    }
+
+    .wrapper.move-h1 {
+        display: block;
+        position: relative;
+        height: 3.5rem;
+
+        h1 {
+            display: block;
+            position: absolute;
+            padding: 5px 10px;
+            top: 0;
+            left: 0;
+            width: max-content;
+            font-size: 2.5rem;
+            line-height: 3rem;
+            transition: left 1s ease-in-out, transform 1s ease-in-out;
+
+            &.left {
+                left: 0;
+            }
+
+            &.center {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            &.right {
+                left: 100%;
+                transform: translateX(-100%);
+            }
+        }
+    }
+
+    .actions {
+        display: flex;
+        padding: 10px;
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 10px;
+
+        button, .button {
+            width: 350px;
+        }
+    }
+
+    .number-table-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        padding: 10px;
+
+        .number-table-options {
+            width: max-content;
+
+            .number-table-dimensions {
+                td {
+                    min-width: 100px;
+                }
+
+                #number-table-total-display {
+                    text-shadow: 0 0 5px #fff5;
+                    font-size: 1.2rem;
+                }
+            }
+
+            .number-table-actions {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+
+                #refresh-number-table-btn {
+                    display: none;
+                }
+            }
+        }
+
+        #number-table {
+            margin-top: 15px;
+        }
+    }
 }
 
 #demoReplace0:hover, #demoReplace1:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #WwN {
@@ -114,20 +328,22 @@ td button:hover {
 }
 
 #transition-container {
-    width: 500px;
-    height: 500px;
+    width: 900px;
+    height: 200px;
 }
 
 #transition-delay {
     width: 100px;
     height: 100px;
     background: #6004ff;
-    transition-property: width, height;
-    transition-duration: 3s, 2s;
-    transition-delay: 1s, 2s;
+    border-radius: 50%;
+    transition-property: width, height, border-radius;
+    transition-duration: 3s, 2s, 3s;
+    transition-delay: 1s, 2s, 1s;
 }
 
 #transition-delay:hover {
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
 }

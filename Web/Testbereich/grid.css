@@ -13,9 +13,11 @@ body {
 }
 
 .grid-item {
-    text-align: center;
-    font-size: 50px;
+    font-size: 7.5rem;
     margin: 2mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .item1 {

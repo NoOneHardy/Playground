@@ -3,212 +3,186 @@
 
 <head>
     <title>Testing Area</title>
-
-    <link rel="stylesheet" ; href="stylesheet.css">
-    <link rel="stylesheet" ; href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" ; href="https://fonts.googleapis.com/css?family=Fredoka One">
-    <script src="MyScript.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka One">
+    <script src="main.js" defer></script>
+    <script type="text/javascript" src="./js/football.js" defer></script>
 </head>
 
-<body id="default">
-    <svg width="450" height="400">
-        <path d="M 100 350 l 150 -300" stroke="red" stroke-width="3" fill="none" />
-        <path d="M 250 50 l 150 300" stroke="red" stroke-width="3" fill="none" />
-        <path d="M 175 200 l 150 0" stroke="green" stroke-width="3" fill="none" />
-        <path d="M 100 350 q 150 -300 300 0" stroke="blue" stroke-width="3" fill="none" />
-    </svg>
-    <h1 style="font-size: 300%" id="heading_left">I can move</h1>
-    <br>
-    <button type="button" onclick="Move()">Let's make the heading move.</button>
-    <button type="button" onclick="Paint()">Let's change the background.</button>
+<body class="body-1">
 
-    <button type="button" onclick="Alert()">Warning</button>
+<div class="wrapper move-h1">
+    <h1 id="move-h1" class="left">I can move</h1>
+</div>
 
+<div class="actions">
+    <button type="button" id="move-h1-btn">
+        Let's make the heading move
+    </button>
+    <button type="button" id="change-theme-btn">
+        Let's change the background
+    </button>
+    <button type="button" id="alert-btn">
+        Warning
+    </button>
+    <a href="./grid.html" class="button" target="_blank">
+        <span>Grid Model</span>
+        <span class="material-icons">open_in_new</span>
+    </a>
+</div>
 
-    <a href="grid.html">display: grid</a>
-
-    <div style="display:flex; flex-wrap: wrap">
-        <div>
-            <table>
-                <tr>
-                    <th>H&ouml;he</th>
-                    <th>Breite</th>
-                    <th>Gesamt</th>
-                </tr>
-                <tr>
-                    <td>
-                        <p id="heightDisplay">10</p>
-                    </td>
-                    <td>
-                        <p id="widthDisplay">10</p>
-                    </td>
-                    <td>
-                        <p id="total">100</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button onclick="heightAdd(1)">Höhe +1</button></td>
-                    <td><button onclick="widthAdd(1)">Breite +1</button></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><button onclick="heightRemove(1)">Höhe -1</button></td>
-                    <td><button onclick="widthRemove(1)">Breite-1</button></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><button onclick="heightAdd(10)">Höhe +10</button></td>
-                    <td><button onclick="widthAdd(10)">Breite +10</button></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><button onclick="heightRemove(10)">Höhe -10</button></td>
-                    <td><button onclick="widthRemove(10)">Breite-10</button></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
-        <div>
-            <button id="table_btn" onclick="CreateTable()">Tabelle einblenden</button><br>
-            <p style="display: none" id="refresh_btn"><button onclick="RefreshTable()">Tabelle neu laden</button></p>
+<div class="number-table-section">
+    <div class="number-table-options">
+        <table class="number-table-dimensions">
+            <tr>
+                <th>Height</th>
+                <th>Width</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>
+                    <span id="number-table-height-display">10</span>
+                </td>
+                <td>
+                    <span id="number-table-width-display">10</span>
+                </td>
+                <td>
+                    <span id="number-table-total-display">100</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="table-btn" id="add-height-1">Height + 1</button>
+                </td>
+                <td>
+                    <button class="table-btn" id="add-width-1">Width + 1</button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="table-btn" id="remove-height-1">Height - 1</button>
+                </td>
+                <td>
+                    <button class="table-btn" id="remove-width-1">Width - 1</button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="table-btn" id="add-height-10">Height + 10</button>
+                </td>
+                <td>
+                    <button class="table-btn" id="add-width-10">Width + 10</button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="table-btn" id="remove-height-10">Height - 10</button>
+                </td>
+                <td>
+                    <button class="table-btn" id="remove-width-10">Width - 10</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="number-table-actions">
+            <button id="toggle-number-table-btn">Toggle Table</button>
+            <button id="refresh-number-table-btn">Refresh Table</button>
         </div>
     </div>
+    <div class="number-table-wrapper" id="number-table-wrapper"></div>
+</div>
 
-    <p id="table"></p>
-
-    <p id="dateHidden"></p>
-
-    <p>
-    <table style="overflow: scroll;">
-        <tr>
-            <td><button id="showdate" onclick="ShowDate()">Datum anzeigen</button></td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>17</td>
-            <td>18</td>
-            <td>19</td>
-            <td>20</td>
-        </tr>
-        <tr>
-            <td>21</td>
-            <td>22</td>
-            <td>23</td>
-            <td>24</td>
-            <td>25</td>
-            <td>26</td>
-            <td>27</td>
-            <td>28</td>
-            <td>29</td>
-            <td>30</td>
-        </tr>
-        <tr>
-            <td>31</td>
-            <td>32</td>
-            <td>33</td>
-            <td>34</td>
-            <td>35</td>
-            <td>36</td>
-            <td>37</td>
-            <td>38</td>
-            <td>39</td>
-            <td>40</td>
-        </tr>
-    </table>
-    </p>
-
-    <form>
-        <label for="text">Text</label><br>
-        <input type="text" id="text"><br>
-        <label for="radio">Radio</label><br>
-        <input type="radio" id="text"><br>
-        <input type="radio" id="text"><br>
-        <label for="checkbox">Checkbox</label><br>
-        <input type="checkbox" id="checkbox"><br>
-        <input type="checkbox" id="checkbox"><br>
-        <label for="submit">Submit</label><br>
-        <input type="submit" id="submit"><br>
-        <input type="button"><br>
-    </form>
-    <br>
-    <p>What's your name?</p>
-    <form autocomplete="on">
-        <label for="fname">Firstname</label><br>
-        <input type="text" id="fname" name="fname"><br>
-        <label for="lname">Last name</label><br>
-        <input type="text" id="lname" name="lname"><br>
-        <br>
-        <input type="submit">
-    </form>
-    <br>
-    <p>What's your favorite Web language?</p>
-    <form>
-        <input type="radio" id="html" name="fav_language" value="HTML">
-        <label for="html">HTML</label><br>
-        <input type="radio" id="css" name="fav_language" value="CSS">
-        <label for="css">CSS</label><br>
-        <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-        <label for="javascript">JavaScript</label><br>
-    </form>
-    <br>
-    <p>Which Methods do you already know?</p>
-    <form>
-        <input type="checkbox" id="alert" name="method1" value="alert()">
-        <label for="alert">alert()</label><br>
-        <input type="checkbox" id="innerHTML" name="method2" value="innerHTML()">
-        <label for="innerHTML">innerHTML</label><br>
-        <input type="checkbox" id="console" name="method3" value="consoleLog()">
-        <label for="console">console.log()</label><br>
-    </form>
-    <p>What's on your mind?</p>
-    <form>
-        <textarea id="worries" name="worries" rows="15" cols="30"></textarea>
-    </form>
-    <button onclick="document.getElementById('date').innerHTML=Date()">Welches Datum haben wir heute?</button>
-    <p id="date"></p>
-
-    <p onmouseover="TestReplace()" id="demoReplace0">Hello World</p>
-    <p id="demoReplace1"></p>
-
-    <p id="testCharAt"></p>
-
-    <script>
-
-        let text = "Hello World";
-        document.getElementById("testCharAt").innerHTML = text;
-    </script>
-
-    <p style="overflow-wrap: break-word" id="Filter"></p>
-    <button onclick="FilterNumbers()">Primzahlen</button>
-
-    <p id="filterTable"></p>
-    <p>Collumns</p>
-    <p id="counter1">1</p>
-    <p>Rows</p>
-    <p id="counter2">0</p>
-    <button onclick="count()">+1</button><br><br>
-
-    <button onclick="nextStep()" style="background-color: #CCCCCC; padding: 0; height: 20mm; width: 20mm"><img
-            style="margin: auto; height: 20mm; width: 20mm" src="../Dokumentation/apps/primzahlenfilter/Icons/Play.png"></button>
-    <p style="overflow-wrap:wrap" id="stepTable"></p>
-    <div id="transition-container">
-        <div id="transition-delay"></div>
+<form>
+    <div class="form-field-text">
+        <input type="text" id="text-1">
+        <label for="text-1">Text</label>
     </div>
-    <script type="text/javascript" src="./js/football.js"></script>
+    <label for="radio-1">Radio 1</label><input type="radio" id="radio-1"><br>
+    <label for="radio-2">Radio 2</label><input type="radio" id="radio-2"><br>
+    <label for="checkbox-1">Checkbox 1</label><input type="checkbox" id="checkbox-1"><br>
+    <label for="checkbox-2">Checkbox 2</label><input type="checkbox" id="checkbox-2"><br>
+    <input type="submit" id="submit"><br>
+</form>
+<br>
+<p>What's your name?</p>
+<form autocomplete="on">
+    <div class="form-field-text">
+        <input type="text" id="first-name" name="first-name">
+        <label for="first-name">Firstname</label>
+    </div>
+    <div class="form-field-text">
+        <input type="text" id="last-name" name="last-name">
+        <label for="last-name">Last name</label>
+    </div>
+    <input type="submit">
+</form>
+<br>
+<p>What's your favorite Web language?</p>
+<form>
+    <input type="radio" id="html" name="fav_language" value="HTML">
+    <label for="html">HTML</label><br>
+    <input type="radio" id="css" name="fav_language" value="CSS">
+    <label for="css">CSS</label><br>
+    <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+    <label for="javascript">JavaScript</label><br>
+</form>
+<br>
+<p>Which Methods do you already know?</p>
+<form>
+    <input type="checkbox" id="alert" name="method1" value="alert()">
+    <label for="alert">alert()</label><br>
+    <input type="checkbox" id="innerHTML" name="method2" value="innerHTML()">
+    <label for="innerHTML">innerHTML</label><br>
+    <input type="checkbox" id="console" name="method3" value="consoleLog()">
+    <label for="console">console.log()</label><br>
+</form>
+<form style="display: flex; flex-direction: column">
+    <label for="worries">What's on your mind?</label>
+    <textarea id="worries" name="worries" rows="15" cols="30"></textarea>
+</form>
+<button onclick="document.getElementById('date').innerHTML=Date()">What date is today?</button>
+<p id="date"></p>
+
+<p onmouseover="TestReplace()" id="demoReplace0">Hello World</p>
+<p id="demoReplace1"></p>
+
+<p id="testCharAt"></p>
+
+<script>
+
+    let text = "Hello World";
+    document.getElementById("testCharAt").innerHTML = text;
+</script>
+
+<p style="overflow-wrap: break-word" id="Filter"></p>
+<button onclick="FilterNumbers()">Prime numbers</button>
+
+<p id="filterTable"></p>
+<p>Columns</p>
+<p id="counter1">1</p>
+<p>Rows</p>
+<p id="counter2">0</p>
+<button onclick="count()">+1</button>
+<br><br>
+
+<button onclick="nextStep()" style="background-color: #CCCCCC; padding: 0; height: 10mm; width: 10mm"><span
+        class="material-icons">play_arrow</span>
+</button>
+<p id="stepTable"></p>
+<div id="transition-container">
+    <div id="transition-delay"></div>
+</div>
+
+<svg width="450" height="400">
+    <path d="M 100 350 l 150 -300" stroke="red" stroke-width="3" fill="none"/>
+    <path d="M 250 50 l 150 300" stroke="red" stroke-width="3" fill="none"/>
+    <path d="M 175 200 l 150 0" stroke="green" stroke-width="3" fill="none"/>
+    <path d="M 100 350 q 150 -300 300 0" stroke="blue" stroke-width="3" fill="none"/>
+</svg>
 </body>
 
 </html>
