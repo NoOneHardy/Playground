@@ -1,6 +1,15 @@
 #default {
-    background-image: linear-gradient(to bottom right, #e4f585, #009e01);
-    color: black;
+    --electric-purple: #B429F9ff;
+    --electric-purple-2: #A04AF5ff;
+    --medium-slate-blue: #8C6CF0ff;
+    --cornflower-blue: #788EECff;
+    --argentinian-blue: #64AFE7ff;
+    --robin-egg-blue: #50D1E3ff;
+    --turquoise: #3CF2DEff;
+
+    background-image: linear-gradient(to right, var(--electric-purple), var(--electric-purple-2),
+    var(--medium-slate-blue), var(--cornflower-blue), var(--argentinian-blue),
+    var(--robin-egg-blue), var(--turquoise));
 }
 
 #body2 {
