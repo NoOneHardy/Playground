@@ -1,4 +1,4 @@
-<div *ngIf="gallery" class="wrapper">
+<ng-container *ngIf="gallery">
   <img [ngSrc]="path" alt height="1080" width="1920" priority>
   <h1>{{ gallery.name }}</h1>
-</div>
+</ng-container>

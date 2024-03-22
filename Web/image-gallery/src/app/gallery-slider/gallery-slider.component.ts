@@ -3,6 +3,7 @@ import {Gallery} from "../shared/interfaces/gallery";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {MainGalleryComponent} from "../main-gallery/main-gallery.component";
 import {GalleryPreviewComponent} from "../gallery-preview/gallery-preview.component";
+import {GalleryComponent} from "../gallery/gallery.component";
 
 @Component({
   selector: 'n1h-gallery-slider',
@@ -12,7 +13,8 @@ import {GalleryPreviewComponent} from "../gallery-preview/gallery-preview.compon
     NgIf,
     MainGalleryComponent,
     GalleryPreviewComponent,
-    NgForOf
+    NgForOf,
+    GalleryComponent
   ],
   templateUrl: './gallery-slider.component.html',
   styleUrl: './gallery-slider.component.css'
@@ -53,19 +55,45 @@ export class GallerySliderComponent {
     }
   ]
 
-  mainGallery?: Gallery
-  nextGalleries: Gallery[] = []
+  displayGalleries: Gallery[] = []
+  id = 0
 
   constructor() {
     this.loadFirstGallery()
   }
 
-  loadFirstGallery() {
-    this.mainGallery = this.galleries[0]
-    this.nextGalleries = []
-    for (let i = 0; i < 3; i++) {
-      let id = i < this.galleries.length ? i : i - this.galleries.length
-      this.nextGalleries.unshift(this.galleries[id])
+  loadGalleries(id: number) {
+    this.displayGalleries = []
+    if (id >= this.galleries.length) return
+    let index: number
+    if (id + 1 == this.galleries.length) {
+      index = 0
+    } else {
+      index = id + 1
     }
+
+    for (let i = index; i <= index + 2; i++) {
+      let g = i < this.galleries.length ? i : i - this.galleries.length
+      this.displayGalleries.unshift(this.galleries[g])
+    }
+    this.displayGalleries.unshift(this.galleries[id])
+    index = id - 1 < 0 ? this.galleries.length - 1 : id - 1
+    this.displayGalleries.unshift(this.galleries[index])
+    this.id = id
+  }
+
+  loadFirstGallery() {
+    this.loadGalleries(0)
+  }
+
+  loadNextGalleries() {
+    let id: number
+    if (this.id + 1 == this.galleries.length) {
+      id = 0
+    } else {
+      id = this.id + 1
+    }
+
+    this.loadGalleries(id)
   }
 }

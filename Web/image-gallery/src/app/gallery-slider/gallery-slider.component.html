@@ -1,10 +1,5 @@
-<ng-container *ngIf="mainGallery && nextGalleries">
-  <n1h-main-gallery
-    [gallery]="mainGallery"
-  ></n1h-main-gallery>
-  <div class="gallery-previews">
-    <n1h-gallery-preview
-      *ngFor="let gallery of nextGalleries"
-    ></n1h-gallery-preview>
-  </div>
-</ng-container>
+<div *ngIf="displayGalleries" #galleries class="galleries">
+  <n1h-gallery *ngFor="let gallery of displayGalleries"
+    [gallery]="gallery"
+  ></n1h-gallery>
+</div>
