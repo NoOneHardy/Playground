@@ -132,7 +132,6 @@ export class GallerySliderComponent {
     }
 
     this.loadGalleries(id)
-    console.log(this.displayGalleries)
 
     setTimeout(() => {
       this.activeGallery = this.displayGalleries[0]
