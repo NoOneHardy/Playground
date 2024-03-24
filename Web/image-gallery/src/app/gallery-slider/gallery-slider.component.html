@@ -1,5 +1,30 @@
-<div *ngIf="displayGalleries" #galleries class="galleries">
-  <n1h-gallery *ngFor="let gallery of displayGalleries"
-    [gallery]="gallery"
-  ></n1h-gallery>
+<div *ngIf="displayGalleries" class="galleries">
+  <!-- Main Gallery -->
+  <n1h-gallery
+    [gallery]="displayGalleries[0]"
+    [@toMainGallery]="promote == 2 ? 'mainGallery' : promote == 1 ? 'focusedGallery' : 'nextGallery'">
+  </n1h-gallery>
+
+  <!-- Next Galleries -->
+  <n1h-gallery
+    [gallery]="displayGalleries[1]"
+    [@toMainGallery]="promote > 1 ? 'nextGallery' : 'nextGallery2'">
+  </n1h-gallery>
+  <n1h-gallery
+    [gallery]="displayGalleries[2]"
+    [@toMainGallery]="promote > 1 ? 'nextGallery2' : 'nextGallery3'">
+  </n1h-gallery>
+  <n1h-gallery
+  [gallery]="displayGalleries[3]">
+</n1h-gallery>
+
+  <!-- Previous Gallery -->
+  <n1h-gallery
+    [gallery]="displayGalleries[4]"
+    [@toMainGallery]="promote > 1 ? 'previousGallery' : 'mainGallery'">
+  </n1h-gallery>
+  <div class="text">
+    <h1>{{ activeGallery?.name }}</h1>
+    <a [routerLink]="activeGallery?.folder">Mehr Fotos</a>
+  </div>
 </div>

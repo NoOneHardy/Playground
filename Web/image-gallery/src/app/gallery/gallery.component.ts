@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Gallery} from "../shared/interfaces/gallery";
 import {NgOptimizedImage} from "@angular/common";
 
@@ -11,13 +11,19 @@ import {NgOptimizedImage} from "@angular/common";
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css'
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, OnChanges {
   @Input() gallery?: Gallery
 
   path: string = ''
 
   ngOnInit() {
     this.reloadPath()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['gallery']) {
+      this.reloadPath()
+    }
   }
 
   reloadPath() {

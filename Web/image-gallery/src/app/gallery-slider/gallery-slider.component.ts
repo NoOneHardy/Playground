@@ -4,9 +4,24 @@ import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {MainGalleryComponent} from "../main-gallery/main-gallery.component";
 import {GalleryPreviewComponent} from "../gallery-preview/gallery-preview.component";
 import {GalleryComponent} from "../gallery/gallery.component";
+import {timer} from "rxjs";
+import {RouterLink} from "@angular/router";
+import {
+  duration_ms,
+  toMainGallery,
+  toNextGallery,
+  toNextGallery2,
+  toPreviousGallery
+} from "../shared/gallery-animations";
 
 @Component({
   selector: 'n1h-gallery-slider',
+  animations: [
+    toMainGallery,
+    toPreviousGallery,
+    toNextGallery,
+    toNextGallery2
+  ],
   standalone: true,
   imports: [
     NgOptimizedImage,
@@ -14,7 +29,8 @@ import {GalleryComponent} from "../gallery/gallery.component";
     MainGalleryComponent,
     GalleryPreviewComponent,
     NgForOf,
-    GalleryComponent
+    GalleryComponent,
+    RouterLink
   ],
   templateUrl: './gallery-slider.component.html',
   styleUrl: './gallery-slider.component.css'
@@ -56,14 +72,26 @@ export class GallerySliderComponent {
   ]
 
   displayGalleries: Gallery[] = []
+  activeGallery?: Gallery
   id = 0
+
+  promote = 2
 
   constructor() {
     this.loadFirstGallery()
+    timer(10000, 10000).subscribe(() => {
+      this.loadNextGalleries()
+      this.promote = 0
+      setTimeout(() => {
+        this.promote = 1
+      }, duration_ms / 2)
+      setTimeout(() => {
+        this.promote = 2
+      }, duration_ms)
+    })
   }
 
   loadGalleries(id: number) {
-    this.displayGalleries = []
     if (id >= this.galleries.length) return
     let index: number
     if (id + 1 == this.galleries.length) {
@@ -72,18 +100,27 @@ export class GallerySliderComponent {
       index = id + 1
     }
 
+    // Main Gallery
+    this.displayGalleries.push(this.galleries[id])
+
+    // Next Galleries
     for (let i = index; i <= index + 2; i++) {
       let g = i < this.galleries.length ? i : i - this.galleries.length
-      this.displayGalleries.unshift(this.galleries[g])
+      this.displayGalleries.push(this.galleries[g])
     }
-    this.displayGalleries.unshift(this.galleries[id])
+
+    // Previous Gallery
     index = id - 1 < 0 ? this.galleries.length - 1 : id - 1
-    this.displayGalleries.unshift(this.galleries[index])
+    this.displayGalleries.push(this.galleries[index])
+
+    if (this.displayGalleries.length > 5) this.displayGalleries.splice(0, 5)
+
     this.id = id
   }
 
   loadFirstGallery() {
     this.loadGalleries(0)
+    this.activeGallery = this.displayGalleries[0]
   }
 
   loadNextGalleries() {
@@ -95,5 +132,10 @@ export class GallerySliderComponent {
     }
 
     this.loadGalleries(id)
+    console.log(this.displayGalleries)
+
+    setTimeout(() => {
+      this.activeGallery = this.displayGalleries[0]
+    }, duration_ms)
   }
 }
