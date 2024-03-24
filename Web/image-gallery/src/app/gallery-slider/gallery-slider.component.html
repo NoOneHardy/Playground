@@ -1,4 +1,10 @@
 <div *ngIf="displayGalleries" class="galleries">
+  <!-- Previous Gallery -->
+  <n1h-gallery
+    [gallery]="displayGalleries[4]"
+    [@toPreviousGallery]="promote >= 1 ? 'previousGallery' : 'mainGallery'">
+  </n1h-gallery>
+
   <!-- Main Gallery -->
   <n1h-gallery
     [gallery]="displayGalleries[0]"
@@ -8,21 +14,16 @@
   <!-- Next Galleries -->
   <n1h-gallery
     [gallery]="displayGalleries[1]"
-    [@toMainGallery]="promote > 1 ? 'nextGallery' : 'nextGallery2'">
+    [@toNextGallery]="promote >= 1 ? 'nextGallery' : 'nextGallery2'">
   </n1h-gallery>
   <n1h-gallery
     [gallery]="displayGalleries[2]"
-    [@toMainGallery]="promote > 1 ? 'nextGallery2' : 'nextGallery3'">
+    [@toNextGallery2]="promote >= 1 ? 'nextGallery2' : 'nextGallery3'">
   </n1h-gallery>
   <n1h-gallery
-  [gallery]="displayGalleries[3]">
+  [gallery]="displayGalleries[3]"
+  [@toNextGallery3]="promote >= 1 ? 'nextGallery3' : 'nextGallery4'">
 </n1h-gallery>
-
-  <!-- Previous Gallery -->
-  <n1h-gallery
-    [gallery]="displayGalleries[4]"
-    [@toMainGallery]="promote > 1 ? 'previousGallery' : 'mainGallery'">
-  </n1h-gallery>
   <div class="text">
     <h1>{{ activeGallery?.name }}</h1>
     <a [routerLink]="activeGallery?.folder">Mehr Fotos</a>

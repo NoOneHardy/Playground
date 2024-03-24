@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
 import {Gallery} from "../shared/interfaces/gallery";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
-import {MainGalleryComponent} from "../main-gallery/main-gallery.component";
-import {GalleryPreviewComponent} from "../gallery-preview/gallery-preview.component";
 import {GalleryComponent} from "../gallery/gallery.component";
 import {timer} from "rxjs";
 import {RouterLink} from "@angular/router";
@@ -10,7 +8,7 @@ import {
   duration_ms,
   toMainGallery,
   toNextGallery,
-  toNextGallery2,
+  toNextGallery2, toNextGallery3,
   toPreviousGallery
 } from "../shared/gallery-animations";
 
@@ -20,14 +18,13 @@ import {
     toMainGallery,
     toPreviousGallery,
     toNextGallery,
-    toNextGallery2
+    toNextGallery2,
+    toNextGallery3
   ],
   standalone: true,
   imports: [
     NgOptimizedImage,
     NgIf,
-    MainGalleryComponent,
-    GalleryPreviewComponent,
     NgForOf,
     GalleryComponent,
     RouterLink
@@ -81,13 +78,15 @@ export class GallerySliderComponent {
     this.loadFirstGallery()
     timer(10000, 10000).subscribe(() => {
       this.loadNextGalleries()
-      this.promote = 0
       setTimeout(() => {
-        this.promote = 1
-      }, duration_ms / 2)
-      setTimeout(() => {
-        this.promote = 2
-      }, duration_ms)
+        this.promote = 0
+        setTimeout(() => {
+          this.promote = 1
+        }, duration_ms / 2)
+        setTimeout(() => {
+          this.promote = 2
+        }, duration_ms)
+      }, 20)
     })
   }
 
@@ -135,6 +134,6 @@ export class GallerySliderComponent {
 
     setTimeout(() => {
       this.activeGallery = this.displayGalleries[0]
-    }, duration_ms)
+    }, duration_ms / 4 * 3 + duration_ms)
   }
 }

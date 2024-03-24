@@ -1,5 +1,13 @@
 import {animate, transition, trigger} from "@angular/animations";
-import {focusedGallery, mainGallery, nextGallery, nextGallery2, nextGallery3, previousGallery} from "./gallery-states";
+import {
+  focusedGallery,
+  mainGallery,
+  nextGallery,
+  nextGallery2,
+  nextGallery3,
+  nextGallery4,
+  previousGallery
+} from "./gallery-states";
 
 export const duration_ms = 1000
 
@@ -7,8 +15,11 @@ export const toMainGallery = trigger('toMainGallery', [
   nextGallery,
   focusedGallery,
   mainGallery,
-  transition('nextGallery => focusedGallery, focusedGallery => mainGallery', [
-    animate(duration_ms / 2)
+  transition('nextGallery => focusedGallery', [
+    animate(duration_ms / 3)
+  ]),
+  transition('focusedGallery => mainGallery', [
+    animate(duration_ms / 3 * 2)
   ])
 ])
 
@@ -32,6 +43,14 @@ export const toNextGallery = trigger('toNextGallery', [
   nextGallery2,
   nextGallery,
   transition('nextGallery2 => nextGallery', [
+    animate(duration_ms)
+  ])
+])
+
+export const toNextGallery3 = trigger('toNextGallery3', [
+  nextGallery4,
+  nextGallery3,
+  transition('nextGallery4 => nextGallery3', [
     animate(duration_ms)
   ])
 ])
