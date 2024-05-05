@@ -1,0 +1,19 @@
+main {
+  display: flex;
+  justify-content: center;
+  padding-top: 20vh;
+  height: 150vh;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  overflow-x : hidden;
+  width: 60%;
+  height: 600px;
+  position: relative;
+
+  n1h-image {
+    position: absolute;
+  }
+}
