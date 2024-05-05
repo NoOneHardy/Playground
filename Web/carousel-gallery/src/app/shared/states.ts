@@ -3,7 +3,8 @@ import {state, style} from "@angular/animations";
 export const gallery1 = state('gallery1', style({
   'top': '50%',
   'left': '-350px',
-  'transform': 'scale(0.5) translateY(calc(-50% - 25% / .5))'
+  'transform': 'scale(0.5) translateY(calc(-50% - 25% / .5))',
+  'opacity': '0'
 }))
 
 export const gallery2 = state('gallery2', style({
@@ -27,5 +28,6 @@ export const gallery4 = state('gallery4', style({
 export const gallery5 = state('gallery5', style({
   'top': '50%',
   'left': '100%',
-  'transform': 'scale(0.5) translateY(calc(-50% - 25% / .75))'
+  'transform': 'scale(0.5) translateY(calc(-50% - 25% / .75))',
+  'opacity': '0'
 }))

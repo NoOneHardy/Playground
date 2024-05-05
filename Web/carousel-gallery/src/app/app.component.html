@@ -1,5 +1,7 @@
 <main>
   <div class="wrapper" (wheel)="onScroll($event)">
+    <div class="exit door"></div>
     <n1h-image *ngFor="let d of display" [@rotate]="states[display.indexOf(d)]" [name]="d.name" [color]="d.color" [state]="states[display.indexOf(d)]"/>
+    <div class="entry door"></div>
   </div>
 </main>

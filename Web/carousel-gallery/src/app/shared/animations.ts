@@ -1,7 +1,7 @@
 import {animate, transition, trigger} from "@angular/animations";
 import {gallery1, gallery2, gallery3, gallery4, gallery5} from "./states";
 
-export const duration_ms = 1000
+export const duration_ms = 750
 
 export const rotate = trigger('rotate', [
   gallery1,
