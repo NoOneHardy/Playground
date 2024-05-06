@@ -1,5 +1,7 @@
-<div class="image" [style]="{background: color}">
-  <h1>{{ name }}</h1>
-  <a href="https://youtube.com">Weitere Infos</a>
-  <span>{{state}}</span>
+<div class="image" *ngIf="url">
+  <img [ngSrc]="url" height="1" width="1" alt>
+  <div class="content">
+    <h1>{{ name }}</h1>
+    <span>{{ desc }}</span>
+  </div>
 </div>

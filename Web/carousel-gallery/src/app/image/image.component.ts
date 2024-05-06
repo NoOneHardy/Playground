@@ -1,17 +1,20 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'n1h-image',
   standalone: true,
-  imports: [],
+  imports: [
+    NgOptimizedImage,
+    NgIf
+  ],
   templateUrl: './image.component.html',
   styleUrl: './image.component.css'
 })
 export class ImageComponent {
-  @Input() color?: string
+  @Input() url?: string
   @Input() name?: string
-  @Input() state?: string
-  @Output() next = new EventEmitter<void>()
+  @Input() desc?: string
 
   constructor() {
   }

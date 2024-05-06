@@ -1,7 +1,8 @@
 <main>
   <div class="wrapper" (wheel)="onScroll($event)">
+    <img class="background" priority [ngSrc]="active.url" height="1" width="1" alt>
     <div class="exit door"></div>
-    <n1h-image *ngFor="let d of display" [@rotate]="states[display.indexOf(d)]" [name]="d.name" [color]="d.color" [state]="states[display.indexOf(d)]"/>
+    <n1h-image *ngFor="let d of display" [@rotate]="states[display.indexOf(d)]" [name]="d.name" [url]="d.url" [desc]="d.desc"/>
     <div class="entry door"></div>
   </div>
 </main>

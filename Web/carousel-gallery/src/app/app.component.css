@@ -3,6 +3,7 @@ main {
   justify-content: center;
   padding-top: 20vh;
   height: 150vh;
+  background-color: #000;
 }
 
 .wrapper {
@@ -14,6 +15,15 @@ main {
   position: relative;
   box-shadow: inset 0 0 10px #0004;
   border-radius: 15px;
+
+  > .background {
+    position: absolute;
+    object-position: center;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: blur(5px);
+  }
 
   .door {
     display: block;

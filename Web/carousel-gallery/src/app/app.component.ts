@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {ImageComponent} from "./image/image.component";
 import {rotate} from "./shared/animations";
@@ -11,11 +11,12 @@ import {interval, Subscription} from "rxjs";
     rotate
   ],
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ImageComponent],
+  imports: [CommonModule, RouterOutlet, ImageComponent, NgOptimizedImage],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  active: Image
   auto: Subscription
   title = 'carousel-gallery';
   states = [
@@ -26,35 +27,41 @@ export class AppComponent {
     'gallery5'
   ]
 
-  display: Concert[] = []
+  display: Image[] = []
   concertIndex = 0
   indexOfLeftItem = 0
   indexOfRightItem = 4
 
-  data: Concert[] = [
+  data: Image[] = [
     {
-      name: 'Konzert 1',
-      color: 'radial-gradient(#f00, #800)'
+      name: 'Rain',
+      url: 'https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg',
+      desc: 'It\'s regular water'
     },
     {
-      name: 'Konzert 2',
-      color: 'radial-gradient(#ff0, #880)'
+      name: 'Artificial intelligence',
+      url: 'https://en.almamater.si/upload/courses/AAI_V6_11239.jpg',
+      desc: 'ChatGPT'
     },
     {
-      name: 'Konzert 3',
-      color: 'radial-gradient(#0f0, #080)'
+      name: 'Lake',
+      url: 'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
+      desc: 'A lot of water'
     },
     {
-      name: 'Konzert 4',
-      color: 'radial-gradient(#0ff, #088)'
+      name: 'Mountains',
+      url: 'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg',
+      desc: 'A bunch of rocks'
     },
     {
-      name: 'Konzert 5',
-      color: 'radial-gradient(#00f, #008)'
+      name: 'Sunrise',
+      url: 'https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg',
+      desc: 'An internet provider in switzerland'
     },
     {
-      name: 'Konzert 6',
-      color: 'radial-gradient(#f0f, #808)'
+      name: 'Iris',
+      url: 'https://media.istockphoto.com/id/1322220448/photo/abstract-digital-futuristic-eye.jpg?s=612x612&w=0&k=20&c=oAMmGJxyTTNW0XcttULhkp5IxfW9ZTaoVdVwI2KwK5s=',
+      desc: 'The colorful part of the eye'
     }
   ]
 
@@ -63,6 +70,7 @@ export class AppComponent {
     for (this.concertIndex; this.concertIndex < 5; this.concertIndex++) {
       this.display.push(this.data[this.concertIndex])
     }
+    this.active = this.display[Math.floor((this.display.length - 1) / 2) + (this.display.length - 1) % 2]
   }
 
   refreshSubscription(): Subscription {
@@ -76,6 +84,9 @@ export class AppComponent {
     this.display[this.indexOfLeftItem++] = this.data[this.concertIndex++]
     this.indexOfRightItem++
 
+    if (this.indexOfLeftItem + 2 >= this.display.length) this.active = this.display[this.indexOfLeftItem + 2 - this.display.length]
+    else this.active = this.display[this.indexOfLeftItem + 2]
+
     this.states.unshift(this.states[4])
     this.states.pop()
   }
@@ -84,6 +95,9 @@ export class AppComponent {
     this.checkBounds()
     this.display[this.indexOfRightItem--] = this.data[this.concertIndex--]
     this.indexOfLeftItem--
+
+    if (this.indexOfLeftItem + 2 >= this.display.length) this.active = this.display[this.indexOfLeftItem + 2 - this.display.length]
+    else this.active = this.display[this.indexOfLeftItem + 2]
 
     this.states.push(this.states[0])
     this.states.shift()
@@ -116,7 +130,8 @@ export class AppComponent {
   }
 }
 
-export interface Concert {
+export interface Image {
   name: string
-  color: string
+  url: string
+  desc: string
 }
