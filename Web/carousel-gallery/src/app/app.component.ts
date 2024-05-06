@@ -98,15 +98,21 @@ export class AppComponent {
     if (this.concertIndex == this.data.length) this.concertIndex = 0
   }
 
+  private timeout?: number
+
   onScroll(e: WheelEvent) {
     e.preventDefault()
     this.auto.unsubscribe()
-    if (e.deltaY > 0 && e.deltaY <= 100) {
+    clearTimeout(this.timeout)
+    if (e.deltaY > 0) {
       this.next()
     }
-    if (e.deltaY < 0 && e.deltaY >= -100) {
+    if (e.deltaY < 0) {
       this.previous()
     }
+    this.timeout = setTimeout(() => {
+      this.auto = this.refreshSubscription()
+    }, 5000)
   }
 }
 
